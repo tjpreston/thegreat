@@ -1,0 +1,20 @@
+
+/**
+ * HTML
+ * ---------------------------
+ */
+
+html {
+	background-color: #fff;
+	background-image: url(/img/admin/white_sand.gif);
+}
+
+
+#popup-master {
+	padding-top: 20px;
+}
+.panes {
+	padding-bottom: 0;
+}
+
+

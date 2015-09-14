@@ -1,0 +1,17 @@
+# ignore mac crap
+.DS_Store
+
+# important as otherwise everything breaks as paths are not the same on
+# dev machine vs. clook hosting
+.htaccess
+
+# ignore all images as they are many and huge (the prefix **/ will mean this
+# recurses through all dirs
+**/*.png
+**/*.JPG
+**/*.gif
+**/*.jpeg
+**/*.jpg
+
+
+

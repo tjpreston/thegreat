@@ -1,0 +1,77 @@
+body {
+	font-size: 12px;
+}
+
+h1 {
+	margin-left: 5px;
+}
+
+#master {
+	background: #fff;
+}
+
+#oss,
+#footer,
+#admin-header,
+#side-col {
+	display: none;
+}
+
+#content {
+	width: 100%;
+	padding: 0;
+}
+
+#main,
+#admin-content {
+	padding: 0;
+}
+
+.panes {
+	float: none;
+	width: 100%;
+	padding: 0;
+}
+
+.half-box {
+	width: 49%;
+}
+.half-box.odd {
+	margin-right: 2%;
+}
+
+.fieldset-header {
+	border: 0;
+	height: auto;
+	background: none;
+	color: #444;
+}
+.fieldset-header > span {
+	padding: 0;
+	float: none;
+}
+
+#header,
+.fieldset-box,
+.fieldset-header {
+	box-shadow: 0 0;
+	border-radius: 0;
+}
+
+.fieldset-box {
+	margin-bottom: 0;
+}
+
+dt,
+dd {
+	margin-bottom: 5px;
+}
+
+table {
+	margin-bottom: 15px;
+}
+
+.contains-table table td,
+.contains-table table th {
+	padding: 4px;
+}

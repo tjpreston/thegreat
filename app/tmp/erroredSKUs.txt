@@ -1,0 +1,7 @@
+Inconsistent SKUs - imported but flagged: Array
+(
+    [282] => TillSKU and Variation Sku inconsistent. SKU:  10145 VarSKU: ghgh TillSKU: 10145101
+    [1120] => TillSKU and Variation Sku inconsistent. SKU:  10848 VarSKU: 102 TillSKU: 10548102
+    [1236] => TillSKU and Variation Sku inconsistent. SKU:  10615 VarSKU: 105 TillSKU: 106015105
+    [1338] => TillSKU and Variation Sku inconsistent. SKU:  10670 VarSKU: 115 TillSKU: 10670110
+)

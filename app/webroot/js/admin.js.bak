@@ -1,0 +1,28 @@
+
+$(function()
+{	
+	jQuery('ul.sf-menu').superfish({
+		autoArrows: false,
+		animation: {opacity: 'show'},
+		speed: 0
+	});
+	
+	$("#modifier").change(function() {
+		showDiscountModifierValueInputs();
+	});
+	
+	showDiscountModifierValueInputs();
+	
+	function showDiscountModifierValueInputs()
+	{
+		if ($("#modifier").val() == "fixed") {
+			$("#percentage-value").hide();
+			$("#money-values").show();
+		} 
+		else {
+			$("#money-values").hide();
+			$("#percentage-value").show();
+		}
+	}
+	
+});

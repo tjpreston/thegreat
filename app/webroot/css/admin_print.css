@@ -1,0 +1,40 @@
+body {	height: 88%;	font-family: Arial;	color: #000; margin:50px 10px;}
+
+strong {	font-weight: bold;	color: #333;}
+
+td {	font-size: 10pt;}
+
+#del-note {	height: 100%;	width: 100%;}
+
+#del-note td {	vertical-align: top;}
+
+#header td {	height: 210px;	font-size: 12px;}
+
+#logo {	text-align: right;}
+
+h1 {	font-weight: bold;	font-size: 22px;}
+
+h2 {	font-size: 14px;}
+
+#refs td {	height: 80px;}
+
+#refs div {	text-align: right;	margin-bottom: 6px;}
+
+#contact {	width: 100%;}
+
+#contact {	margin-top: 10px;	margin-bottom: 40px;}
+
+#contact td {	width: 50%;	vertical-align: top;}
+
+#contact p {	margin-bottom: 10px;}
+
+#items {	width: 100%;	margin-bottom: 30px;}
+
+#items td, #items th {	padding: 10px 5px 10 0;}
+
+#items th {	border-bottom: 1px solid #999;	font-weight: bold;	color: #333;	font-size: 11pt;	padding-bottom: 8px;}
+
+#items tfoot td {	padding-top: 5px;}
+
+#footer td {	vertical-align: bottom;}
+

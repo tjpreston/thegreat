@@ -1,0 +1,9 @@
+<h1>Watch Sizing</h1>
+<img src="/img/static-content-divider.gif" alt="" style="margin:5px 0px"> 
+<img style="float:right;" alt="" src="/img/static/watchsizing2.jpg">
+<p class="headline">Because we know how busy you are, we offer a free sizing service on all bracelet watches purchased through our website.</p>
+<p>If you have purchased a bracelet watch, you will have the option to supply us with a wrist measurement.  We will use this measurement to add or remove links (up to 3 links can be added at no extra cost) in order to size the watch as closely as possible to the measurement given to us.</p>  
+<p>Please note: this free service is offered once only at the point of despatch.  If, despite our best efforts, the bracelet requires further adjustment the watch should either be taken to the nominated retailer for further adjustment or should be returned to us by Special Delivery post.  Please note: a charge of £10 will apply to cover the cost of re-sizing and return Special Delivery postage.</p>
+<p>In order to take an accurate wrist measurement you should use a TAPE MEASURE.  Please take the measurement in centimeters.  Place the tape measure around your wrist allowing any extra room for movement.  If you prefer to wear your watch tight to your wrist then wrap the tape measure as tightly as you would want to wear it.</p>
+<p>It you don’t have a tape measure or are in any way unsure of your wrist measurement, a good way to double check is to cut a long ribbon of paper and wrap it round your wrist.  Secure it with sellotape and cut off any remainder.  When you are happy that the paper bracelet feels comfortable, cut it off with a pair of scissors.  Now you can measure the length of the paper bracelet with a ruler in centimeters.  This is the wrist measurement that should be given to us.</p>
+<p>Please note: any links that we remove from a watch bracelet are always included with the watch.</p>

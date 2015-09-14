@@ -1,0 +1,10 @@
+<h1>The Brand</h1>
+<img src="/img/static-content-divider.gif" alt="" style="margin:5px 0px">
+<img style="float:right;" alt="" src="/img/static/brand2.jpg">
+<p class="headline">Michel Herbelin founded his watch company in 1947 combining the principles of high quality watch making and technical reliability with elegance and good design. In 1972, Jean - Claude Herbelin, the son of the founder joined the company. With his team, he decided to adapt a new marketing approach by developing the creativity of the brand and proposing to position their high quality watches in the mid to upper section of the market.</p>
+<p>Michel Herbelin carries on the finest watchmaking traditions, allying the latest technology with skills honed over the generations. Every Michel Herbelin creation is a unique piece featuring the very best swiss movements and the painstaking work of our master craftsmen.</p>
+<p>Michel Herbelin has become the leader in France in its market segment. One in four watches sold in the same price bracket is a Michel Herbelin. Michel Herbelin is an international brand. Two thirds of production is sold in approximately 50 countries worldwide. You can find the <a href="http://www.michel-herbelin.com" target="_blank">Michel Herbelin main site here</a>.
+</p><h1>Michel Herbelin in the U.K.</h1>
+<p>Michel Herbelin UK Ltd is the sole distributor of Michel Herbelin watches for the UK and Republic of Ireland.  Like our parent company in France, we are independently owned and family run.</p>
+<p>We were proud to launch Michel Herbelin in the UK market back in 1993.  Since then, the innate quality and style of the brand combined with its positioning in a price segment overlooked by other U.K brands (£250 - £1000) has meant that Michel Herbelin is now successfully stocked by some 350 leading independent quality jewellers throughout the U.K. and Ireland.</p>
+<p>Based at our own premises on the outskirts of Epping Forest, we look after all aspects of distributing the Michel Herbelin brand from watch sales and marketing to after sales service and repairs.</p>

@@ -1,0 +1,315 @@
+/**
+ * Fonts
+ */
+@font-face {
+	font-family: 'RalewayThin';
+	src: url('vendors/fonts/raleway_thin-webfont.eot');
+	src: url('vendors/fonts/raleway_thin-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('vendors/fonts/raleway_thin-webfont.woff') format('woff'),
+		 url('vendors/fonts/raleway_thin-webfont.ttf') format('truetype'),
+		 url('vendors/fonts/raleway_thin-webfont.svg#RalewayThin') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/**
+ * The basics
+ */
+body {
+	font-family: "Georgia", "Times", "Times New Roman", serif;
+	font-size: 14px;
+	line-height: 1.4;
+	color: #7d7d7d;
+}
+
+body.working, body.working * {
+	cursor: progress !important;
+}
+
+.face1 {
+	font-family: 'RalewayThin', serif;
+	text-transform: uppercase;
+	color: #acc7e2;
+}
+.face2,
+form button {
+	font-family: "Georgia", "Times", "Times New Roman", serif;
+	text-transform: uppercase;
+	font-weight: bold;
+	color: #406b97;
+}
+
+.dropcap:first-letter {
+	float: left;
+	font-size: 60px;
+	line-height: 50px;
+	padding-top: 2px;
+	padding-right: 4px;
+}
+
+/**
+ * Buttons
+ */
+.dual,
+form button {
+	letter-spacing: -4px;
+	font-size: 17px;
+	text-decoration: none;
+	display: inline-block;
+	padding: 1px 0;
+}
+button.dual,
+form button {
+	padding: 2px 0;
+	background: #fff;
+	border-width: 1px 0 1px 0;
+}
+.dual span,
+form button {
+	letter-spacing: normal;
+}
+
+
+h1{
+
+}
+h2{
+	font-size:14px;
+	margin:11px 0px;
+	font-weight: bold;
+}
+
+
+ul{
+	margin:0px;
+	padding:0px;
+}
+ul li{
+	list-style: none
+
+}
+
+/*
+*
+*Custom font
+*
+*/
+body,
+span.top-bar,
+p.empty,
+.mini-basket-name, .mini-basket-qty, .mini-basket-price, .mini-basket-totals{
+	font-family:Georgia, serif;
+}
+
+h1, h2, nav ul > li,
+.top-bar-container,
+.mini-basket-row .header,
+.tabs,
+#numbers,
+.large-text,
+.search .submit,
+.filter,
+footer h2,
+#basket-headings,
+.checkout-row,
+.login-heading,
+#checkout-nav li,
+#customer-nav-panel li a,
+.heading,
+legend,
+#gift-voucher h3,
+#delivery-extras a,
+a.show_hide_donation{
+	font-family: Georgia, serif;
+}
+/*
+*
+*First Site Colour
+*
+*/
+.first-color,
+a:hover h2,
+a.tabs:hover span,
+a,
+a:hover,
+.basket-table td a,
+.top-nav .bubble a,
+h1, h2, 
+h2 a,
+.header-text,
+.carousel-item h2,
+#home-deep-links,
+#collections,
+nav ul li a,
+nav ul li ul li,
+.carousel-item p.price,
+.tabs a,
+.filter,
+#product-nav-top,
+.login-heading,
+legend,
+.basket-table td a:hover,
+.product-list-prices p,
+.basket-row,
+#delivery-extras > p,
+#delivery,
+#voucher-applied,
+.dropcap:first-letter,
+.confirmation-group dd,
+#delivery h2,
+#voucher-amount,
+.intro
+{
+	color:#406b97;
+}
+/*
+*
+*Second Site Colour - if not used repeat first colour
+*
+*/
+.second-color,
+#customer-nav-panel li a,
+#customer-nav-panel li.active a,
+#customer-nav-panel li a:hover,
+#numbers .activeSlide,
+#breadcrumb span,
+#subtotal,
+#checkout-nav li,
+.error-message,
+.giftwrap-details,
+.giftwrap-details a,
+.breadcrumb a
+{
+	color:#acc7e2;
+}
+
+/*
+*
+*Third Site Colour - if not used repeat first colour
+*
+*/
+.third-color,
+#breadcrumb a, #breadcrumb,
+footer,
+#checkout-nav li.active a span,
+#product p.price
+{
+	color:#406b97;
+}
+
+.white,
+#total,
+#total-amount,
+#numbers a,
+footer ul li.large-text,
+footer p a,
+.top-bar,
+.top-bar a,
+footer,
+footer a,
+footer h2
+
+{
+	color:#fff;
+}
+.black
+{
+	color:#000;
+}
+/*
+*
+*First Background Colour
+*
+*/
+footer,
+.top-bar,
+.top-bar > a
+{
+	background-color:#acbccc;
+}
+
+
+
+
+/**
+ * Borders
+ */
+.border-top-bottom,
+p.heading,
+.purchasing button,
+form button,
+.dual {
+	border-top: 1px solid #bebfc0;
+	border-bottom: 1px solid #bebfc0;
+}
+.border-bottom {
+	border-bottom: 1px solid #bebfc0;
+}
+.border-top {
+	border-top: 1px solid #bebfc0;
+}
+
+/*
+*
+*Uppercase
+*
+*/
+.uppercase {
+	text-transform: uppercase;
+}
+
+/*
+*
+*General
+*
+*/
+.left{
+	float:left;
+}
+.right{
+	float:right;
+}
+
+.align-left {
+	text-align: left;
+}
+
+.align-right {
+	text-align: right;
+}
+
+
+/**
+ * Buttons
+ */
+.btn {
+	font-family: 'Arial', 'Helvetica', sans-serif;
+	font-size: 16px;
+	font-weight: bold;
+	border: 1px solid #D1D1D1;
+	border-radius: 3px;
+	padding: 5px 10px;
+	background: #ffffff; /* Old browsers */
+	background: -moz-linear-gradient(top, #ffffff 0%, #efefef 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#efefef)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #ffffff 0%,#efefef 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #ffffff 0%,#efefef 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #ffffff 0%,#efefef 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #ffffff 0%,#efefef 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#efefef',GradientType=0 ); /* IE6-9 */
+	cursor: pointer;
+	margin-right: 10px;
+	color: #555;
+	text-decoration: none;
+}
+
+.btn:hover {
+	color: #444;
+	border-color: #bbb;
+}
+
+.btn-small {
+	font-size: 12px;
+	padding: 3px 6px;
+	margin-right: 6px;
+}

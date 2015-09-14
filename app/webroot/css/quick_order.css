@@ -1,0 +1,69 @@
+
+
+#quick-order table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+#quick-order td,
+#quick-order th {
+	border: 1px solid #eeeeee;
+	padding: 10px;
+}
+
+#quick-order tbody td input {
+	width: 28px;
+	float: left;
+}
+
+.prod-img {
+	vertical-align: middle;
+	margin-right: 16px;
+}
+
+
+#add-prod {
+	padding-bottom: 15px;	
+	overflow: hidden;
+}
+
+/*#add-prod img {
+	margin: 6px 32px 0 6px;
+	cursor: pointer;
+}*/
+
+#prod-preview {
+	display: inline-block;
+	border: 1px solid #eee;
+	width: 300px;
+}
+#prod-preview img {
+	border-right: 1px solid #eee;
+	margin: 0;
+	vertical-align: middle;
+	margin-right: 10px;
+}
+
+
+#quick-buy {
+	margin-top: 30px;
+	border: 0;
+	padding: 0;
+	float: right;
+	display: none;
+}
+
+
+#prods .delete {
+	cursor: pointer;
+}
+
+
+.quick-qty-update {
+	margin: 6px 0 0 8px;
+	float: left;
+}
+
+#quick-basket {
+	margin-top: 50px;
+}

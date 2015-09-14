@@ -1,0 +1,567 @@
+p.intro{
+	margin-bottom:16px;
+}
+.basket-row {
+	overflow: hidden;
+	padding: 6px 0 6px 0;
+	border-bottom: 1px solid #f0f1ef;
+	
+}
+.basket-row div {
+	float: left;
+}
+
+#basket-headings {
+	overflow: hidden;
+	background-color: #acbccc;
+	color:#fff;
+}
+.tiny-basket-image{
+	width:80px;
+	height:80px;
+	float:left;
+	margin: 0px 10px 0 0;
+	border: 1px solid #bac4b7;
+}
+.grey-background{
+	height:40px;
+	padding:2px 12px 0 12px;
+	margin:0px;
+	border:0;
+	background-color:#fff;
+	background-image:url('/img/basket/grey-header-fade.jpg');
+	background-repeat:repeat-x;
+	background-position:left-center;
+	font-size:180%;
+	color:#fff;
+}
+
+/** Columns ************************************************ */
+
+#basket-headings .basket-qty {
+	width: 70px;
+	padding-left: 28px;
+}
+
+#basket-headings .basket-total {
+	padding-left: 8px;
+}
+
+.basket-desc {
+	width: 580px;
+	margin-left: 15px;
+}
+.basket-desc .input{
+	padding-top: 7px;
+	padding-left: 10px;
+}
+.basket-desc .input input, .basket-desc .input label{
+	margin-right: 5px;
+}
+.basket-delivery-option{
+	width: 140px;
+	text-align: center;
+	margin-top: 5px;
+	
+}
+.basket-price{
+	width: 100px;
+	text-align: right;
+	margin-right: 30px;
+}
+.basket-delivery{
+	padding-top: 7px;
+	padding-left: 7px;
+}
+.basket-qty {
+	width: 100px;
+	margin-right: 5px;
+	padding-left: 5px;
+}
+.basket-total {
+	width: 140px;
+	text-align: right;
+	margin-right: 20px;
+}
+.basket-remove {
+	width: 30px;
+}
+
+/**
+ * Gift wrap
+ */
+.giftwrap-details {
+	font-size: 12px;
+	line-height: 18px;
+	font-family: 'Arial', 'Helvetica', sans-serif;
+}
+.giftwrap-details a,
+.basket-table .giftwrap-item-name {
+	text-decoration: none;
+	display: inline-block;
+	height: 18px;
+	line-height: 18px;
+}
+.giftwrap-link.remove,
+.basket-table .giftwrap-item-name {
+	background: url('/img/icons/present.png') left center no-repeat;
+	padding-left: 20px;
+}
+
+
+
+.basket-prod-details {
+	margin-top: 5px;
+}
+.basket-prod-name {
+	margin: 0;
+	float: none !important;
+}
+.basket-prod-name > a{
+	text-decoration: none;
+}
+
+.basket-prod-name a:hover, fieldset a:hover{
+	/*color:#19261C;*/
+}
+
+.basket-price p, .basket-total p {
+	margin-top: 5px;
+	color:#666666;
+}
+.basket-remove img {
+	margin-top: 5px;
+}
+.basket-desc div p {
+	margin: 0px;
+	margin-bottom: 10px;
+	font-size: 110%;
+}
+
+.basket-prod-name input{
+	margin-right: 5px;
+}
+.basket-prod-name label{
+	margin-right: 10px;
+}
+
+
+/** Quantities ************************************************** */
+
+.basket-row .qty-input {
+	float: left;
+	font-size:80%;
+	width:30px;
+	margin:3px 5px 0px 5px;
+	text-align: center;
+}
+.qty-button {
+	float: left;
+	width: 14px;
+	height: 14px;
+	color: #fff;
+	margin-top: 8px;
+	text-indent: -9000px;
+	cursor: default;
+	background-repeat: no-repeat;
+}
+.qty-button-decrease {
+	background-image: url(/img/icons/bn-minus-on-white.png);
+	margin-right: 4px;
+}
+.qty-button-increase {
+	background-image: url(/img/icons/bn-plus-on-white.png);
+	margin-left: 4px;
+}
+.qty-button::selection {
+    /* Safari */
+}
+.qty-button::-moz-selection {
+    /* Firefox */
+}
+
+.basket-qty p {
+	margin: 0;
+	padding: 3px 0 0 0;
+	clear: left;
+}
+.basket-remove a {
+	/*float: left;*/
+	margin-top: 3px;
+	width: 16px;
+	height: 16px;
+}
+
+
+/* Voucher ***************************************************** */
+
+#gift-voucher, #delivery {
+	padding: 20px 0 20px 0px;
+	overflow: hidden;	
+	border-top: 1px solid #D6D6D6;
+}
+#gift-voucher {
+	
+}
+#gift-voucher h2 {
+	margin: 16px 0 0 0;
+}
+#gift-voucher label {
+	float: left;
+	line-height: 34px;
+}
+
+#gift-voucher .input {
+	float: left;
+}
+#voucher-submit {
+	margin-top: 2px;
+}
+
+.voucher-input {
+	margin-top: 8px;
+}
+
+#voucher-code-input,  #BasketBasketDonationId {
+	margin: 0px;
+	width: 120px;
+	float: left;
+	width: 153px;
+	margin-right:5px;
+}
+#BasketBasketDonationId{
+	float: none;
+}
+#voucher-amount {
+	margin: 1px 20px 0 0;
+	float: right;
+	text-align: right;
+	font-weight: bold;
+	margin-right: 18px;
+
+}
+#voucher-applied {
+	float: left;
+	line-height: 24px;
+	margin-top:5px;
+}
+#voucher-applied span {
+	font-weight: bold;
+	color: #97C02C;
+}
+
+#voucher-remove {
+	float: right;
+	width: 16px;
+	height: 16px;
+	margin: 3px 30px 0 0;
+}
+
+
+/* Subtotal / total ******************************************* */
+#subtotal, #total, #tax, #delivery {
+	padding: 18px 0;
+	/*border-bottom: 1px solid #d6d6d6;*/
+	overflow: hidden;
+	/*width:692px;*/	
+}
+#subtotal{
+	font-size: 18px;
+}
+#total {
+	border-bottom: none;
+    background-color: #acbccd;	
+	padding-bottom: 14px;
+	border-top: 1px solid #d6d6d6;	
+	font-size: 110%;
+}
+#total span {
+	color: #fff;
+}
+
+#subtotal #subtotal-label, #tax-label, #delivery-label {
+	float: right;
+	text-align: right;
+	margin-right: 12px;
+}
+#total-label, #total-amount, #delivery-label, #delivery-amount,#subtotal-label, #subtotal-amount {
+	float: right;
+	text-align: right;
+	margin: 0;
+	margin-right: 25px;
+	font-size:16px;
+}
+
+#total-label,
+#total-amount {
+	font-size: 20px;
+}
+
+/*#subtotal-label, #subtotal-amount {
+	padding-top: 8px;
+	font-size:125%;
+}
+*/
+#basket-form #tax {
+	border-top: 1px solid #ccc;
+}
+
+
+/* To Checkout ****************************************************** */
+
+.checkout-row {
+	margin: 16px 0 40px 0;
+	background-position: right top;
+	background-repeat: no-repeat;
+	/*overflow: hidden;*/
+	height:44px;
+	width:750px;
+	background-color:#F0F0F0;
+	position: relative;
+}
+.arrow-right {
+	width: 0;
+	height: 0;
+	border-top: 22px solid transparent;
+	border-bottom: 22px solid transparent;
+	border-left: 22px solid #F0F0F0;
+	float:right;
+	position:absolute;
+	right:-20px;
+	top:0;
+
+}
+.checkout-row img {
+	margin-top: 4px;
+}
+.cards-img{
+	float:left;
+	padding:11px 0px 11px 14px;
+	margin-top:0px !important;
+}
+.sage-img{
+	float:left;
+	
+	padding:12px 0px 9px 14px;
+	margin-top:0px !important;
+}
+
+a.checkout {
+	margin-top: 25px;
+}
+
+.checkout-row .cards-row {
+	background-image:url('/img/basket/grey-arrow.png');
+	background-position: right top;
+	background-repeat: no-repeat;
+    color: #000;
+    float: left;
+    height: 48px;
+    line-height: 49px;
+    margin: 0px 8px 0px 0px;
+    padding-right: 30px;
+    text-align: right;
+    width: 212px; /* width for all pages except basket */
+    color: #7d7d7d;
+}
+
+.checkout-row input, .checkout-row a {
+	border: none;
+	float: left;
+	padding: 0;
+}
+
+
+/* Delivery ********************************************************* */
+
+#delivery {
+	border-bottom: 1px solid #D6D6D6;
+	border-top: 1px solid #D6D6D6;
+	position: relative;
+	/*padding: 0;*/
+}
+#delivery h2,
+#gift-voucher h2 {
+	font-size: 16px;
+	font-family: 'RalewayThin', sans-serif;
+	text-transform: uppercase;
+	margin: 0;
+}
+#del-services {
+	width:100%;
+	overflow: hidden;
+	float: left;
+	margin: 12px 0 0 0;
+	line-height:25px;
+	display:inline;
+}
+.del-service-row {
+	overflow: hidden;
+	margin-bottom: 6px;
+    color: #656565;
+	border-bottom: 1px solid #f0f1ef;
+	padding-bottom: 4px;
+}
+.del-service-row:last-child {
+	margin-bottom: 0;
+}
+.del-service-row:last-child {
+	border-bottom: 0;
+}
+
+.del-check {
+	float: left;
+	width: 22px;
+}
+.del-details {
+	float: left;
+}
+.del-details label {
+	display: block;
+	font-size: 90%;
+}
+.del-details label span {
+	font-size: 85%;
+}
+
+#delivery-cost {
+	position: absolute;
+	bottom: 18px;
+	right: 0px;
+}
+
+#del-location select {
+	margin: 6px 0 6px 12px;
+	width: 200px;
+}
+
+/*#del-location select option:first-child {
+	color: #ccc;
+}*/
+
+.del-service-row p {
+	clear: left;
+	padding: 1px 0 1px 22px !important;
+	margin: 0 !important;
+	font-size: 85%;
+}
+
+.del-will-contact {
+	color: #888;
+	padding-left: 20px;
+	margin-left: 4px;
+	background-image: url(/img/icons/information.png);
+	background-position: 0 0;
+	background-repeat: no-repeat;
+	padding-top: 1px;
+}
+
+.delivery-radios .input.required{
+	background-image: none;
+}
+
+/*
+*
+*Update Prices
+*
+*
+*/
+#delivery-price{
+	height:22px;
+	color: #666666;
+	font-size: 90%;
+	line-height: 22px;
+	float:right;
+	margin-right:5px;
+	font-size: 105%;
+}
+.del-price{
+	
+	line-height:22px;
+	height:20px;
+	font-size: 90%;
+	margin:2px 78px 0px 10px;
+	font-size: 105%;
+}
+
+/*
+*
+*
+*
+**/
+.grey-background input, .orange-background input, .grey-background
+, .orange-background{
+	cursor:pointer;
+}
+#delivery-extras{
+	padding:18px 5px 18px 5px;
+
+}
+#delivery-extras p:first-child {
+	margin-top: 0;
+}
+#donation-codes{
+	padding: 0px 5px;
+}
+
+.orange-background{
+	width:118px;
+	height:43px;
+	padding-top:7px;
+	background: url('/img/header.png') repeat-x left top;
+	font-size:26px;
+	text-align:center;
+}
+.wide{
+	
+	margin-left:5px;
+}
+.orange-background a, .grey-background a{
+	color:#fff;
+	text-align:center;
+	margin-top:15px;
+	
+}
+.grey-background input, .orange-background input{
+	background-color:transparent;
+	color:#fff;
+	font-size:100%;
+}
+.slidingDiv{
+	display:none;
+	margin:10px 0;
+}
+#BasketItemOrderNote{
+	width:100%;
+	padding:5px;
+}
+
+
+.order-notes{
+	margin-bottom:20px;
+}
+
+.custom-text-container, 
+.custom-text-input, 
+.custom-text-container a.show-hide-custom-text,
+.custom-text-container button{
+	display: block;
+}
+.custom-text-container .custom-text-input .input{
+	padding: 0;
+
+}
+
+
+#continue-shopping {
+	position: absolute;
+	right: 0;
+	top:22px;
+	border-bottom: 1px solid #BEBFC0;
+    border-top: 1px solid #BEBFC0;
+}
+#continue-shopping a{
+	text-decoration: none;
+	font-size: 20px;
+	text-transform: uppercase;
+}

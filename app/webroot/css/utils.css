@@ -1,0 +1,192 @@
+
+.button {    
+	background-color: transparent;
+    background-position: right center;
+    background-repeat: no-repeat;
+    color: #FFFFFF;
+    float: left;
+    line-height: 120%;
+    margin: 0;	
+    padding: 0 6px 0 0;
+    text-decoration: none;
+    text-shadow: 0 1px 1px #5B1513;
+	border: 0;
+	width: auto;
+	overflow: visible;
+}
+.button span {
+    background-position: left center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    float: left;
+    line-height: 120%;
+    padding: 7px 6px 9px 12px;
+    white-space: nowrap;
+}
+
+button.button {
+	padding: 0 3px 0 0;
+	margin-top: 1px;
+}
+
+.red {
+	background-image: url("/img/app/buttons/red-31-end.png") !important;
+}
+.red span {
+	 background-image: url("/img/app/buttons/red-31.png") !important;
+}
+
+.black {
+	background-image: url("/img/app/buttons/black-31-end.png") !important;
+}
+.black span {
+	background-image: url("/img/app/buttons/black-31.png") !important;
+}
+
+.green {
+	background-image: url("/img/app/button-green-right.png") !important;
+}
+.green span {
+	 background-image: url("/img/app/button-green-left.png") !important;
+}
+
+.client-color {
+	background-image: url("/img/app/button-client-colour-right.png") !important;
+}
+.client-color span {
+	 background-image: url("/img/app/button-client-colour-left.png") !important;
+}
+
+
+.small-button {
+	background-color: transparent;
+    background-position: right center;
+    background-repeat: no-repeat;
+    color: #FFFFFF;
+    float: left;
+    margin: 0 6px 0 0;	
+    padding: 0 6px 0 0;
+	font-weight: bold;
+    text-decoration: none;
+    text-shadow: 0 1px 1px #5B1513;
+	border: 0;
+	height: 24px;
+	overflow: visible;
+}
+.small-button span {
+    background-position: left center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    float: left;
+	height: 24px;
+	line-height: 22px;
+    padding: 0px 10px 0px 15px;
+    white-space: nowrap;
+}
+
+button.small-button {
+	margin-top: -1px;
+	padding: 0 3px 0 0;
+}
+
+
+.small-green {
+  background-image: url("/img/app/small-green-cap.png") !important;
+}
+.small-green span {
+  background-image: url("/img/app/small-green-button.png") !important;
+}
+
+.small-black {
+  background-image: url("/img/app/small-black-cap.png") !important;
+}
+.small-black span {
+  background-image: url("/img/app/small-black-button.png") !important;
+}
+
+
+.clear-left {
+	clear: left !important;
+}
+.clear-right {
+	clear: right !important;
+}
+.clear-both {
+	clear: both !important;
+}
+
+.smaller {
+	width: 120px !important;
+}
+.smallest {
+	width: 60px !important;
+}
+.tiny {
+	width: 30px !important;
+}
+
+.align-left {
+	text-align: left !important;
+}
+.align-right {
+	text-align: right !important;
+}
+
+.margin-bottom-20 {
+	margin-bottom: 20px !important;
+}
+
+
+.no-border {
+	border: 0 !important;
+}
+
+.bullets {
+	margin: 20px;
+	margin-left: 32px;
+}
+.bullets li {
+	margin-bottom: 8px;
+	padding-left: 6px;
+	list-style-type: disc;
+	list-style-position: outside;
+}
+
+.no-margin {
+	margin: 0;
+}
+.no-border td {
+	border-bottom: 0;
+}
+
+#flashMessage, #pendingAlert, #authMessage, 
+#billingFlashMessage, #shippingFlashMessage {	
+	padding: 12px 0 14px 30px;
+	background-position: 8px 13px;
+	background-repeat: no-repeat;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	margin-bottom: 16px;
+}
+
+.success {
+	color: #fff;
+	background-color: #81c026;
+	border-color: #81c026;	
+	background-image: url(/img/icons/accept.png);
+}
+
+.failure, #authMessage {
+	color: #bf0000;
+	background-color: #ffe5e6;
+	border-color: #ffe5e6;
+	background-image: url(/img/icons/exclamation.png);
+}
+
+.header p.intro {
+	color: #979797;
+    margin: 0;
+	margin-bottom: 20px;
+}
+
+

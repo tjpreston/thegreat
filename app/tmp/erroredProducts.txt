@@ -1,0 +1,14 @@
+Products not imported: Array
+(
+    [752] => No Name SKU:10359
+    [858] => No Name SKU:10434
+    [859] => No Name SKU:10434
+    [860] => No Name SKU:10434
+    [1164] => Error saving Product Category. Salt/Spice Dish & Spoon
+    [1629] => Error saving Product Category. Gift Voucher
+    [1752] => Error saving Product Category. Uplift Body Wash
+    [1754] => Error saving Product Category. Men's Body Wash
+    [1847] => Error saving Product Category. Cheese Wedge
+    [1949] => Error saving Product Option Value. Leather Backgammon Set
+    [1950] => Error saving Product Option Value. Leather Backgammon Set
+)

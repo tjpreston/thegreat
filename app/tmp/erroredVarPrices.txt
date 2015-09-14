@@ -1,0 +1,22 @@
+Products not imported: Array
+(
+    [282] => FYI Price change. BasePrice: 34 Price: 36
+    [284] => FYI Price change. BasePrice: 28 Price: 30
+    [286] => FYI Price change. BasePrice: 28 Price: 30
+    [288] => FYI Price change. BasePrice: 28 Price: 30
+    [290] => FYI Price change. BasePrice: 34 Price: 36
+    [327] => FYI Price change. BasePrice: 4.99 Price: 6.99
+    [328] => FYI Price change. BasePrice: 4.99 Price: 6.99
+    [330] => FYI Price change. BasePrice: 4.99 Price: 5.99
+    [416] => FYI Price change. BasePrice: 16.75 Price: 17.75
+    [468] => FYI Price change. BasePrice: 25.5 Price: 26.5
+    [469] => FYI Price change. BasePrice: 25.5 Price: 27.5
+    [1521] => FYI Price change. BasePrice: 154 Price: 195
+    [1613] => FYI Price change. BasePrice: 36 Price: 38.5
+    [1625] => FYI Price change. BasePrice: 24 Price: 13.5
+    [1630] => FYI Price change. BasePrice: 1 Price: 5
+    [1631] => FYI Price change. BasePrice: 1 Price: 10
+    [1632] => FYI Price change. BasePrice: 1 Price: 20
+    [1633] => FYI Price change. BasePrice: 1 Price: 50
+    [2015] => FYI Price change. BasePrice: 19.5 Price: 26.5
+)

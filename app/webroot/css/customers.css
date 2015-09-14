@@ -1,0 +1,325 @@
+
+
+/* Login ****************************************************/
+
+/*#login-box {
+	overflow: hidden;
+	margin-bottom: 14px;
+	padding-top:10px;
+}*/
+
+.login-column p {
+	line-height: 1.5em;
+	margin-bottom: 14px;
+}
+.login-heading {
+	margin-bottom: 0;
+	border-bottom: 0;
+	width: 100%;
+	padding: 5px 0;
+	/*text-indent: 16px;*/
+	font-size: 110%;
+	font-size:26px;
+	border-bottom: 1px dotted #000000;
+}
+
+.login-content {
+	/*height: 188px;*/
+	padding-top: 14px;
+	margin-bottom: 40px;
+	padding-right: 10px;
+	position: relative;
+}
+
+#create-account {
+	margin-top: 10px;
+}
+
+/*.login-column label {
+	padding: 8px 0 5px 0px;
+	display: block;
+	background-image: none !important;
+}
+.login-column div.input input {
+	width: 220px;
+	padding: 5px;
+	color: #666666;
+	margin-bottom: 16px;
+	font-size: 90%;
+	border:none;
+	background-color: #EDEDED
+}
+
+.login-column div.submit {
+	float: left;
+	width: 80px;
+	text-align:center;
+}
+.login-column div.submit input {
+	margin: 0;
+	border: none;
+
+}
+input.grey-background{
+	display:inline-block;
+	padding:0px 10px 10px 10px;
+	height:40px;
+}*/
+
+#forgotten-your-password {
+	margin: 0;
+}
+#login-actions {
+	margin: 20px 0;
+}
+
+.new-customers{
+	margin-top: 0;
+}
+.new-customers .position{
+	position: absolute;
+	bottom:25px;
+	left:0px;
+	width:100%;
+	height:30px;
+}
+
+
+
+/**
+ * My account
+ *
+ */
+#my-account-home-boxes {
+	margin-bottom: 40px;
+	margin-top:10px;
+	overflow: hidden;
+}
+
+#my-account-home-boxes > div{
+	/*float:left;*/
+	height:120px;
+	/*width:420px;*/
+	/*margin-right:30px;*/
+	/*margin-bottom: 15px;*/
+	/*min-height: 110px;*/
+	/*overflow: hidden;	*/
+	/*border: 1px dotted #BBB2A6;*/
+	/*padding:10px 15px;*/
+}
+
+
+#my-account-home-boxes h2 {
+	margin: 0;
+	padding: 0;
+	margin-bottom: 10px;
+
+}
+#my-account-home-boxes h2 a {
+	margin: 0;
+	font-size: 18px;
+	text-decoration: none;
+}
+#my-account-home-boxes p {
+	margin: 0;
+	padding: 0;
+}
+
+
+
+.save-button {
+	display: block;
+	width: 90px;
+	padding-bottom: 2px;
+	margin-top: 20px;
+}
+
+#add-address-button {
+	display: block;
+	width: 190px;
+	padding-bottom: 2px;
+	margin-top: 20px;
+}
+
+
+
+/* Address Book */
+
+#add-address {
+	margin-bottom: 10px;
+	margin-top: 20px;
+}
+
+#addresses {
+	padding: 0px;
+}
+#addresses li {
+	margin-bottom: 15px;
+}
+
+.address-num {
+	position: absolute;
+	/*font-weight: bold;*/
+}
+.address {
+	/*float: left;*/
+	/*width: 300px;*/
+	line-height: 1.4em;
+	margin: 0;
+}
+
+
+#addresses .actions {
+	margin: 8px 0;	
+}
+#addresses .actions a {
+	margin: 0 5px 0 0;
+}
+
+.default-address,
+#items-view-mode-links a {
+	padding-left: 20px;
+	background-position: 0 2px;
+	background-repeat: no-repeat;
+	font-size: 90%;
+	margin-bottom: 6px;
+	padding-top: 2px;
+}
+#default-billing-address {
+	background-image: url(../img/icons/money.png);
+}
+#default-shipping-address {
+	background-image: url(../img/icons/lorry.png);
+}
+
+.address-actions {
+	position: absolute;
+	bottom: 22px;
+	left: 330px;
+}
+.address-actions img {
+	margin-right: 6px;
+}
+
+
+
+/* My Orders */
+
+dl.view-order {	
+	width: 100%;
+	overflow: hidden;
+}
+.view-order dt {
+	float: left;
+	padding-left: 20px;
+	width: 180px;
+	margin-bottom: 12px;
+	clear: left;
+}
+.view-order dd {
+	float: left;
+	width: 290px;
+	margin: 0;
+	margin-bottom: 12px;
+}
+
+.totals dt {
+	
+	width: 160px;
+	text-align: left;
+	padding-right: 20px;
+}
+.totals dd {
+	width: 140px;
+}
+
+#items-view-mode-links {
+	padding-bottom: 16px;
+	text-align: right;
+}
+#items-view-mode-links a {
+	margin-right: 16px;
+}
+#order-items-view {
+	background-image: url(/img/icons/table.png);
+}
+#shipments-view {
+	background-image: url(/img/icons/lorry.png);	
+}
+
+.item-shipped {
+	text-align: center;
+}
+.item-shipped img, 
+.shipment-header img {
+	vertical-align: middle;
+	margin-right: 4px;
+}
+.item-shipped span {
+	font-size: 80%;
+}
+
+.subheader th {
+	padding: 6px 8px;
+}
+
+.shipment-header span {
+	float: right;
+	font-size: 90%;
+}
+
+tfoot.totals td.label {
+	text-align: right;
+	font-weight: bold;
+}
+
+
+
+#customer-nav-panel{
+	list-style:none;
+	margin:0px;
+	padding:0px;
+	font-size:100%;
+}
+#customer-nav-panel li{
+	display:block;
+	margin:0px;
+	padding:0px;
+}
+#customer-nav-panel li a {
+	text-decoration:none;
+	line-height:33px;
+	height:33px;
+	margin:0px;
+	text-transform: uppercase;
+}
+
+.account-header h1 {
+	margin-bottom: 0;
+}
+
+
+.customer-name{
+	text-transform: capitalize;
+}
+.category-header{
+	margin-right:58px;
+}
+
+/*
+*
+*Form errors
+*
+*/
+.error-message{
+	margin-left:160px;
+	margin-top:5px;
+}
+.delivery-radios .error-message{
+	margin-left:350px;
+
+}
+fieldset.unique-enquiry .error-message{
+	margin-left:310px;
+
+}

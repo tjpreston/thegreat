@@ -1,0 +1,346 @@
+
+
+#checkout-proceed {
+	overflow: hidden;
+	margin-top: 40px;
+}
+
+#login-actions a{
+	text-decoration:none;
+}
+
+.confirmation-group {
+	width: 100%;
+	overflow: hidden;
+	background-position: 515px 50%;
+	background-repeat: no-repeat;
+	position: relative;
+	margin: 0 0 5px 0;
+}
+
+/*.confirmation-group a {
+	position: absolute;
+	top: 44%;
+	left: 570px;
+}*/
+
+.confirmation-group dl {
+	width: 500px;
+	overflow: hidden;	
+	float: left;
+}
+.confirmation-group dt {
+	float: left;
+	padding-left: 36px;
+	width: 130px;
+	margin-bottom: 20px;
+	clear: left;
+}
+.confirmation-group dd {
+	float: left;
+	width: 290px;
+	margin-bottom: 20px;
+}
+
+.conf-cards {
+	width: 455px;
+	height: 51px;
+	line-height: 51px;
+/*	background-image: url(../img/template/bg-cards-small.png);*/
+	text-align: right;
+	padding-right: 30px;
+	color: #000;
+	font-size: 120%;
+	float: left;
+	margin-right: 13px;
+	margin-left: 17px;
+	margin-bottom: 40px;
+}
+
+/**
+ * Basket
+ * -----------------------------
+ */
+.basket-table {
+	width: 100%;
+	margin-bottom: 16px;
+}
+.basket-table th{
+	padding: 8px;
+	font-size: 14px;
+	text-align: left;
+	background: #acbccc;
+	color: #fff;
+}
+.basket-table td {
+	border-bottom: 1px solid #f0f1ef;
+	padding: 10px 8px 10px 8px;
+	font-size: 14px;
+}
+
+.basket-item-name-col {
+	width: 334px;
+	padding-left: 16px !important;
+}
+
+.basket-actions-col {
+	text-align: right;
+	padding-right: 16px !important;
+}
+#basket-item-qty-header {
+	width: 74px;
+	padding-left: 34px;
+}
+
+#confirm-basket {
+	margin-top: 26px;
+}
+#confirm-basket p {
+	margin-top: 0;
+	padding: 0;
+}
+#confirm-basket #basket-headings {
+	padding-top: 13px;
+	padding-bottom: 13px;
+	font-size: 110%;
+	min-height: 0 !important;
+}
+
+#confirm-basket .basket-row {
+	font-size: 100%;
+	padding: 10px 0 12px 0;
+	min-height: 36px;
+}
+#confirm-basket .main-basket-row:last-child .basket-row {
+	border-bottom: 0;
+}
+
+#confirm-basket .basket-qty {
+	width: 50px;
+	padding-left: 10px;
+}
+
+#confirm-basket .conf-row {
+	font-size: 100%;
+}
+#confirm-basket .conf-amount {
+	margin-right: 20px;
+}
+
+#confirm-basket #tax {
+	border-top: 1px solid #e1e1e1;
+}
+
+
+#subtotal-row td {
+	padding: 16px 8px;
+	font-size: 110%;
+}
+#delivery-row td {
+	padding: 16px 8px;
+	border-bottom: 0;
+	vertical-align: top;
+}
+
+p#delivery {
+	float: left;
+	width: 80px;
+}
+
+#delivery-row div.input {
+	float: left;
+}
+#delivery-row div.input label {
+	float: left;
+}
+#delivery-row div.input select {
+	float: left;
+	margin-left: 10px;
+	margin-top: -2px;
+}
+#shipping-location-select {
+	margin-right: 10px;
+}
+
+
+
+#total-row td {
+	background-color: #acbccc;
+	text-align: right;
+	border-bottom: 0;
+	padding: 18px 8px;
+	font-size: 18px;
+	color: #fff;
+}
+
+
+
+/**
+ * Choose Address
+ * 
+ */
+#choose-billing, #choose-shipping {
+	padding-left: 36px;
+}
+
+#choose-addresses {
+	margin: 20px 0 20px 20px;
+	overflow: hidden;
+}
+.address-choice {
+	float: left;
+	width: 246px;
+	margin-bottom: 20px;
+}
+.address-choice img {
+	margin-top: 14px;
+}
+
+#new-billing, #new-shipping {
+	margin: 5px 0 30px 36px;
+}
+
+#cancel-new-billing, #cancel-new-shipping {
+	background-position: 90% 0px;
+	background-repeat: no-repeat;
+	margin: 0;
+}
+
+.select-address {
+	padding-top: 10px;
+}
+.select-address input {
+	margin: 0;
+	padding: 0;
+	margin-right: 6px;
+}
+
+
+/**
+ * Terms
+ * 
+ */
+#checkout-terms {
+	padding-left: 36px;
+	width: 640px;
+	margin: 10px 0 26px 0;
+}
+#checkout-terms p {
+	overflow: hidden;
+}
+#checkout-terms input {
+	float: left;
+	margin-right: 10px;
+	margin-top: 2px;
+}
+#checkout-terms label {
+	float: left;
+	width: 600px;
+}
+
+
+
+#grand-total {
+    text-align: left !important;
+}
+
+
+
+
+/** Checkout Nav *********************************************** */
+
+#checkout-nav {
+	padding: 0;
+	height: 48px;
+	margin: 15px 0 0 0;
+}
+#checkout-nav li {
+	list-style: none;
+	padding: 0;
+	height: 48px;
+	line-height: 48px;
+	text-align: center;
+	font-size: 18px;
+}
+#checkout-nav li.active {
+	font-size: 22px;
+}
+
+#checkout-proceed {
+	overflow: hidden;
+	margin-top: 40px;
+}
+
+
+#pay-on-account .cards-row {
+	text-align: left;
+	padding-left: 10px;
+	width: 490px;
+	line-height: normal;
+	padding-top: 8px;
+	height: 43px;
+}
+
+#pay-on-account span {
+	font-size: 85%;
+}
+
+
+.heading, legend{
+	margin-bottom:10px;
+	font-size:110%;
+}
+
+/*fieldset .input{
+	margin-bottom:10px;
+}
+fieldset input{
+	margin-top:5px;
+	border:none;
+	padding:5px;
+	width:400px;
+	background-color: #F6F6F6;
+}*/
+.inputs .input label{
+	float:left;
+	margin-top:7px;
+	width:160px;
+}
+#deliver-to-billing {
+	width:15px;
+	margin-right:10px;
+}
+
+
+
+.input-box select{
+	padding: 4px 0px;
+}
+.select-address input{
+	width:20px;
+}
+
+
+.tccheckbox{
+	margin-top:10px;
+	margin-bottom: 0px;
+	font-size: 85%;
+}
+
+#CustomerNewsletterOptOut{
+	margin: 6px 10px 6px 0;
+	width: 15px;
+	float: left;
+}
+.NewsletterOptOut{
+	margin-left:36px;
+}
+
+
+#shippingFlashMessage,
+#billingFlashMessage {
+	color: #DA3434;
+	margin-left: 36px;
+	background: url('/img/icons/error.png') left center no-repeat;
+	padding: 3px 0 3px 22px;
+}
