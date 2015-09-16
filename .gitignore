@@ -14,6 +14,5 @@
 **/*.jpg
 
 
-/nbproject/private/
 **/app/tmp/
 
