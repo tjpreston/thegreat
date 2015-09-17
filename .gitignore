@@ -13,6 +13,6 @@
 **/*.jpeg
 **/*.jpg
 
-
+**/nbproject/
 **/app/tmp/
 
