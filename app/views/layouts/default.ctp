@@ -121,7 +121,7 @@ header('Content-type: text/html; charset=UTF-8');
 				<h3>Find Us On:</h3>
 				<a href="https://www.facebook.com/thegreatbritishshopltd"><i class="fa fa-facebook-square fa-2x"></i></a>
 				<a href="https://twitter.com/greatbritishop"><i class="fa fa-twitter-square fa-2x"></i></a>
-				<a href="#"><i class="fa fa-pinterest-square fa-2x"></i></a>
+				<!-- <a href="#"><i class="fa fa-pinterest-square fa-2x"></i></a> -->
 			</section>
 			<section class="grid_5 customer-services">
 				<h3>Customer Services</h3>
