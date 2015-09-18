@@ -1,3 +1,5 @@
+<?php ?>
+ 
 <div class="grid_24 banners">
 	<ul>
 		<li>
@@ -42,7 +44,8 @@
 			<h3 class="border-top-bottom"><span class="face1">Sparkling</span> <span class="face2">Jewellery</span></h3>
 		</div>
 	</a>
-	<a href="#">
+        <!-- Originally they left the front page with a broken href: <a href="#"> -->
+	<a href="baby-child-toys">
 		<div class="grid_6">
 			<div class="image">
 				<img src="/img/featured-categories/Baby-Child.jpg" alt="Baby and Child" />
