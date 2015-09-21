@@ -235,6 +235,14 @@ div.required label {
 	background-repeat: no-repeat;
 }
 
+#edit_homepage {
+	float: left;
+	margin: 11px 0 0 14px;
+//	width: 22px;
+	height: 22px;
+        color: #fff;
+}
+
 #nav {
 	width: 990px;
 	margin-left: 40px;
