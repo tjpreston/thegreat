@@ -28,6 +28,7 @@
 					<p><?php echo h(Configure::read('Site.name')); ?> <span>Store Administration</span></p>
 					<div id="nav">
 						<a id="home" href="/admin">Home</a>
+                                                <a id="edit_homepage" href="/edit_homepage">Edit Homepage</a> 
 						<ul class="sf-menu">
 							<li id="nav-catalog">
 								<span>Catalog</span>
