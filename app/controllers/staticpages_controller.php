@@ -4,7 +4,7 @@
  * StaticPageController
  * 
  */
-class StaticPageController extends AppController
+class StaticpagesController extends AppController
 {
     /**
      * An array containing the class names of models this controller uses.
@@ -12,15 +12,18 @@ class StaticPageController extends AppController
      * @var array
      * @access public
      */
-    public $uses = array('Product');
+    // public $uses = array('StaticPage');
     
-    var $name = 'StaticPage';
+    
     public function admin_index()
        
     {
-            $id = '2';
+        $this->set('title', $this->Staticpage->find('all'));
+        xdebug_break();
+        /* 
+        $id = '2';
             xdebug_break();   
-        if (is_null($id))
+            if (is_null($id))
 		{
 			$this->redirect('/admin/products');
 		}
@@ -283,6 +286,8 @@ class StaticPageController extends AppController
 			'manufacturers', 'currencies', 'categories', 'treeList', 'currenciesList', 'customOptionValuesList',
 			'attributeSets', 'attributes', 'attributeSet', 'productAttributeValues', 'primaryCategory', 'productList'
 		));
+         * 
+         */
         }  
         
         /**
