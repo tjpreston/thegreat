@@ -5,7 +5,7 @@
 		<li>
 			<div class="banner" style="background-image: url('/img/banners/home1.jpg');">
 				<div class="text">
-					<h2><span class="face1">It's British</span> <span class="face2">Quality</span></h2>
+					<h2><span class="face1"><?php echo $pagedata['Staticpage']['header_1']; ?></span> <span class="face2"><?php echo $pagedata['Staticpage']['header_2']; ?></span></h2>
 					<p>Enjoy a pleasing print, beauteous bath, or smooth silver...</p>
 				</div>
 			</div>

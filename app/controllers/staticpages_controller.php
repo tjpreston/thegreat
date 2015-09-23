@@ -18,11 +18,13 @@ class StaticpagesController extends AppController
     public function admin_index()
        
     {
-        $this->set('title', $this->Staticpage->find('all'));
-        xdebug_break();
+          
+        $this->set('pagedata', $this->Staticpage->find('all'));
+       // $tmpdata = $this->Staticpage->find('all');
+      //  $this->set('pagedata','$tmpdata');
         /* 
         $id = '2';
-            xdebug_break();   
+             
             if (is_null($id))
 		{
 			$this->redirect('/admin/products');
