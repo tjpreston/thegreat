@@ -21,8 +21,14 @@
 			<div id="header">
 				<h1>Static Page Management</h1>
 			</div>
-                    <div id="test">
-                        <?php echo $pagedata['0']['Staticpage']['name']; ?>
+                    <div id="staticpages">
+                        <?php 
+                        foreach ($pagedata as $value)
+        {
+                        echo '<p>' . '<a href="/admin/staticpages/edit/' . $value['Staticpage']['id'] . '">' . 
+                                $value['Staticpage']['name'] . '</a>' . '</p>'; 
+        }
+                        ?>
                     </div>
 				
 
