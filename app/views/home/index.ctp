@@ -5,8 +5,9 @@
 		<li>
 			<div class="banner" style="background-image: url('/img/banners/home1.jpg');">
 				<div class="text">
-					<h2><span class="face1">It's British</span> <span class="face2">Quality</span></h2>
-					<p>Enjoy a pleasing print, beauteous bath, or smooth silver...</p>
+                                        <!-- Homepage text is now stored in the DB -- TJP -->
+					<h2><span class="face1"><?php echo $pagedata['Staticpage']['header_1']; ?></span> <span class="face2"><?php echo $pagedata['Staticpage']['header_2']; ?></span></h2>
+					<p><?php echo $pagedata['Staticpage']['header_3']; ?></p>
 				</div>
 			</div>
 		</li>
@@ -16,14 +17,14 @@
 <div class="grid_12 intro">
 	<!-- <h2><span class="face1">It's</span> <span class="face2">British Quality</span></h2> -->
 	<p class="dropcap intro">
-		Welcome to the home of Dandy Lion, Moonface Man, The Inseperables, Henry’s Teapot, the Modern Artist’s Alphabet, Kings & Queens. We offer an eclectic and evolving selection of items across a range of categories. The common theme being that everything is produced in Great Britain & Northern Ireland. We hope that you enjoy your visit around the site. 
+		<?php echo $pagedata['Staticpage']['description_1']; ?>
 	</p>
 </div>
 
 <a href="/gift-finder">
 	<div class="grid_12" id="gift-finder">
 		<h2><span class="face1">Gift</span><span class="face2">Finder</span></h2>
-		<p>If it’s a gift you’re looking for,<br /> we can help you search.</p>
+		<p>If it's a gift you’re looking for,<br /> we can help you search.</p>
 	</div>
 </a>
 

@@ -60,7 +60,7 @@ class ProductsController extends AppController
 			
 			$catIDs = array();
 			$openNodeIDs = array();
-			foreach ($nodeIDs as $nodeID)
+			foreach ($nodeIDs as $nofdeID)
 			{
 				$catID = substr($nodeID, 9);
 				$catIDs[] = $catID;

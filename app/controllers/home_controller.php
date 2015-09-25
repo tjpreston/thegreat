@@ -9,10 +9,13 @@ class HomeController extends AppController
 	/**
 	 * An array containing the class names of models this controller uses.
 	 *
+         * In this case we use the Staticpage model as we need to get the
+         * homepage description and images from the staticpages table.
+         * 
 	 * @var array
 	 * @access public
 	 */
-	public $uses = array();
+	public $uses = array('Staticpage'); 
 	
 	/**
 	 * An array containing the names of helpers this controller uses.
@@ -69,8 +72,16 @@ class HomeController extends AppController
 		$this->set('noSidenav', true);
 
 		$this->set('inCatalog', true);
+		//$this->set('pagedata', $this->Staticpage->find('all'));
+                
+                $this->set('pagedata', $this->Staticpage->find('first', 
+                array('conditions' => array('Staticpage.name' => 'Homepage'))));
+                
+                // $tmp = $this->Staticpage->find('first', 
+                // array('conditions' => array('Staticpage.name' => 'who_we_are')));
 		
-		// $meta = $this->Config->ConfigHomepage->find('first');
+
+                // $meta = $this->Config->ConfigHomepage->find('first');
 		// $this->set('title_for_layout', $meta['ConfigHomepage']['title']);
 		// $this->set('metaKeywords', $meta['ConfigHomepage']['meta_keywords']);
 		// $this->set('metaDescription', $meta['ConfigHomepage']['meta_description']);

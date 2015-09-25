@@ -235,9 +235,9 @@ div.required label {
 	background-repeat: no-repeat;
 }
 
-#edit_homepage {
+#staticpage {
 	float: left;
-	margin: 11px 0 0 14px;
+	margin: 12px 0 0 14px;
 //	width: 22px;
 	height: 22px;
         color: #fff;
@@ -1732,4 +1732,22 @@ table#worldpay td{
 	text-align:center;
 	padding:5px;
 	border: 1px solid #000;
+}
+
+/**
+ * Staticpages edit page
+ */
+ .staticpageedit textarea {
+	width: 800px;
+	height: 100px;
+        border: 1px solid #ccc;
+	padding: 3px;
+        margin: 5px;
+}
+
+ .staticpageedit input {
+	width: 800px;
+        border: 1px solid #ccc;
+	padding: 3px;
+        margin: 5px;
 }
