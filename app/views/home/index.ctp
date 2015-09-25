@@ -24,7 +24,7 @@
 <a href="/gift-finder">
 	<div class="grid_12" id="gift-finder">
 		<h2><span class="face1">Gift</span><span class="face2">Finder</span></h2>
-		<p>If it’s a gift you’re looking for,<br /> we can help you search.</p>
+		<p>If it's a gift you’re looking for,<br /> we can help you search.</p>
 	</div>
 </a>
 

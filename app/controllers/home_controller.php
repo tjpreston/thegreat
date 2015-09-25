@@ -75,7 +75,7 @@ class HomeController extends AppController
 		//$this->set('pagedata', $this->Staticpage->find('all'));
                 
                 $this->set('pagedata', $this->Staticpage->find('first', 
-                array('conditions' => array('Staticpage.name' => 'home_page'))));
+                array('conditions' => array('Staticpage.name' => 'Homepage'))));
                 
                 // $tmp = $this->Staticpage->find('first', 
                 // array('conditions' => array('Staticpage.name' => 'who_we_are')));
