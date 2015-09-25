@@ -14,7 +14,7 @@ class StaticpagesController extends AppController {
      */
     // public $uses = array('StaticPage');
 
-    public $helpers = array('Form');
+    public $helpers = array('Form', 'Session');
 
     public function admin_index() {
         //  'fields' => array('Model.field1',
@@ -53,7 +53,7 @@ class StaticpagesController extends AppController {
         } else {
             if ($this->Staticpage->save($this->data)) {
                 $this->Session->setFlash('Your data has been saved.');
-                // $this->redirect(array('action' => 'index'));
+                $this->redirect(array('action' => 'index'));
             }
         }
         $pagedata = $this->Staticpage->find('first', array('conditions' => array('Staticpage.id' => $id), 'fields' => array('Staticpage.id', 'Staticpage.name')));
