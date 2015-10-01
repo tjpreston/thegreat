@@ -20,5 +20,9 @@
     echo $this->Form->end('Save');
 ?>
 
-  
+<br>
+<div id="header">
+     
+     <h1>Images</h1>
+</div>  
 
