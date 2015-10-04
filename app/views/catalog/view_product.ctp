@@ -23,7 +23,7 @@ var productID = <?php echo intval($record['Product']['id']); ?>;
 <?php echo $session->flash(); ?>
 <div class="grid_24 product-details">
 
-
+        <!-- start here to fix z-index mess in element below -->
 	<div class="grid_12 alpha">
 		<?php echo $this->element('catalog/view_product/images'); ?>
 	</div>

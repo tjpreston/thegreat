@@ -3,10 +3,17 @@
 	$this->set('body_id', 'sub-category');
 
 	$catalog->setCategoryUrls($categoryPath);
-
+        
+        
+        
+        echo "Execution time: " . $executionTime . " ms"; //value in seconds
+        ?>
+<br>
+        <?php
+        echo "Look-up execution time: " . $lupExecutionTime . " ms"; //value in seconds
 	echo $this->element('template/breadcrumbs');
+        ?>
 
-?>
 
 <div class="grid_18 push_6 listing">
 	<?php echo $this->element('catalog/category_header', array('record' => $record)); ?>
