@@ -49,7 +49,8 @@ class BasketController extends AppController
 	 */
 	public function index()
 	{
-		if (!Configure::read('Template.products_in_minibasket'))
+            
+            if (!Configure::read('Template.products_in_minibasket'))
 		{
 			$this->_basketItems = $this->Basket->BasketItem->getCollectionItems();
 			$this->set('basketItems', $this->_basketItems);

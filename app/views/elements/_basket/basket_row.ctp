@@ -18,7 +18,7 @@
 			if(!empty($item['ProductOptionStock']) && !empty($item['BasketItem']['additional_strap_name'])){
 				echo 'Straps: ' . h($item['ProductOptionStock']['name']);
 				echo ', ' . $item['BasketItem']['additional_strap_name'];
-			}
+                        }
 
 		?></h4>
 
