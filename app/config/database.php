@@ -74,7 +74,10 @@
 class DATABASE_CONFIG 
 {
 
-	var $mother = array(
+	//initalize variable as null
+        var $default=null;
+        
+        var $prod = array(
 		'driver' => 'mysql',
 		'persistent' => false,
 		'host' => 'localhost',
@@ -84,13 +87,13 @@ class DATABASE_CONFIG
 		'prefix' => ''
 	);
 
-	var $popdev = array(
+	var $dev = array(
 		'driver' => 'mysql',
 		'persistent' => false,
 		'host' => 'localhost',
 		'login' => 'thegreat_mysql',
 		'password' => 'eMcB6+t#e0JD',
-		'database' => 'thegreat_shop',
+		'database' => 'thegreat_shop_dev',
 		'prefix' => ''
 	);
 	
@@ -103,27 +106,44 @@ class DATABASE_CONFIG
 	// 	'database' => '',
 	// 	'prefix' => ''	
 	// );
-
-	/** Figure out where we are */
-	public function __construct(){
-		if(isset($_SERVER['SHELL'])){
-			// if(function_exists('gethostname') && gethostname() == 'mother'){
-				$this->default = $this->mother;
-			// } else {
-				// $this->default = $this->live;
-			// }
-		} else {
-			$domain = $_SERVER['SERVER_NAME'];
-
-			if(stristr($domain, '.popcorndev.co.uk') !== false){
-				$this->default = $this->popdev;
-			} else if(stristr($domain, '.devel') !== false){
-				$this->default = $this->mother;
-			} else {
-				$this->default = $this->mother;
-			}
-		}
-	}
+    
+    /** Figure out where we are */    
+    function __construct ()
+    {       
+        if(isset($_SERVER['SERVER_NAME'])){
+            switch($_SERVER['SERVER_NAME']){
+                case 'localhost':
+                    $this->default = $this->dev;
+                    break;
+                case 'timdev.thegreatbritishshop.com':
+                    $this->default = $this->prod;
+                    break;
+            }
+        }
+    }
+	
+        /** Figure out where we are */
+            // Popcorn's way - TJP 7/10/15
+//	public function __construct(){
+//            xdebug_break();
+//		if(isset($_SERVER['SHELL'])){
+//			// if(function_exists('gethostname') && gethostname() == 'mother'){
+//				$this->default = $this->mother;
+//			// } else {
+//				// $this->default = $this->live;
+//			// }
+//		} else {
+//			$domain = $_SERVER['SERVER_NAME'];
+//
+//			if(stristr($domain, '.popcorndev.co.uk') !== false){
+//				$this->default = $this->popdev;
+//			} else if(stristr($domain, '.devel') !== false){
+//				$this->default = $this->mother;
+//			} else {
+//				$this->default = $this->mother;
+//			}
+//		}
+//	}
 	
 }
 	
