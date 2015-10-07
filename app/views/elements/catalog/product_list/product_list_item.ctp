@@ -30,9 +30,9 @@ $class[] = 'grid_6';
 	<div class="list-item-details">
 		<h2 class="border-top-bottom">
 			<a href="<?php echo $this->Catalog->getProductUrl($product); ?>" title="<?php echo h($product['ProductName']['name']); ?>">
-				<?php echo $text->truncate(h($product['ProductName']['name']), 30, array(
+				<?php echo $text->truncate(($product['ProductName']['name']), 30, array(
 					'ending' => '...',
-					'exact' => true
+					'exact' => false
 				)); ?>
 			</a>
 		</h2>
