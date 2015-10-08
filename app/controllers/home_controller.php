@@ -15,7 +15,7 @@ class HomeController extends AppController
 	 * @var array
 	 * @access public
 	 */
-	public $uses = array('Staticpage'); 
+	public $uses = array('Staticpage','StaticpagesImage'); 
 	
 	/**
 	 * An array containing the names of helpers this controller uses.
@@ -77,6 +77,9 @@ class HomeController extends AppController
                 $this->set('pagedata', $this->Staticpage->find('first', 
                 array('conditions' => array('Staticpage.name' => 'Homepage'))));
                 
+                $this->set('pageimagedata', $this->StaticpagesImage->find('all', 
+                array('conditions' => array('StaticpagesImage.staticpage_id' => '1'))));
+                xdebug_break();
                 // $tmp = $this->Staticpage->find('first', 
                 // array('conditions' => array('Staticpage.name' => 'who_we_are')));
 		
