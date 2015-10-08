@@ -12,13 +12,13 @@ class StaticpagesController extends AppController {
      * @var array
      * @access public
      */
-    // public $uses = array('StaticPage');
+    public $uses = array('Staticpage','StaticpagesImage');
 
     public $helpers = array('Form', 'Session');
 
     public function admin_index() {
         //  'fields' => array('Model.field1',
-        // xdebug_break
+        
         $pagedata = $this->Staticpage->find('all', array('fields' => array('Staticpage.id', 'Staticpage.name')));
         $this->set('pagedata', $pagedata);
 
@@ -56,6 +56,7 @@ class StaticpagesController extends AppController {
                 $this->redirect(array('action' => 'index'));
             }
         }
+        xdebug_break();
         $pagedata = $this->Staticpage->find('first', array('conditions' => array('Staticpage.id' => $id), 'fields' => array('Staticpage.id', 'Staticpage.name')));
         $pagetitle = $pagedata['Staticpage']['name'];
         $this->set('pagetitle', $pagetitle);
