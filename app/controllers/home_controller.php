@@ -10,7 +10,7 @@ class HomeController extends AppController
 	 * An array containing the class names of models this controller uses.
 	 *
          * In this case we use the Staticpage model as we need to get the
-         * homepage description and images from the staticpages table.
+         * homepage description and images from the staticpages table. - TJP
          * 
 	 * @var array
 	 * @access public
