@@ -52,7 +52,7 @@ form button {
  */
 .dual,
 form button {
-	letter-spacing: -4px;
+	//letter-spacing: -4px;
 	font-size: 17px;
 	text-decoration: none;
 	display: inline-block;
