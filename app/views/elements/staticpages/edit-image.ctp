@@ -1,26 +1,28 @@
 <div id="pane-images" class="pane">
 
-	<?php if (!empty($varImages)): ?>
-		<div class="info-message">These images will not be used as variation image(s) have been uploaded.</div>
-	<?php endif; ?>
 
-	<div class="fieldset-header"><span>Images</span></div>
-	<div class="fieldset-box">
-		<div id="product-images">
-                        <?php xdebug_break(); ?>
-			<?php echo $form->input('StaticpagesImage.id', array('value' => $this->data['StaticpagesImage']['id'])); ?>
-			<?php if (!empty($images)): ?>
-				<?php foreach ($images as $productImageID => $productImage): ?>
-					<?php echo $this->element('admin/products/image', array('productImage' => $productImage)); ?>
-				<?php endforeach; ?>
+    <div class="fieldset-header"><span>Images</span></div>
+    <div class="fieldset-box">
+        <div id="product-images">
+            <!-- <?php //xdebug_break(); ?> -->
+			<?php echo $this->Form->create('StaticpagesImage', array('action' => 'save', 'type' => 'file')); ?>
+                            <?php if (!empty($images)): ?>
+				<?php foreach ($images as $staticpageImageID => $staticpageImage): ?>
+
+            <div class="product-image">
+                <a href="<?php echo $staticpageImage['filename']; ?>">
+                    <img class="product-image-thumb" style="border: 1px solid #ccc; width: 200px;" src="<?php echo $staticpageImage['filename']; ?>" alt="Product Image" />
+                </a>
+                        <?php echo $staticpageImage['title']; ?>
+                        <?php echo ' Resolution: ' . $staticpageImage['original_width'] . ' x ' . $staticpageImage['original_height']; ?>
+                        <?php echo $form->input('StaticpagesImage.id', array('type' => 'hidden', 'value' => $staticpageImage['id'])); ?>
+                        <?php echo $form->input('currentFilename', array('type' => 'hidden', 'value' => $staticpageImage['filename'])); ?>
+                        <?php echo $form->file('StaticpagesImage.filename'); ?>
+                        <?php echo $this->Form->end('Save'); ?>
+            </div>
+			<?php endforeach; ?>
 			<?php endif; ?>
-		</div>
-	</div>
-	<?php // echo $form->submit('Save', array('div' => 'submit stay-left')); ?>
-	<div class="fieldset-header"><span>Upload New Image(s)</span></div>
-	<div class="fieldset-box">
-		<div>
-			<?php echo $form->file('NewProductImage.image'); ?>
-		</div>
-	</div>				
+        </div>
+    </div>
+
 </div>

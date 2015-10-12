@@ -79,7 +79,7 @@ class HomeController extends AppController
                 
                 $this->set('pageimagedata', $this->StaticpagesImage->find('all', 
                 array('conditions' => array('StaticpagesImage.staticpage_id' => '1'))));
-                xdebug_break();
+                
                 // $tmp = $this->Staticpage->find('first', 
                 // array('conditions' => array('Staticpage.name' => 'who_we_are')));
 		

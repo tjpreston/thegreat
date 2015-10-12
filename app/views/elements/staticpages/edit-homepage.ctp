@@ -13,11 +13,8 @@
     echo $this->Form->input('id', array('type' => 'hidden'));
     echo $this->Form->end('Save');
 ?>
-
 <br>
-<div id="header">
-     <h1>Images</h1>
-</div>  
-<?php echo $form->create('StaticpagesImage', array('action' => 'save', 'id' => 'product-form', 'type' => 'file')); ?>
+<?php echo $this->Form->create('StaticpagesImage', array('action' => 'save', 'type' => 'file')); ?> 
 <?php echo $this->element('staticpages/edit-image'); ?>
+ <?php echo $this->Form->end(); ?> 
 
