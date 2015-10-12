@@ -52,6 +52,7 @@ form button {
  */
 .dual,
 form button {
+        // Why is this here? It just breaks the layout - TJP 8/10/15
 	//letter-spacing: -4px;
 	font-size: 17px;
 	text-decoration: none;
