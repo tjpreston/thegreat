@@ -1,3 +1,4 @@
+<?php //xdebug_break(); ?>
 <div id="header">
      
     <h1><?php echo 'Edit ' . h($pagetitle); ?></h1>

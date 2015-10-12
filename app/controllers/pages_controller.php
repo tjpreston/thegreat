@@ -9,10 +9,13 @@ class PagesController extends AppController
 	/**
 	 * An array containing the class names of models this controller uses.
 	 *
+         * In this case we use the Staticpage model as we need to get the
+         * homepage description and images from the staticpages table. - TJP
+         * 
 	 * @var array
 	 * @access public
 	 */
-	public $uses = array();
+	public $uses = array('Staticpage');
 	
 	/**
 	 * Called before the controller action.
@@ -36,7 +39,6 @@ class PagesController extends AppController
 	function display()
 	{
 		$path = func_get_args();
-
 		$count = count($path);
 		if (!$count)
 		{
@@ -52,16 +54,25 @@ class PagesController extends AppController
 		{
 			$subpage = $path[1];
 		}
-		
+		// This is popcorn stuff slight clash of naming but
+                // whatcha gonna do? - TJP 7/10/15 
 		$pages = Configure::read('Static.pages');
 		
 		$this->addCrumb('/pages/' . $page, $pages[$page]);
-		$title_for_layout = $pages[$page];
+		
+                $title_for_layout = $pages[$page];
 		
 		$this->set(compact('page', 'subpage', 'title_for_layout'));
 
 		$this->set('isAjax', $this->RequestHandler->isAjax());
-
+                
+                // Yes this is a hack but I don't care - TJP 7/10/15
+                if(strcmp($title_for_layout,'shop'))
+                {
+                        $title_for_layout = 'Our shop';
+                }
+                $this->set('pagedata', $this->Staticpage->find('first', 
+                array('conditions' => array('Staticpage.name' => $title_for_layout))));
 		//if($this->RequestHandler->isAjax()){
 		//	$this->render('/elements/pages/' . $page);
 		//} else {
