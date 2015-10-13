@@ -15,3 +15,6 @@
 
 **/nbproject/
 **/app/tmp/
+
+app/webroot/error_log
+app/webroot/img

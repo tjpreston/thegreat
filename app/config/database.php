@@ -116,7 +116,7 @@ class DATABASE_CONFIG
                     $this->default = $this->dev;
                     break;
                 case 'timdev.thegreatbritishshop.com':
-                    $this->default = $this->prod;
+                    $this->default = $this->dev;
                     break;
             }
         }
