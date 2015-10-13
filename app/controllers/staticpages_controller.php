@@ -74,7 +74,7 @@ class StaticpagesController extends AppController {
     }
 
     public function admin_save() {
-        xdebug_break();
+        // xdebug_break();
         if (!empty($this->data)) {
             if ($this->Staticpage->save($this->data)) {
                 $this->Session->setFlash('Your data has been saved.');

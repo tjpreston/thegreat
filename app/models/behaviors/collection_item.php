@@ -131,7 +131,7 @@ class CollectionItemBehavior extends ModelBehavior
 		}
 		
                 
-                xdebug_break();
+                // xdebug_break();
                 // this adds item variations i.e. ProductOptionStock nonsense
                 $items = $this->addItemOptions($items);
                 
