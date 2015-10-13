@@ -131,7 +131,7 @@ class CollectionItemBehavior extends ModelBehavior
 		}
 		
                 
-                
+                xdebug_break();
                 // this adds item variations i.e. ProductOptionStock nonsense
                 $items = $this->addItemOptions($items);
                 
@@ -140,6 +140,7 @@ class CollectionItemBehavior extends ModelBehavior
                 // public function afterFind($results, $primary = false) in
                 // the product.php model - TJP 6/10/15
                 $images = array();
+                
                 foreach ($items as $k => $item)
 		{                
                     if(empty($items[$k]['ProductOptionStock'])) // No variations

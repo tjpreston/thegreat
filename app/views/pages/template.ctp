@@ -2,7 +2,7 @@
 	<div id="content" class="grid_24">
 
 		<?php
-                xdebug_break();
+                
                 echo $this->element('pages/' . $page); ?>
 
 		<div id="static-footer">

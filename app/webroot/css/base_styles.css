@@ -80,7 +80,6 @@ h2{
 	font-weight: bold;
 }
 
-
 ul{
 	margin:0px;
 	padding:0px;
@@ -88,6 +87,20 @@ ul{
 ul li{
 	list-style: none
 
+}
+
+.related-products ul {
+   // width: 400px;
+    overflow-x: scroll;
+    white-space: nowrap
+}
+
+.related-products li {
+    display: inline-block;
+
+    /* if you need ie7 support */
+   // *display: inline;
+    zoom: 1
 }
 
 /*

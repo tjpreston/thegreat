@@ -172,7 +172,7 @@ class ProductOptionStock extends AppModel
 
 				
 			}
-			
+			xdebug_break();
 			$results[$k]['ProductOptionStock']['main_tiny_image_path']   = '/img/vars/no-tiny.png';
 			$results[$k]['ProductOptionStock']['main_small_image_path']  = '/img/vars/no-small.png';
 			$results[$k]['ProductOptionStock']['main_thumb_image_path']  = '/img/vars/no-thumb.png';
