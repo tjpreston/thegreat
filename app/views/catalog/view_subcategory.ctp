@@ -5,12 +5,12 @@
 	$catalog->setCategoryUrls($categoryPath);
         
         
-        
-        echo "Execution time: " . $executionTime . " ms"; //value in seconds
+        echo "PHP execution time: " . round(($phpExecutionTime2-$phpExecutionTime1)*1000,0) . " ms" . "<br>";
+        echo "Total find() Execution time: " . $executionTime . " ms"; //value in seconds
         ?>
 <br>
         <?php
-        echo "Look-up execution time: " . $lupExecutionTime . " ms"; //value in seconds
+      //  echo "find() execution time: " . $lupExecutionTime . " ms"; //value in seconds
 	echo $this->element('template/breadcrumbs');
         ?>
 

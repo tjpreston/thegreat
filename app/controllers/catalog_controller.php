@@ -1,5 +1,5 @@
 <?php
-
+$TIMER;
 /**
  * Catalog Controller
  * 
@@ -159,7 +159,8 @@ class CatalogController extends AppController
 	 */
 	public function index()
 	{
-		$this->Product->bindMeta($this->Product, 1, false);
+                $this->set('phpExecutionTime1',  microtime(true));
+                $this->Product->bindMeta($this->Product, 1, false);
 		
 		$language = 1;
 		
@@ -354,7 +355,7 @@ class CatalogController extends AppController
 	 */
 	public function view_category($categoryID = null)
 	{
-                //xdebug_break();
+           
                 $this->notEmptyOr404($categoryID);		
 		$this->Category->bindDescription($this->Category, 0, false);
 		$this->Category->unbindModel(array('hasAndBelongsToMany' => array('Product')), false);
@@ -553,12 +554,14 @@ class CatalogController extends AppController
 			$baseUrl .= $cat['CategoryName']['url'] . '/';
 		}
 		
-               // xdebug_break();
+                
 		$this->set('baseUrl', $baseUrl);
 		$this->set('categoryFamily', $family);
 		
 		$this->_listProducts($conditions);
-		
+
+                $this->set('phpExecutionTime2',  microtime(true));
+                
 		$this->render('view_subcategory');
 
 	}
@@ -1103,19 +1106,19 @@ class CatalogController extends AppController
                 // 2
                 $this->getAvailableManufacturerFilterValues($conditions, getAllExcluding($filterConditions, 'manufacturer'));
 		
-                
+                // Take out all attribute related stuff as bears no relation to the products.
                 // 3
-		$preFilterProducts = $this->getProductsForAttributeLookup($conditions);
+		//$preFilterProducts = $this->getProductsForAttributeLookup($conditions);
                 
 		
                 // 4
-		$attributes = $this->getAvailableAttributes($preFilterProducts);
-		//$attributes = array();
+		//$attributes = $this->getAvailableAttributes($preFilterProducts);
+		$attributes = array();
                 
                 $time1 = microtime(true);
                 // 5 vslow TJP                
-                $attributesToView = $this->getAttributesForView($attributes, $conditions, $filterConditions, $selectedAttributeValues);
-                //$attributesToView = array();
+                //$attributesToView = $this->getAttributesForView($attributes, $conditions, $filterConditions, $selectedAttributeValues);
+                $attributesToView = array();
 		$time2 = microtime(true);
                 $this->set('executionTime', round(($time2-$time1)*1000,0));
                 
