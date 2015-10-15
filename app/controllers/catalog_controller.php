@@ -1059,11 +1059,14 @@ class CatalogController extends AppController
 		$this->getAvailablePriceFilterValues($conditions, getAllExcluding($filterConditions, 'price'), $this->selectedFilters['price']);
 		$this->getAvailableManufacturerFilterValues($conditions, getAllExcluding($filterConditions, 'manufacturer'));
 		
-		$preFilterProducts = $this->getProductsForAttributeLookup($conditions);
-		
-		$attributes = $this->getAvailableAttributes($preFilterProducts);
-		$attributesToView = $this->getAttributesForView($attributes, $conditions, $filterConditions, $selectedAttributeValues);
-
+                
+                // The product attribute system is totally fucked so remove for launch then fix later. TJP
+		//$preFilterProducts = $this->getProductsForAttributeLookup($conditions);		
+		//$attributes = $this->getAvailableAttributes($preFilterProducts);
+		//$attributesToView = $this->getAttributesForView($attributes, $conditions, $filterConditions, $selectedAttributeValues);
+                $attributes = []; // Feel the hack *flowing* through you - Ben Kenobi
+                $attributesToView = [];    
+                
 		// If there are qty 1+ customer group discount tiers we can display them on the list
 		$this->Product->bindSingleQtyDiscount(false);
 		$this->paginate['fields'][] = 'SingleQtyProductPriceDiscount.discount_amount';
