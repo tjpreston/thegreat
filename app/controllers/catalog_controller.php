@@ -354,7 +354,7 @@ class CatalogController extends AppController
 	 */
 	public function view_category($categoryID = null)
 	{
-		$this->notEmptyOr404($categoryID);
+            $this->notEmptyOr404($categoryID);
 		
 		$this->Category->bindDescription($this->Category, 0, false);
 		$this->Category->unbindModel(array('hasAndBelongsToMany' => array('Product')), false);
@@ -530,7 +530,7 @@ class CatalogController extends AppController
 
 	private function display_product_list($path, $pathMinusSelf, $conditions)
 	{
-            //xdebug_break();
+           
                 $rootCatUrl = $path[0]['CategoryName']['url'];
 		$this->set('rootCatUrl', $rootCatUrl);
 
@@ -538,6 +538,7 @@ class CatalogController extends AppController
 		$this->set('pathIDs', $pathIDs);
 		
 		// Get all categories from top level
+                // popcorn had this wrong it was doing all cats
 		foreach ($this->_categories as $k => $cat)
 		{
 			if ($cat['Category']['id'] == $pathIDs[0])
@@ -615,7 +616,6 @@ class CatalogController extends AppController
 		$this->notEmptyOr404($record);
 		
 		$this->_addToRecentlyViewed($id);
-		
 		if (!empty($record['MainCategory']['id']))
 		{
 			$categoryID = $record['MainCategory']['id'];
@@ -1076,13 +1076,22 @@ class CatalogController extends AppController
 		$this->Product->bindSingleQtyDiscount(false);
 		$this->paginate['fields'][] = 'SingleQtyProductPriceDiscount.discount_amount';
 		
-               
+            
                 // For Pete's sake avert your eyes - TJP 19/10/15
 		 if(empty($this->viewVars['record']['Category']['parent_id']) && $inCategory)
                 {
-                     $records = [];
+                     $allRecords = [];
+                    
+                     $this->paginate['limit'] = 1000;
+                    // $categoryFamily = $this->viewVars['categoryFamily'];
+                    // $categoryFamily = [];
+                     //foreach ($this->viewVars['record']['Category'] as $k => $navCat)
+                    // {
+                     //    $categoryFamily[] = $navCat['display_on_main_nav'];
+                     //}
                    // loop over subcategories
-                  foreach ($this->viewVars['categoryFamily'] as $k => $cat)
+                  foreach ($this->viewVars['categoryFamily'] as $k => $cat) //family is wrong fix
+                  //foreach ($categoryFamily as $k => $cat) //family is wrong fix           
                     {
                       $catID = $cat['Category']['id'];  
                       
@@ -1098,28 +1107,40 @@ class CatalogController extends AppController
                       
 		
                       
-                      $records = array_merge($records, $subCatRecords);
+                      $allRecords = array_merge($allRecords, $subCatRecords);
                       
                       
                     }
                     
-                    $this->loadModel('ProductOptionStock');
-		$records = $this->ProductOptionStock->addVarsToProducts($records, 'singleqty');
+                
                     //this really is insanity
-                                    $this->params['paging']['Product'] = [];
+                                   // 
                                         $this->_getLimit();
                     $junk = $this->paginate('Product', $this->getFinalConditions($conditions, $filterConditions));
+                         $this->loadModel('ProductOptionStock');
+		$allRecords = $this->ProductOptionStock->addVarsToProducts($allRecords, 'singleqty');
+                //$this->params['paging']['Product'] = [];
+                
+                $numRecordsOnPage = $this->params['paging']['Product']['current'];
+                $currentPage = $this->params['paging']['Product']['page'];
+                $allRecordsIndex = ($currentPage - 1) * $this->paginate['limit'];
+                
+                $records = array_slice ($allRecords, $allRecordsIndex , $numRecordsOnPage);
+               // if(count($allRecords > 9))
+               // {
+                //    $records = array_slice ($allRecords, 0 , 9 , true);
+               // }
                  }
                  else 
                  {
                     //This returns the array of products to displayed and their order - TJP 16/10/15
-
+                    $this->_getLimit();
                     $records = $this->paginate('Product', $this->getFinalConditions($conditions, $filterConditions));
                     $this->loadModel('ProductOptionStock');
 		$records = $this->ProductOptionStock->addVarsToProducts($records, 'singleqty');
 		
                  }
-                 xdebug_break();
+                 
                 
 		
                 // For Pete's sake avert your eyes - TJP 19/10/15
@@ -2027,7 +2048,8 @@ class CatalogController extends AppController
 	 */
 	private function _getLimit()
 	{
-		$productsPerPage = Configure::read('Catalog.default_products_per_page');
+        
+                $productsPerPage = Configure::read('Catalog.default_products_per_page');
 		$productsPerPageLabel = $productsPerPage;
 		
 		if (!empty($this->params['url']['display']))

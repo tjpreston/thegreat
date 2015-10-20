@@ -403,7 +403,8 @@ class AppController extends Controller
 	 */
 	private function _getCacheSetCategories()
 	{
-		$this->_categories = Cache::read('categories');
+		
+                $this->_categories = Cache::read('categories');
 
 		if ($this->_categories === false)
 		{

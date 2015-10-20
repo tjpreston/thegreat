@@ -1,4 +1,6 @@
 <?php
+//xdebug_break();
+
 if (!isset($onpage) && isset($paginator))
 {
 	$paginatorParams = $paginator->params('Product');
@@ -7,7 +9,7 @@ if (!isset($onpage) && isset($paginator))
 
 $class = array();
 
-$i = 29;
+//$i = $i;
 if((($i) == ($onpage - 1)) || ($i == $onpage) || isset($bottomRow)) {
 	$class[] = 'bottom-row';
 }

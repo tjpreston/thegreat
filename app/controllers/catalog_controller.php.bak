@@ -1111,7 +1111,6 @@ class CatalogController extends AppController
                               array('fields' => 'ProductCategory.sort',
 				'conditions' => $subConditions, 'order' => array('ProductCategory.sort ASC'), 'recursive' => 0
 			));
-                       xdebug_break(); 
                        //$ones = array_fill ( 0 , count($subCatProducts) , 1);
                         
                         $subCatProducts = array_map('intval', $subCatProducts);

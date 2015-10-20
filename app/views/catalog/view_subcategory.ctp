@@ -1,5 +1,5 @@
 <?php
-
+        //xdebug_break();
 	$this->set('body_id', 'sub-category');
 
 	$catalog->setCategoryUrls($categoryPath);
