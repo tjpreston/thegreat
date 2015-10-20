@@ -1031,7 +1031,7 @@ class CatalogController extends AppController
 			$this->paginate['fields'][] = 'ProductDescription.*';
 		}
 		
-		//$this->_getLimit();
+		$this->_getLimit();
 		$this->paginate['order'] = array($sortBy['field'] => strtoupper($orderBy));
 		
 		// $selectedManufacturers = $this->getSelectedFilterValues('man', 'manufacturers');
@@ -1076,13 +1076,26 @@ class CatalogController extends AppController
 		$this->Product->bindSingleQtyDiscount(false);
 		$this->paginate['fields'][] = 'SingleQtyProductPriceDiscount.discount_amount';
 		
-               
+                //xdebug_break();
+                //This returns the array of products to displayed and their order - TJP 16/10/15
+		$records = $this->paginate('Product', $this->getFinalConditions($conditions, $filterConditions));
+		
+                
+                
+		$this->loadModel('ProductOptionStock');
+		$records = $this->ProductOptionStock->addVarsToProducts($records, 'singleqty');
+		
                 // For Pete's sake avert your eyes - TJP 19/10/15
-		 if(empty($this->viewVars['record']['Category']['parent_id']) && $inCategory)
+                  
+                
+                
+                if(empty($this->viewVars['record']['Category']['parent_id']) && $inCategory)
                 {
-                     $records = [];
-                   // loop over subcategories
-                  foreach ($this->viewVars['categoryFamily'] as $k => $cat)
+                   
+                  $sortForProductsInParentCat = [];
+                  $maxSortValue = 0;
+                  // loop over subcategories
+                  foreach ($this->viewVars['categoryFamily'] as $i => $cat)
                     {
                       $catID = $cat['Category']['id'];  
                       
@@ -1093,83 +1106,36 @@ class CatalogController extends AppController
                         array('Product.visibility' => 'catalogsearch') //is active?
                       )
                       );
-                      $subCatRecords = $this->paginate('Product', $this->getFinalConditions($subConditions, $filterConditions));
-                      
-                      
-		
-                      
-                      $records = array_merge($records, $subCatRecords);
-                      
-                      
+                      //returns array of product_ids ordered by the subcategory sort
+                      $subCatProducts = $this->Product->find('list', 
+                              array('fields' => 'ProductCategory.sort',
+				'conditions' => $subConditions, 'order' => array('ProductCategory.sort ASC'), 'recursive' => 0
+			));
+                       xdebug_break(); 
+                       //$ones = array_fill ( 0 , count($subCatProducts) , 1);
+                        
+                        $subCatProducts = array_map('intval', $subCatProducts);
+                        $subCatProductsShifted = $this->addConstantToVector($subCatProducts, $maxSortValue);
+                        $maxSortValue = max($subCatProducts) + 1; 
+                        //$subCatProducts = array_map("array_sum", $subCatProducts, $ones);
+ 
+                        $sortForProductsInParentCat = $sortForProductsInParentCat + $subCatProductsShifted;
                     }
-                    
-                    $this->loadModel('ProductOptionStock');
-		$records = $this->ProductOptionStock->addVarsToProducts($records, 'singleqty');
-                    //this really is insanity
-                                    $this->params['paging']['Product'] = [];
-                                        $this->_getLimit();
-                    $junk = $this->paginate('Product', $this->getFinalConditions($conditions, $filterConditions));
-                 }
-                 else 
-                 {
-                    //This returns the array of products to displayed and their order - TJP 16/10/15
+                   $tmp = count($records);
+                   for ($i = 0; $i < count($records); $i++) {
+           //     $vOut[$i] = $v1[$i] + $v2[$i];
+                       
+                   }
+                     //   $recordsCuratedOrder[] = $record  
+                  //  }                   
+                                
 
-                    $records = $this->paginate('Product', $this->getFinalConditions($conditions, $filterConditions));
-                    $this->loadModel('ProductOptionStock');
-		$records = $this->ProductOptionStock->addVarsToProducts($records, 'singleqty');
-		
-                 }
-                 xdebug_break();
+//foreach ($this->viewVars['categoryFamily'] as $i => $cat)
+                    //{
+                     //   $recordsCuratedOrder[]
+                   // }
+                }
                 
-		
-                // For Pete's sake avert your eyes - TJP 19/10/15
-//                if(empty($this->viewVars['record']['Category']['parent_id']) && $inCategory)
-//                {
-//                   
-//                  $sortForProductsInParentCat = [];
-//                  $maxSortValue = 0;
-//                  // loop over subcategories
-//                  foreach ($this->viewVars['categoryFamily'] as $i => $cat)
-//                    {
-//                      $catID = $cat['Category']['id'];  
-//                      
-//                      $subConditions = array(
-//                    'ProductCategory.category_id' => $catID,
-//                    'OR' => array(
-//                        array('Product.visibility' => 'catalog'), // is active?
-//                        array('Product.visibility' => 'catalogsearch') //is active?
-//                      )
-//                      );
-//                      //returns array of product_ids ordered by the subcategory sort
-//                      $subCatProducts = $this->Product->find('list', 
-//                              array('fields' => 'ProductCategory.sort',
-//				'conditions' => $subConditions, 'order' => array('ProductCategory.sort ASC'), 'recursive' => 0
-//			));
-//                       xdebug_break(); 
-//                       //$ones = array_fill ( 0 , count($subCatProducts) , 1);
-//                        
-//                        $subCatProducts = array_map('intval', $subCatProducts);
-//                        $subCatProductsShifted = $this->addConstantToVector($subCatProducts, $maxSortValue);
-//                        $maxSortValue = max($subCatProducts) + 1; 
-//                        //$subCatProducts = array_map("array_sum", $subCatProducts, $ones);
-// 
-//                        $sortForProductsInParentCat = $sortForProductsInParentCat + $subCatProductsShifted;
-//                    }
-//                   $tmp = count($records);
-//                   for ($i = 0; $i < count($records); $i++) {
-//           //     $vOut[$i] = $v1[$i] + $v2[$i];
-//                       
-//                   }
-//                     //   $recordsCuratedOrder[] = $record  
-//                  //  }                   
-//                                
-//
-////foreach ($this->viewVars['categoryFamily'] as $i => $cat)
-//                    //{
-//                     //   $recordsCuratedOrder[]
-//                   // }
-//                }
-//                
 		$this->set('allAttributes', $attributes);
 		$this->set('availableAttributes', $attributesToView);
 		$this->set('products', $records);

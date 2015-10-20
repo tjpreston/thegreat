@@ -1,5 +1,6 @@
 <?php
-	$this->set('body_id', 'category');
+xdebug_break();
+$this->set('body_id', 'category');
 
 	echo $this->element('template/breadcrumbs');
 ?>

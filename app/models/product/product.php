@@ -520,7 +520,8 @@ class Product extends AppModel
 	 */
 	public function paginateCount($conditions = null, $recursive = 0, $extra = array())
 	{
-	    $parameters = compact('conditions', 'recursive');
+	    
+            $parameters = compact('conditions', 'recursive');
 	    $count = $this->find('count', array_merge($parameters, $extra));
 	    if (isset($extra['group']))
 		{
