@@ -1,5 +1,5 @@
 <?php
-$TIMER;
+$zTIMER;
 /**
  * Catalog Controller
  * 
