@@ -1,16 +1,13 @@
 <?php
-        //xdebug_break();
+        
 	$this->set('body_id', 'sub-category');
 
 	$catalog->setCategoryUrls($categoryPath);
-        
-        
-        echo "PHP execution time: " . round(($phpExecutionTime2-$phpExecutionTime1)*1000,0) . " ms" . "<br>";
-        echo "Total find() Execution time: " . $executionTime . " ms"; //value in seconds
+    
         ?>
-<br>
+
         <?php
-      //  echo "find() execution time: " . $lupExecutionTime . " ms"; //value in seconds
+     
 	echo $this->element('template/breadcrumbs');
         ?>
 

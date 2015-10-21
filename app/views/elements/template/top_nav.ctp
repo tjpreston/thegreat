@@ -2,7 +2,7 @@
 	
         <?php
         // Uncomment to echo execution time at top of page
-        /*
+        
         if(isset($phpExecutionTime1, $phpExecutionTime2))
         {
            
@@ -16,7 +16,7 @@
          
         }
          
-         */
+         
         ?>
     
         <nav id="account-nav">
