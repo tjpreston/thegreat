@@ -159,7 +159,8 @@ class CatalogController extends AppController
 	 */
 	public function index()
 	{
-		$this->Product->bindMeta($this->Product, 1, false);
+		//$this->set('phpExecutionTime1',  microtime(true));
+                $this->Product->bindMeta($this->Product, 1, false);
 		
 		$language = 1;
 		
@@ -523,7 +524,6 @@ class CatalogController extends AppController
 		}
 		
 		$this->set(compact('categoryFeaturedProducts', 'baseUrl'));
-
 		$this->render('view_category');
 		
 	}
@@ -559,6 +559,8 @@ class CatalogController extends AppController
 		$this->set('categoryFamily', $family);
 		
 		$this->_listProducts($conditions);
+
+                //$this->set('phpExecutionTime2',  microtime(true));
 		
 		$this->render('view_subcategory');
 
@@ -1078,66 +1080,47 @@ class CatalogController extends AppController
 		
             
                 // For Pete's sake avert your eyes - TJP 19/10/15
-		 if(empty($this->viewVars['record']['Category']['parent_id']) && $inCategory)
+		if(empty($this->viewVars['record']['Category']['parent_id']) && $inCategory)
                 {
                      $allRecords = [];
                     
-                     $this->paginate['limit'] = 1000;
-                    // $categoryFamily = $this->viewVars['categoryFamily'];
-                    // $categoryFamily = [];
-                     //foreach ($this->viewVars['record']['Category'] as $k => $navCat)
-                    // {
-                     //    $categoryFamily[] = $navCat['display_on_main_nav'];
-                     //}
-                   // loop over subcategories
-                  foreach ($this->viewVars['categoryFamily'] as $k => $cat) //family is wrong fix
-                  //foreach ($categoryFamily as $k => $cat) //family is wrong fix           
+                     $this->paginate['limit'] = 1000; // We need to get back the whole subcategory             
+                    // loop over subcategories
+                    foreach ($this->viewVars['categoryFamily'] as $k => $cat)                           
                     {
-                      $catID = $cat['Category']['id'];  
+                        $catID = $cat['Category']['id'];  
                       
-                      $subConditions = array(
-                    'ProductCategory.category_id' => $catID,
-                    'OR' => array(
+                        $subConditions = array(
+                        'ProductCategory.category_id' => $catID,
+                        'OR' => array(
                         array('Product.visibility' => 'catalog'), // is active?
                         array('Product.visibility' => 'catalogsearch') //is active?
-                      )
-                      );
-                      $subCatRecords = $this->paginate('Product', $this->getFinalConditions($subConditions, $filterConditions));
-                      
-                      
-		
-                      
-                      $allRecords = array_merge($allRecords, $subCatRecords);
-                      
+                        ));
+                        
+                        $subCatRecords = $this->paginate('Product', $this->getFinalConditions($subConditions, $filterConditions));
+                        $allRecords = array_merge($allRecords, $subCatRecords);
                       
                     }
-                    
-                
                     //this really is insanity
-                                   // 
-                                        $this->_getLimit();
+                    $this->_getLimit();
                     $junk = $this->paginate('Product', $this->getFinalConditions($conditions, $filterConditions));
-                         $this->loadModel('ProductOptionStock');
-		$allRecords = $this->ProductOptionStock->addVarsToProducts($allRecords, 'singleqty');
-                //$this->params['paging']['Product'] = [];
+                    $this->loadModel('ProductOptionStock');
+                    $allRecords = $this->ProductOptionStock->addVarsToProducts($allRecords, 'singleqty');
+               
                 
-                $numRecordsOnPage = $this->params['paging']['Product']['current'];
-                $currentPage = $this->params['paging']['Product']['page'];
-                $allRecordsIndex = ($currentPage - 1) * $this->paginate['limit'];
-                
-                $records = array_slice ($allRecords, $allRecordsIndex , $numRecordsOnPage);
-               // if(count($allRecords > 9))
-               // {
-                //    $records = array_slice ($allRecords, 0 , 9 , true);
-               // }
+                    $numRecordsOnPage = $this->params['paging']['Product']['current'];
+                    $currentPage = $this->params['paging']['Product']['page'];
+                    $allRecordsIndex = ($currentPage - 1) * $this->paginate['limit'];
+
+                    $records = array_slice ($allRecords, $allRecordsIndex , $numRecordsOnPage);
                  }
                  else 
                  {
-                    //This returns the array of products to displayed and their order - TJP 16/10/15
+                    //This returns the array of products to displayed and their order -( commented) TJP 16/10/15
                     $this->_getLimit();
                     $records = $this->paginate('Product', $this->getFinalConditions($conditions, $filterConditions));
                     $this->loadModel('ProductOptionStock');
-		$records = $this->ProductOptionStock->addVarsToProducts($records, 'singleqty');
+                    $records = $this->ProductOptionStock->addVarsToProducts($records, 'singleqty');
 		
                  }
                  
