@@ -1,5 +1,5 @@
 <?php
-$zTIMER;
+
 /**
  * Catalog Controller
  * 
@@ -159,7 +159,7 @@ class CatalogController extends AppController
 	 */
 	public function index()
 	{
-		$this->set('phpExecutionTime1',  microtime(true));
+		//$this->set('phpExecutionTime1',  microtime(true));
                 $this->Product->bindMeta($this->Product, 1, false);
 		
 		$language = 1;
@@ -355,8 +355,8 @@ class CatalogController extends AppController
 	 */
 	public function view_category($categoryID = null)
 	{
-           
-                $this->notEmptyOr404($categoryID);		
+            $this->notEmptyOr404($categoryID);
+		
 		$this->Category->bindDescription($this->Category, 0, false);
 		$this->Category->unbindModel(array('hasAndBelongsToMany' => array('Product')), false);
 		
@@ -555,13 +555,12 @@ class CatalogController extends AppController
 			$baseUrl .= $cat['CategoryName']['url'] . '/';
 		}
 		
-                
 		$this->set('baseUrl', $baseUrl);
 		$this->set('categoryFamily', $family);
 		
 		$this->_listProducts($conditions);
 
-                $this->set('phpExecutionTime2',  microtime(true));
+                //$this->set('phpExecutionTime2',  microtime(true));
 		
 		$this->render('view_subcategory');
 
@@ -980,42 +979,16 @@ class CatalogController extends AppController
 
 	}
 	
-        
-        
-        public function doBenchmark($clear = false) {
-        static $stime;
-        $ru = getrusage();
-        $currentTime = $ru['ru_stime.tv_sec'] +
-                round($ru['ru_stime.tv_usec'] / 1000, 4);
-        if ($stime && !$clear) {
-            $benchmark = $currentTime - $stime;
-            echo "Benchmark: {$benchmark
-        } s\n";
-    }
-    $stime = $currentTime;
-}
-
-
-
-
-
-
-
-/**
+	/**
 	 * Common method for listing products.
 	 * 
 	 * @param array $conditions
 	 * @return void
 	 * @access private
-         * 
-         * Slow as shit needs to be fixed
-         * 
-         * 
 	 */
 	private function _listProducts($conditions, $inCategory = true)
 	{
-                //xdebug_break();
-                $this->Product->unbindModel(array('hasAndBelongsToMany' => array('Category')), false);		
+		$this->Product->unbindModel(array('hasAndBelongsToMany' => array('Category')), false);		
 		$this->Product->bindModel(array('hasOne' => array('ProductCategory')), false);
 		$this->Product->bindAttributes($this->Product, false);
 		
@@ -1063,7 +1036,6 @@ class CatalogController extends AppController
 		//$this->_getLimit();
 		$this->paginate['order'] = array($sortBy['field'] => strtoupper($orderBy));
 		
-                // This was commented out by original "developer"
 		// $selectedManufacturers = $this->getSelectedFilterValues('man', 'manufacturers');
 		// $selectedPrices = $this->getSelectedFilterValues('price', 'price_ranges');
 		// $selectedAttributes = $this->getSelectedFilterValues('attr', 'attributes');
@@ -1078,22 +1050,12 @@ class CatalogController extends AppController
 		}
 		
 		$this->set('selectedManufacturers', $this->selectedFilters['manufacturer']);
-		xdebug_break();
-                
-  //              $this->doBenchmark();
-              // $time1 = microtime(true);
-
-
-                // Starting from here it gets real slow - TJP
-                // Get price and manufacturer filter conditions
+		
+		// Get price and manufacturer filter conditions
 		$filterConditions = array();
 		$filterConditions['price'] = $this->_getPriceRangeFilterConditions($this->selectedFilters['price']);
 		$filterConditions['manufacturer'] = $this->_getManufacturerFilterConditions($this->selectedFilters['manufacturer']);
 		
-                
- 
-                
-                
 		// Get selected attribute values and index into array
 		$selectedAttributeValues = $this->indexAttributeFilterValues($this->selectedFilters['attribute']);
 		
@@ -1263,8 +1225,7 @@ class CatalogController extends AppController
 	
 	private function getAttributesForView($attributes, $conditions, $filterConditions, $selectedAttributeValues)
 	{
-                xdebug_break();
-                $attributeIDs = Set::extract('{n}.Attribute.id', $attributes);
+		$attributeIDs = Set::extract('{n}.Attribute.id', $attributes);
 		
 		$c2 = getAllExcluding($filterConditions, 'attribute');
 		
@@ -1300,23 +1261,18 @@ class CatalogController extends AppController
 	
 	private function getProductsForAttributeLookup($conditions)
 	{
-	xdebug_break();	
-            $this->Product->unbindModel(array(
+		$this->Product->unbindModel(array(
 			//'hasOne' => array('ProductDescription', 'ProductMeta', 'Category'),
 			'hasOne' => array('ProductMeta', 'Category'),
 			'hasMany' => array('ProductImage')
 		));
 		
-            
-                // This is the bit which depends on all products and is called (effectively) multiple times by _listProducts -TJP
-            $luptime1 = microtime(true);
-            $products = $this->Product->find('all', array(
+		$products = $this->Product->find('all', array(
 			'fields' => array('Product.id', 'Product.manufacturer_id', 'Product.attribute_set_id'),
 			'conditions' => $conditions,
 			'group' => array('Product.id')
 		));
-		$luptime2 = microtime(true);
-                $this->set('lupExecutionTime', round(($luptime2-$luptime1)*1000,0));
+		
 		return $products;
 		
 	}
