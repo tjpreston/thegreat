@@ -159,7 +159,7 @@ class CatalogController extends AppController
 	 */
 	public function index()
 	{
-		//$this->set('phpExecutionTime1',  microtime(true));
+                $this->set('phpExecutionTime1',  microtime(true));
                 $this->Product->bindMeta($this->Product, 1, false);
 		
 		$language = 1;
@@ -560,7 +560,7 @@ class CatalogController extends AppController
 		
 		$this->_listProducts($conditions);
 
-                //$this->set('phpExecutionTime2',  microtime(true));
+                $this->set('phpExecutionTime2',  microtime(true));
 		
 		$this->render('view_subcategory');
 
