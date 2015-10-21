@@ -1,4 +1,5 @@
 <?php if (!empty($products)): ?>
+<?php //xdebug_break(); ?>
 	<?php echo $this->element('catalog/product_list/product_nav', array('pos' => 'top')); ?>
 
 	<div id="listing" class="clearfix">
@@ -8,6 +9,7 @@
 				'product' => $product,
 				'i' => $k + 1
 			)); ?>
+            
 			<?php //echo (($i % 3 == 0) && ($i < $count)) ? '<div style="clear: both;"></div>' : ''; ?>
 			<?php $i++; ?>
 

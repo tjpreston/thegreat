@@ -224,11 +224,12 @@
 	<div class="right">
 		<?php echo $form->button('<span class="face1">Continue</span> <span class="face2">To Payment</span>', array('class' => 'send-button', 'div' => false, 'style' => 'margin-top:10px', 'class' => 'dual')); ?>
 	</div>
-	<div class="checkout-row" style="margin-bottom: 0; margin-top: 30px;">
-		<img class="cards-img" src="/img/accepted-cards.png"><a href="http://www.worldpay.com/" target="_blank" title="Payment Processing - WorldPay - Opens in new browser window"><img src="/img/icons/worldpay.png" class="left" /></a>
-		<!-- PayPal Logo --><img src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-100px.png" style="margin-top:13px;" alt="PayPal Logo"></a><!-- PayPal Logo -->
-		<div class="arrow-right"></div>
+	<div class="checkout-row">
+			<img class="cards-img" src="/img/accepted-cards.png" />
+			<!-- PayPal Logo --><img src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-100px.png" class="paypal-img";" alt="PayPal Logo"></a><!-- PayPal Logo -->
+			<div class="arrow-right"></div>
 	</div>
+        <div style="float: left;"><span class="face1">Powered by:</span><span  style="float: right; padding-right: 560px;"><a href="http://www.worldpay.com/" target="_blank" title="Payment Processing - WorldPay - Opens in new browser window"><img style="padding-left: 5px" src="/img/icons/worldpay.png" /></a></span>
 
 	<?php echo $form->end(); ?>
 	

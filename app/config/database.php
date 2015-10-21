@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This is core configuration file.
  *
@@ -25,22 +26,23 @@
  * @package       cake
  * @subpackage    cake.config
  */
+
 /**
  * Database configuration class.
  * You can specify multiple configurations for production, development and testing.
  *
  * driver => The name of a supported driver; valid options are as follows:
- *		mysql 		- MySQL 4 & 5,
- *		mysqli 		- MySQL 4 & 5 Improved Interface (PHP5 only),
- *		sqlite		- SQLite (PHP5 only),
- *		postgres	- PostgreSQL 7 and higher,
- *		mssql		- Microsoft SQL Server 2000 and higher,
- *		db2			- IBM DB2, Cloudscape, and Apache Derby (http://php.net/ibm-db2)
- *		oracle		- Oracle 8 and higher
- *		firebird	- Firebird/Interbase
- *		sybase		- Sybase ASE
- *		adodb-[drivername]	- ADOdb interface wrapper (see below),
- *		odbc		- ODBC DBO driver
+ * 		mysql 		- MySQL 4 & 5,
+ * 		mysqli 		- MySQL 4 & 5 Improved Interface (PHP5 only),
+ * 		sqlite		- SQLite (PHP5 only),
+ * 		postgres	- PostgreSQL 7 and higher,
+ * 		mssql		- Microsoft SQL Server 2000 and higher,
+ * 		db2			- IBM DB2, Cloudscape, and Apache Derby (http://php.net/ibm-db2)
+ * 		oracle		- Oracle 8 and higher
+ * 		firebird	- Firebird/Interbase
+ * 		sybase		- Sybase ASE
+ * 		adodb-[drivername]	- ADOdb interface wrapper (see below),
+ * 		odbc		- ODBC DBO driver
  *
  * You can add custom database drivers (or override existing drivers) by adding the
  * appropriate file to app/models/datasources/dbo.  Drivers should be named 'dbo_x.php',
@@ -51,8 +53,8 @@
  *
  * connect =>
  * ADOdb set the connect to one of these
- *	(http://phplens.com/adodb/supported.databases.html) and
- *	append it '|p' for persistent connection. (mssql|p for example, or just mssql for not persistent)
+ * 	(http://phplens.com/adodb/supported.databases.html) and
+ * 	append it '|p' for persistent connection. (mssql|p for example, or just mssql for not persistent)
  * For all other databases, this setting is deprecated.
  *
  * host =>
@@ -71,59 +73,81 @@
  * database.  Uses database default.
  *
  */
-class DATABASE_CONFIG 
-{
+class DATABASE_CONFIG {
 
-	var $mother = array(
-		'driver' => 'mysql',
-		'persistent' => false,
-		'host' => 'localhost',
-		'login' => 'thegreat_mysql',
-		'password' => 'eMcB6+t#e0JD',
-		'database' => 'thegreat_shop',
-		'prefix' => ''
-	);
+    //initalize variable as null
+    var $default = null;
+    var $prod = array(
+        'driver' => 'mysql',
+        'persistent' => false,
+        'host' => 'localhost',
+        'login' => 'thegreat_mysql',
+        'password' => 'eMcB6+t#e0JD',
+        'database' => 'thegreat_shop',
+        'prefix' => ''
+    );
+    var $dev = array(
+        'driver' => 'mysql',
+        'persistent' => false,
+        'host' => 'localhost',
+        'login' => 'thegreat_mysql',
+        'password' => 'eMcB6+t#e0JD',
+        'database' => 'thegreat_shop_dev',
+        'prefix' => ''
+    );
 
-	var $popdev = array(
-		'driver' => 'mysql',
-		'persistent' => false,
-		'host' => 'localhost',
-		'login' => 'thegreat_mysql',
-		'password' => 'eMcB6+t#e0JD',
-		'database' => 'thegreat_shop',
-		'prefix' => ''
-	);
-	
-	// var $live = array(
-	// 	'driver' => 'mysql',
-	// 	'persistent' => false,
-	// 	'host' => 'localhost',
-	// 	'login' => '',
-	// 	'password' => '',
-	// 	'database' => '',
-	// 	'prefix' => ''	
-	// );
+    // var $live = array(
+    // 	'driver' => 'mysql',
+    // 	'persistent' => false,
+    // 	'host' => 'localhost',
+    // 	'login' => '',
+    // 	'password' => '',
+    // 	'database' => '',
+    // 	'prefix' => ''	
+    // );
 
-	/** Figure out where we are */
-	public function __construct(){
-		if(isset($_SERVER['SHELL'])){
-			// if(function_exists('gethostname') && gethostname() == 'mother'){
-				$this->default = $this->mother;
-			// } else {
-				// $this->default = $this->live;
-			// }
-		} else {
-			$domain = $_SERVER['SERVER_NAME'];
+    /** Figure out where we are */
+    function __construct() {
+        if (isset($_SERVER['SERVER_NAME'])) {
+            switch ($_SERVER['SERVER_NAME']) {
+                case 'localhost':
+                    $this->default = $this->dev;
+                    break;
+                case 'timdev.thegreatbritishshop.com':
+                    $this->default = $this->dev;
+                    break;
+                case 'dev.thegreatbritishshop.com':
+                    $this->default = $this->dev;
+                    break;
+                case 'thegreatbritishshop.com':
+                case 'thegreatbritishshop.co.uk':
+                case 'greatbritishshop.co.uk':
+                    $this->default = $this->prod;
+                    break;
+            }
+        }
+    }
 
-			if(stristr($domain, '.popcorndev.co.uk') !== false){
-				$this->default = $this->popdev;
-			} else if(stristr($domain, '.devel') !== false){
-				$this->default = $this->mother;
-			} else {
-				$this->default = $this->mother;
-			}
-		}
-	}
-	
+    /** Figure out where we are */
+    // Popcorn's way - TJP 7/10/15
+//	public function __construct(){
+//            xdebug_break();
+//		if(isset($_SERVER['SHELL'])){
+//			// if(function_exists('gethostname') && gethostname() == 'mother'){
+//				$this->default = $this->mother;
+//			// } else {
+//				// $this->default = $this->live;
+//			// }
+//		} else {
+//			$domain = $_SERVER['SERVER_NAME'];
+//
+//			if(stristr($domain, '.popcorndev.co.uk') !== false){
+//				$this->default = $this->popdev;
+//			} else if(stristr($domain, '.devel') !== false){
+//				$this->default = $this->mother;
+//			} else {
+//				$this->default = $this->mother;
+//			}
+//		}
+//	}
 }
-	

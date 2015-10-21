@@ -129,7 +129,8 @@ class Product extends AppModel
 	 */
 	public function afterFind($results, $primary = false) 
 	{
-		if (empty($results) || !isset($results[0]['Product']))
+            //xdebug_break();
+                if (empty($results) || !isset($results[0]['Product']))
 		{
 			return $results;
 		}
@@ -519,7 +520,8 @@ class Product extends AppModel
 	 */
 	public function paginateCount($conditions = null, $recursive = 0, $extra = array())
 	{
-	    $parameters = compact('conditions', 'recursive');
+	    
+            $parameters = compact('conditions', 'recursive');
 	    $count = $this->find('count', array_merge($parameters, $extra));
 	    if (isset($extra['group']))
 		{

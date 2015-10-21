@@ -1,4 +1,5 @@
 <?php
+//xdebug_break();
 
 if (!isset($onpage) && isset($paginator))
 {
@@ -8,6 +9,7 @@ if (!isset($onpage) && isset($paginator))
 
 $class = array();
 
+//$i = $i;
 if((($i) == ($onpage - 1)) || ($i == $onpage) || isset($bottomRow)) {
 	$class[] = 'bottom-row';
 }
@@ -30,9 +32,9 @@ $class[] = 'grid_6';
 	<div class="list-item-details">
 		<h2 class="border-top-bottom">
 			<a href="<?php echo $this->Catalog->getProductUrl($product); ?>" title="<?php echo h($product['ProductName']['name']); ?>">
-				<?php echo $text->truncate(h($product['ProductName']['name']), 30, array(
+				<?php echo $text->truncate(($product['ProductName']['name']), 30, array(
 					'ending' => '...',
-					'exact' => true
+					'exact' => false
 				)); ?>
 			</a>
 		</h2>

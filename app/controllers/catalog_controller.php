@@ -524,20 +524,21 @@ class CatalogController extends AppController
 		}
 		
 		$this->set(compact('categoryFeaturedProducts', 'baseUrl'));
-
 		$this->render('view_category');
 		
 	}
 
 	private function display_product_list($path, $pathMinusSelf, $conditions)
 	{
-		$rootCatUrl = $path[0]['CategoryName']['url'];
+           
+                $rootCatUrl = $path[0]['CategoryName']['url'];
 		$this->set('rootCatUrl', $rootCatUrl);
 
 		$pathIDs = Set::extract('{n}.Category.id', $path);
 		$this->set('pathIDs', $pathIDs);
 		
 		// Get all categories from top level
+                // popcorn had this wrong it was doing all cats
 		foreach ($this->_categories as $k => $cat)
 		{
 			if ($cat['Category']['id'] == $pathIDs[0])
@@ -618,7 +619,6 @@ class CatalogController extends AppController
 		$this->notEmptyOr404($record);
 		
 		$this->_addToRecentlyViewed($id);
-		
 		if (!empty($record['MainCategory']['id']))
 		{
 			$categoryID = $record['MainCategory']['id'];
@@ -1019,6 +1019,7 @@ class CatalogController extends AppController
 		$this->Product->bindModel(array('hasOne' => array('ProductCategory')), false);
 		$this->Product->bindAttributes($this->Product, false);
 		
+                //xdebug_break();
 		if (isset($this->params['url']['removesort']))
 		{
 			$this->Cookie->write('Catalog.sortby', '');
@@ -1034,8 +1035,11 @@ class CatalogController extends AppController
 		
 		$this->_getUrlParamAndSetCookie('sortby');
 		$this->_getUrlParamAndSetCookie('orderby');
-		$sortBy = $this->_getSortBy($inCategory);
-		$orderByCookie = $this->Cookie->read('Catalog.orderby');
+		
+                // Returns how to sort which can be 'default', 'name' or 'price' - TJP 16/10/15
+                $sortBy = $this->_getSortBy($inCategory);
+		
+                $orderByCookie = $this->Cookie->read('Catalog.orderby');
 		$orderBy = (!empty($orderByCookie) && in_array($orderByCookie, array('asc', 'desc'))) ? $orderByCookie : 'asc';
 		
 		$this->paginate['fields'] = array(
@@ -1056,7 +1060,7 @@ class CatalogController extends AppController
 			$this->paginate['fields'][] = 'ProductDescription.*';
 		}
 		
-		$this->_getLimit();
+		//$this->_getLimit();
 		$this->paginate['order'] = array($sortBy['field'] => strtoupper($orderBy));
 		
                 // This was commented out by original "developer"
@@ -1097,48 +1101,117 @@ class CatalogController extends AppController
 		$filterConditions['attribute'] = $this->_getAttributeFilterConditions($selectedAttributeValues);
 		
 		// Get filter values for display in product list panels
-		// If 1-5 are commented out then load time is fine and sorting still works
-              
-                // 1
-                $this->getAvailablePriceFilterValues($conditions, getAllExcluding($filterConditions, 'price'), $this->selectedFilters['price']);
+		$this->getAvailablePriceFilterValues($conditions, getAllExcluding($filterConditions, 'price'), $this->selectedFilters['price']);
+		$this->getAvailableManufacturerFilterValues($conditions, getAllExcluding($filterConditions, 'manufacturer'));
 		
                 
-                // 2
-                $this->getAvailableManufacturerFilterValues($conditions, getAllExcluding($filterConditions, 'manufacturer'));
-		
-                // Take out all attribute related stuff as bears no relation to the products.
-                // 3
-		//$preFilterProducts = $this->getProductsForAttributeLookup($conditions);
-                
-		
-                // 4
+                // The product attribute system is totally fucked so remove for launch then fix later. TJP
+		//$preFilterProducts = $this->getProductsForAttributeLookup($conditions);		
 		//$attributes = $this->getAvailableAttributes($preFilterProducts);
-		$attributes = array();
+		//$attributesToView = $this->getAttributesForView($attributes, $conditions, $filterConditions, $selectedAttributeValues);
+                $attributes = []; // Feel the hack *flowing* through you - Ben Kenobi
+                $attributesToView = [];    
                 
-                $time1 = microtime(true);
-                // 5 vslow TJP                
-                //$attributesToView = $this->getAttributesForView($attributes, $conditions, $filterConditions, $selectedAttributeValues);
-                $attributesToView = array();
-		$time2 = microtime(true);
-                $this->set('executionTime', round(($time2-$time1)*1000,0));
-                
-//                $time2 = microtime(true);
-//                $this->set('executionTime', round(($time2-$time1)*1000,0));
-//               // echo "script execution time ms: " . round(($time2-$time1)*1000,4); //value in seconds
-                
-//                $this->doBenchmark();
-               
-                
-// If there are qty 1+ customer group discount tiers we can display them on the list
+		// If there are qty 1+ customer group discount tiers we can display them on the list
 		$this->Product->bindSingleQtyDiscount(false);
 		$this->paginate['fields'][] = 'SingleQtyProductPriceDiscount.discount_amount';
 		
-		$records = $this->paginate('Product', $this->getFinalConditions($conditions, $filterConditions));
-		
-		$this->loadModel('ProductOptionStock');
-		$records = $this->ProductOptionStock->addVarsToProducts($records, 'singleqty');
-		
+            
+                // For Pete's sake avert your eyes - TJP 19/10/15
+		if(empty($this->viewVars['record']['Category']['parent_id']) && $inCategory)
+                {
+                     $allRecords = [];
+                    
+                     $this->paginate['limit'] = 1000; // We need to get back the whole subcategory             
+                    // loop over subcategories
+                    foreach ($this->viewVars['categoryFamily'] as $k => $cat)                           
+                    {
+                        $catID = $cat['Category']['id'];  
+                      
+                        $subConditions = array(
+                        'ProductCategory.category_id' => $catID,
+                        'OR' => array(
+                        array('Product.visibility' => 'catalog'), // is active?
+                        array('Product.visibility' => 'catalogsearch') //is active?
+                        ));
+                        
+                        $subCatRecords = $this->paginate('Product', $this->getFinalConditions($subConditions, $filterConditions));
+                        $allRecords = array_merge($allRecords, $subCatRecords);
+                      
+                    }
+                    //this really is insanity
+                    $this->_getLimit();
+                    $junk = $this->paginate('Product', $this->getFinalConditions($conditions, $filterConditions));
+                    $this->loadModel('ProductOptionStock');
+                    $allRecords = $this->ProductOptionStock->addVarsToProducts($allRecords, 'singleqty');
+               
                 
+                    $numRecordsOnPage = $this->params['paging']['Product']['current'];
+                    $currentPage = $this->params['paging']['Product']['page'];
+                    $allRecordsIndex = ($currentPage - 1) * $this->paginate['limit'];
+
+                    $records = array_slice ($allRecords, $allRecordsIndex , $numRecordsOnPage);
+                 }
+                 else 
+                 {
+                    //This returns the array of products to displayed and their order -( commented) TJP 16/10/15
+                    $this->_getLimit();
+                    $records = $this->paginate('Product', $this->getFinalConditions($conditions, $filterConditions));
+                    $this->loadModel('ProductOptionStock');
+                    $records = $this->ProductOptionStock->addVarsToProducts($records, 'singleqty');
+		
+                 }
+                 
+                
+		
+                // For Pete's sake avert your eyes - TJP 19/10/15
+//                if(empty($this->viewVars['record']['Category']['parent_id']) && $inCategory)
+//                {
+//                   
+//                  $sortForProductsInParentCat = [];
+//                  $maxSortValue = 0;
+//                  // loop over subcategories
+//                  foreach ($this->viewVars['categoryFamily'] as $i => $cat)
+//                    {
+//                      $catID = $cat['Category']['id'];  
+//                      
+//                      $subConditions = array(
+//                    'ProductCategory.category_id' => $catID,
+//                    'OR' => array(
+//                        array('Product.visibility' => 'catalog'), // is active?
+//                        array('Product.visibility' => 'catalogsearch') //is active?
+//                      )
+//                      );
+//                      //returns array of product_ids ordered by the subcategory sort
+//                      $subCatProducts = $this->Product->find('list', 
+//                              array('fields' => 'ProductCategory.sort',
+//				'conditions' => $subConditions, 'order' => array('ProductCategory.sort ASC'), 'recursive' => 0
+//			));
+//                       xdebug_break(); 
+//                       //$ones = array_fill ( 0 , count($subCatProducts) , 1);
+//                        
+//                        $subCatProducts = array_map('intval', $subCatProducts);
+//                        $subCatProductsShifted = $this->addConstantToVector($subCatProducts, $maxSortValue);
+//                        $maxSortValue = max($subCatProducts) + 1; 
+//                        //$subCatProducts = array_map("array_sum", $subCatProducts, $ones);
+// 
+//                        $sortForProductsInParentCat = $sortForProductsInParentCat + $subCatProductsShifted;
+//                    }
+//                   $tmp = count($records);
+//                   for ($i = 0; $i < count($records); $i++) {
+//           //     $vOut[$i] = $v1[$i] + $v2[$i];
+//                       
+//                   }
+//                     //   $recordsCuratedOrder[] = $record  
+//                  //  }                   
+//                                
+//
+////foreach ($this->viewVars['categoryFamily'] as $i => $cat)
+//                    //{
+//                     //   $recordsCuratedOrder[]
+//                   // }
+//                }
+//                
 		$this->set('allAttributes', $attributes);
 		$this->set('availableAttributes', $attributesToView);
 		$this->set('products', $records);
@@ -2002,7 +2075,8 @@ class CatalogController extends AppController
 	 */
 	private function _getLimit()
 	{
-		$productsPerPage = Configure::read('Catalog.default_products_per_page');
+        
+                $productsPerPage = Configure::read('Catalog.default_products_per_page');
 		$productsPerPageLabel = $productsPerPage;
 		
 		if (!empty($this->params['url']['display']))
@@ -2112,7 +2186,25 @@ class CatalogController extends AppController
 			$url .= '/' . $cat['CategoryName']['url'];
 			$this->addCrumb($url, $cat['CategoryName']['name']);
 		}
-	}	
+	}
+        
+        private function addConstantToVector($v1, $valToAdd)
+        {
+            
+            $vOut = array();
+            $acc = 0;
+            
+            //for ($i = 0; $i < count($v1); $i++) {
+           //     $vOut[$i] = $v1[$i] + $v2[$i];
+            //}            
+            foreach($v1 as $k => $arrayValue)
+            {
+               
+                    $vOut[$k] = $arrayValue + $valToAdd;
+                
+            }
+            return $vOut;
+        }        
 	
 }
 

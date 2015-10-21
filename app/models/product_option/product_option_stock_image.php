@@ -18,7 +18,7 @@ class ProductOptionStockImage extends AppModel
 	public function afterFind($results, $primary)
 	{
 		$types = array('large','medium', 'small', 'thumb', 'tiny');
-
+                // xdebug_break();
 		foreach ($results as $k => $result)
 		{
 			if (empty($result['ProductOptionStockImage']['id']) || empty($result['ProductOptionStockImage']['ext']))

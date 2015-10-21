@@ -139,13 +139,32 @@ class ProductImage extends AppModel
 		return $images;
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+            /**
+         * Get product images for basket
+         * 
+         * This is a horrific hack to get around the broken basket code I
+         * inheirited - TJP 6/10/15  
+         * 
+         * 
+         * @param int $productID
+         * @return array $images
+         * @access public
+         */
+        public function getImagesForBasket($productID) {
+            $records = $this->find('all', array(
+                'conditions' => array('ProductImage.product_id' => $productID),
+                'recursive' => -1
+            ));
+
+            $images = array();
+            if(!empty($records))
+            {
+                $imageID = $records[0]['ProductImage']['id'];
+                $images = $records[0]['ProductImage'];
+            }
+
+            return $images;
+        }
+
 }

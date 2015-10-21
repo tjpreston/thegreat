@@ -45,7 +45,8 @@ class CollectionItemBehavior extends ModelBehavior
 	 */
 	public function getCollectionItems(&$Model, $extraConditions = null)
 	{	
-		extract($this->getCollectionVars());
+           // xdebug_break();
+                extract($this->getCollectionVars());
 		
 		// Causes issues when changing currencies
 		if (!empty($this->items))
@@ -63,16 +64,21 @@ class CollectionItemBehavior extends ModelBehavior
 		$languageID = 1;
 		$currencyID = Configure::read('Runtime.active_currency');
 		
+//		$this->Product->unbindModel(array(
+//			'hasMany' => array('ProductImage'),
+//			'hasAndBelongsToMany' => array('Category')
+//		));
 		$this->Product->unbindModel(array(
 			'hasMany' => array('ProductImage'),
 			'hasAndBelongsToMany' => array('Category')
 		));
-		
+
+                
 		$fields = array(
 			$modelName . '.id',	$modelName . '.qty',
 			$modelName . '.id',	$modelName . '.product_option_stock_id',
 			'ProductName.name',	'ProductMeta.url', 'ProductPrice.*',
-			'Product.id', 'Product.sku', 'Product.free_shipping', 'Product.virtual_product', 'Product.taxable',	'Product.type', 'Product.weight', 'Product.courier_shipping_only'
+			'Product.id', 'Product.sku', 'Product.free_shipping', 'Product.virtual_product', 'Product.taxable', 'Product.type', 'Product.weight', 'Product.courier_shipping_only'
 		);
 		
 		if ($modelName == 'BasketItem')
@@ -124,7 +130,40 @@ class CollectionItemBehavior extends ModelBehavior
 			}
 		}
 		
-		$items = $this->addItemOptions($items);
+                
+                // xdebug_break();
+                // this adds item variations i.e. ProductOptionStock nonsense
+                $items = $this->addItemOptions($items);
+                
+                 
+                // Again a huge hack but I'm just copying what popcorn did in
+                // public function afterFind($results, $primary = false) in
+                // the product.php model - TJP 6/10/15
+                $images = array();
+                
+                foreach ($items as $k => $item)
+		{                
+                    if(empty($items[$k]['ProductOptionStock'])) // No variations
+                    {
+                        $images[$k] = $this->Product->ProductImage->getImagesForBasket($item['Product']['id']);
+                        $items[$k]['Product']['main_tiny_image_path'] = $images[$k]['tiny_web_path'];
+                        $items[$k]['Product']['main_thumb_image_path'] = $images[$k]['thumb_web_path'];
+                        $items[$k]['Product']['main_medium_image_path'] = $images[$k]['medium_web_path'];
+                        
+                    }  else { // We get the right image variation for free due to the call to addItemOptions($items) above
+                        $items[$k]['Product']['main_tiny_image_path'] = $items[$k]['ProductOptionStock']['main_tiny_image_path'];
+                        $items[$k]['Product']['main_thumb_image_path'] = $items[$k]['ProductOptionStock']['main_thumb_image_path'];
+                        $items[$k]['Product']['main_medium_image_path'] = $items[$k]['ProductOptionStock']['main_medium_image_path'];
+  
+                       
+                    }  
+                    
+                  
+                   
+                }
+                
+                
+                
 		$items = $this->addItemPrices($items);
 		
 		$this->items = $items;

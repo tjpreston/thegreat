@@ -84,7 +84,7 @@ $controllers = array(
 	'config', 'custom_options', 'tax_rates', 'currencies', 'product_cross_sells',
 	'grouped_products', 'coupons', 'basket_discounts', 'product_option_stock_images',
 	'attributes', 'attribute_sets','newsletter_recipients',
-	/*'stockists', 'stockist_commissions', */'product_price_discounts','staticpages'
+	/*'stockists', 'stockist_commissions', */'product_price_discounts','staticpages','staticpages_images'
 );
 
 foreach ($controllers as $controller)

@@ -201,6 +201,7 @@ class ProductsController extends AppController
 		$record['ProductPrice'] = $this->Product->ProductPrice->getPrices($id);
 		$record['ProductMeta'] = $this->Product->ProductMeta->getMetas($id);
 		
+                // These aren't even used! What monkeys coded this crap?! - TJP
 		$images = $this->Product->ProductImage->getImages($id);
 		$productCategories = $this->Product->ProductCategory->getCategoriesList($id);
 		$primaryCategory = $this->Product->ProductCategory->getPrimaryCategory($id);
@@ -237,7 +238,8 @@ class ProductsController extends AppController
 			$services = $this->ShippingCarrierService->find('all', array('recursive' => -1));
 			$this->set(compact('availableServices', 'services'));
 		}
-
+                
+                // WTF is this! - TJP
 		if (Configure::read('Site.name') == 'Hytek (GB) Limited')
 		{
 			$attributeSet = $this->Product->AttributeSet->findById($record['Product']['attribute_set_id']);
