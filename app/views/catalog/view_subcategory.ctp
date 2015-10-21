@@ -1,12 +1,16 @@
 <?php
-        //xdebug_break();
+        
 	$this->set('body_id', 'sub-category');
 
 	$catalog->setCategoryUrls($categoryPath);
+    
+        ?>
 
+        <?php
+     
 	echo $this->element('template/breadcrumbs');
+        ?>
 
-?>
 
 <div class="grid_18 push_6 listing">
 	<?php echo $this->element('catalog/category_header', array('record' => $record)); ?>
