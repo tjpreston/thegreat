@@ -1125,27 +1125,34 @@ class CatalogController extends AppController
                     $numCats = count($catsToUse);
                     
                     
-                     xdebug_break();
+                     //xdebug_break();
                     $numProducts = 0;
                     $startCat = [];
                     foreach ($catsToUse as $k => $catID)                           
                     {
                         $numProducts = $numProducts + $catCountAll[$catID];
-                        if($numProducts > $allRecordsIndexEnd)
+                        if($numProducts > $allRecordsIndexStart)
                         {
-                            
+                            $startCat = $catID;
                             break;
                         }
-                        $startCat = $catID;
+                        
                     }
-                    if(!empty($startCat))
-                    {
-                        $pOffset = $catCountAll[$startCat] - (($numProducts -$catCountAll[$catID] - $this->paginate['limit']) % $this->paginate['limit']);
-                    }
-                        else {
-                            $startCat = $catID;
-                        $pOffset = 0;
-                    }
+                    
+//                    if(empty($startCat))
+//                    {
+//                        $startCat = $catID;
+//                       
+//                  }
+                 
+//                              $pOffset = $catCountAll[$startCat] - (($numProducts -$catCountAll[$catID] - $this->paginate['limit']) % $this->paginate['limit']);
+                  
+                      $pOffset = $catCountAll[$startCat] - ($numProducts -  ($this->paginate['limit']) * ($currentPage-1));
+                    
+                    //    else {
+                          //  $startCat = $catID;
+                      //  $pOffset = 0;
+                    //}
                     
                     for($i =0; $i <= $numCats; $i++)
                     {
@@ -1161,6 +1168,10 @@ class CatalogController extends AppController
                     $catCountTotal = array_sum($catCountAll);
                     while ($catCountTotal > $allRecordsIndexEnd)
                     {
+                        if(count($catsToUse) == 0)
+                        {
+                            break;
+                        }
                         $tmp1 = array_pop($catsToUse);
                         $tmp2 = array_pop($catCountAll);
                         $catCountTotal = array_sum($catCountAll);
