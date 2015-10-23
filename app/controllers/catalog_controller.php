@@ -1083,13 +1083,124 @@ class CatalogController extends AppController
 		if(empty($this->viewVars['record']['Category']['parent_id']) && $inCategory)
                 {
                      $allRecords = [];
+                   
+                     //this really is insanity
+                    $this->_getLimit();
+                    $junk = $this->paginate('Product', $this->getFinalConditions($conditions, $filterConditions));
+                    $this->loadModel('ProductOptionStock');
+                    $allRecords = $this->ProductOptionStock->addVarsToProducts($allRecords, 'singleqty');
+                  
+                    $numRecordsOnPage = $this->params['paging']['Product']['current'];
+                    $currentPage = $this->params['paging']['Product']['page'];
+                  
+                    //save paging params
+                    $allCatPaging = $this->params['paging'];
+                    $paramsUrl = $this->params['url'];
+                    if(isset($this->passedArgs['page']))
+                    {
+                        $passedArgsPage = $this->passedArgs['page'];
+                    }
+                    //$this->Product->bindModel(array('hasOne' => array('ProductCategory')), false);
                     
-                     $this->paginate['limit'] = 1000; // We need to get back the whole subcategory             
-                    // loop over subcategories
+                    $catCountAll = [];
+                    $catsToUse = [];
+                    
                     foreach ($this->viewVars['categoryFamily'] as $k => $cat)                           
                     {
-                        $catID = $cat['Category']['id'];  
-                      
+                        $catID = $cat['Category']['id']; 
+                        $catsToUse[] = $catID; 
+                        $catCountAll[$catID] = 0;
+                        
+                        $catCountAll[$catID] = $catCountAll[$catID] + $this->Product->find('count', array('conditions' => array(
+                                    'ProductCategory.category_id' => $catID,
+                                    'Product.active' => 1
+                            )));
+                        
+                    }
+                  
+                    $allRecordsIndexStart = ($currentPage - 1) * $this->paginate['limit'];
+                    $allRecordsIndexEnd = $currentPage * $this->paginate['limit'] - 1;
+
+                                       
+                    $numCats = count($catsToUse);
+                    
+                    
+                     //xdebug_break();
+                    $numProducts = 0;
+                    $startCat = [];
+                    foreach ($catsToUse as $k => $catID)                           
+                    {
+                        $numProducts = $numProducts + $catCountAll[$catID];
+                        if($numProducts > $allRecordsIndexStart)
+                        {
+                            $startCat = $catID;
+                            break;
+                        }
+                        
+                    }
+                    
+//                    if(empty($startCat))
+//                    {
+//                        $startCat = $catID;
+//                       
+//                  }
+                 
+//                              $pOffset = $catCountAll[$startCat] - (($numProducts -$catCountAll[$catID] - $this->paginate['limit']) % $this->paginate['limit']);
+                  
+                      $pOffset = $catCountAll[$startCat] - ($numProducts -  ($this->paginate['limit']) * ($currentPage-1));
+                    
+                    //    else {
+                          //  $startCat = $catID;
+                      //  $pOffset = 0;
+                    //}
+                    
+                    for($i =0; $i <= $numCats; $i++)
+                    {
+                        if($catsToUse[0] == $startCat)
+                        {
+                            break;
+                        }
+                        $tmp1 = array_shift($catsToUse);
+                        $tmp2 = array_shift($catCountAll);
+                    }
+                     
+                    $idx = 0;
+                    $catCountTotal = array_sum($catCountAll);
+                    while ($catCountTotal > $allRecordsIndexEnd)
+                    {
+                        if(count($catsToUse) == 0)
+                        {
+                            break;
+                        }
+                        $tmp1 = array_pop($catsToUse);
+                        $tmp2 = array_pop($catCountAll);
+                        $catCountTotal = array_sum($catCountAll);
+                        $idx = $idx + 1;
+                    }
+                        
+                    array_push($catsToUse, $tmp1);
+                    array_push($catCountAll, $tmp2);
+                    /*
+                    $catCountTotal = array_sum($catCount);
+                    $idx2 = 0;
+                    while ($catCountTotal > $allRecordsIndexStart)
+                    {
+                        $tmp1 = array_shift($catsToUse);
+                        $tmp2 = array_shift($catCount);
+                        $catCountTotal = array_sum($catCount);
+                        $idx2 = $idx2 + 1;
+                    }
+                    //array_unshift($catsToUse, $tmp1);
+                    //array_unshift($catCount, $tmp2);
+                    */
+                   
+                   
+                     
+                   //xdebug_break();
+                    $this->paginate['offset'] = $pOffset;
+                    // loop over subcategories
+                    foreach ($catsToUse as $k => $catID)                           
+                    {
                         $subConditions = array(
                         'ProductCategory.category_id' => $catID,
                         'OR' => array(
@@ -1097,22 +1208,31 @@ class CatalogController extends AppController
                         array('Product.visibility' => 'catalogsearch') //is active?
                         ));
                         
+                        unset($this->params['paging']);
+                        $this->params['url'] = [];
+                        $this->passedArgs['page'] = '1';
+                        
                         $subCatRecords = $this->paginate('Product', $this->getFinalConditions($subConditions, $filterConditions));
                         $allRecords = array_merge($allRecords, $subCatRecords);
-                      
+                        unset($this->paginate['offset']);    
                     }
-                    //this really is insanity
-                    $this->_getLimit();
+                    
+                    
+                    //pop
+                    $this->params['paging'] = $allCatPaging;
+                    $this->params['url'] = $paramsUrl;
+                    if(isset($passedArgsPage))
+                    {
+                       $this->passedArgs['page'] = $passedArgsPage;
+                    }
+                    
+                    
+                    
                     $junk = $this->paginate('Product', $this->getFinalConditions($conditions, $filterConditions));
                     $this->loadModel('ProductOptionStock');
                     $allRecords = $this->ProductOptionStock->addVarsToProducts($allRecords, 'singleqty');
                
-                
-                    $numRecordsOnPage = $this->params['paging']['Product']['current'];
-                    $currentPage = $this->params['paging']['Product']['page'];
-                    $allRecordsIndex = ($currentPage - 1) * $this->paginate['limit'];
-
-                    $records = array_slice ($allRecords, $allRecordsIndex , $numRecordsOnPage);
+                    $records = array_slice ($allRecords, 0 , $numRecordsOnPage);
                  }
                  else 
                  {
