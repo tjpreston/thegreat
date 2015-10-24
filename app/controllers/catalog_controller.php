@@ -406,13 +406,13 @@ class CatalogController extends AppController
 		$this->Product->unbindModel(array('hasAndBelongsToMany' => array('Category')), false);
 		$this->Product->bindModel(array('hasOne' => array('ProductCategory')), false);
 		
-                /*
-                 * 
-                 *  Uncomment to fix real number products per category
                 
-                 * $pathIDs = Set::extract('{n}.Category.id', $path); //stole from popcorn
-                 */
-                /*  
+                  
+                //  Uncomment to fix real number products per category
+                
+                /* 
+                $pathIDs = Set::extract('{n}.Category.id', $path); //stole from popcorn
+                  
                 // Category.product_counter is incorrect so another kludge fix - TJP 23/10/15
                 foreach ($this->_categories as $k => $cat)
 		{
@@ -437,7 +437,9 @@ class CatalogController extends AppController
 		
                 $actualNumProducts = array_sum($catCountAll);
                 $record['Category']['product_counter'] = $actualNumProducts;
-                */
+                */ // add ending block comment tag above if commenting                
+
+                
                 $this->set('record', $record);
                 
 		$conditions = array(
@@ -1158,14 +1160,15 @@ class CatalogController extends AppController
                     
                     // Uncomment to fix real number products per category
                    /* 
-                      $actualNumProducts = array_sum($catCountAll);
-                      Check total product count is correct as paginate version is broken
-                     if($this->params['paging']['Product']['count'] != array_sum($catCountAll))
+                    $actualNumProducts = array_sum($catCountAll);
+                    // Check total product count is correct as paginate version is broken
+                    if($this->params['paging']['Product']['count'] != array_sum($catCountAll))
                     {
                         //xdebug_break ();
                         $this->params['paging']['Product']['count'] = array_sum($catCountAll);
                     }   
                     */
+                    // add ending block comment tag above if commenting
                     $numRecordsOnPage = $this->params['paging']['Product']['current'];
                     $currentPage = $this->params['paging']['Product']['page'];
                   
