@@ -355,6 +355,7 @@ class CatalogController extends AppController
 	 */
 	public function view_category($categoryID = null)
 	{
+             
             $this->notEmptyOr404($categoryID);
 		
 		$this->Category->bindDescription($this->Category, 0, false);
@@ -364,11 +365,12 @@ class CatalogController extends AppController
 			'Category.id' => $categoryID,
 			'Category.active' => 1
 		)));
-		
-		$this->notEmptyOr404($record);
+                $this->notEmptyOr404($record);
 		
 		$path = $this->Category->getPath($categoryID, null, 0);
 
+		
+                
 		$pathMinusSelf = $path;
 		array_pop($pathMinusSelf);
 		
@@ -393,7 +395,7 @@ class CatalogController extends AppController
 		
 		$this->set('topCategoryRecord', $path[0]);
 		$this->set('topCategoryID', $path[0]['Category']['id']);
-		$this->set('record', $record);
+		//$this->set('record', $record);
 		$this->set('title_for_layout', $this->get_category_page_title($record, $path));
 		$this->set('categoryPath', $path);
 		$this->set('categoryPathIDs', Set::extract('/Category/id', $pathMinusSelf));
@@ -404,6 +406,40 @@ class CatalogController extends AppController
 		$this->Product->unbindModel(array('hasAndBelongsToMany' => array('Category')), false);
 		$this->Product->bindModel(array('hasOne' => array('ProductCategory')), false);
 		
+                /*
+                 * 
+                 *  Uncomment to fix real number products per category
+                
+                 * $pathIDs = Set::extract('{n}.Category.id', $path); //stole from popcorn
+                 */
+                /*  
+                // Category.product_counter is incorrect so another kludge fix - TJP 23/10/15
+                foreach ($this->_categories as $k => $cat)
+		{
+			if ($cat['Category']['id'] == $pathIDs[0])
+			{
+				$family = $cat['children'];
+				break;
+			}
+		}
+                foreach ($family as $k => $cat)  
+                {
+                    $catID = $cat['Category']['id']; 
+                    $catsToUse[] = $catID; 
+                    $catCountAll[$catID] = 0;
+
+                    $catCountAll[$catID] = $catCountAll[$catID] + $this->Product->find('count', array('conditions' => array(
+                                'ProductCategory.category_id' => $catID,
+                                'Product.active' => 1
+                        )));
+
+                }
+		
+                $actualNumProducts = array_sum($catCountAll);
+                $record['Category']['product_counter'] = $actualNumProducts;
+                */
+                $this->set('record', $record);
+                
 		$conditions = array(
 			'ProductCategory.category_id' => $categoryID,
 			'OR' => array(
@@ -561,7 +597,7 @@ class CatalogController extends AppController
 		$this->_listProducts($conditions);
 
                 //$this->set('phpExecutionTime2',  microtime(true));
-		
+		//xdebug_break();
 		$this->render('view_subcategory');
 
 	}
@@ -604,7 +640,8 @@ class CatalogController extends AppController
 	 */
 	public function view_product($id)
 	{
-		$record = $this->Product->getViewProductData($id);
+            
+            $record = $this->Product->getViewProductData($id);
 		//debug($record['RelatedProduct']);
 
 		//$neighbors = $this->Product->find('neighbors', array(
@@ -1078,33 +1115,34 @@ class CatalogController extends AppController
 		$this->Product->bindSingleQtyDiscount(false);
 		$this->paginate['fields'][] = 'SingleQtyProductPriceDiscount.discount_amount';
 		
+                $origCatID = $conditions['ProductCategory.category_id'];
+                 $conditions = array(
+                                        'ProductCategory.category_id' => $origCatID,
+                                        'AND' => array(
+                                               // array('Product.visibility' => 'catalog'), // is active?
+                                               // array('Product.visibility' => 'catalogsearch'),
+                                                array('Product.active' => 1)
+                                            )
+                                               );
             
                 // For Pete's sake avert your eyes - TJP 19/10/15
 		if(empty($this->viewVars['record']['Category']['parent_id']) && $inCategory)
                 {
-                     $allRecords = [];
-                   
+                    // $allRecords = [];
+                     
+                    //xdebug_break();
                      //this really is insanity
                     $this->_getLimit();
                     $junk = $this->paginate('Product', $this->getFinalConditions($conditions, $filterConditions));
-                    $this->loadModel('ProductOptionStock');
-                    $allRecords = $this->ProductOptionStock->addVarsToProducts($allRecords, 'singleqty');
-                  
-                    $numRecordsOnPage = $this->params['paging']['Product']['current'];
-                    $currentPage = $this->params['paging']['Product']['page'];
-                  
-                    //save paging params
-                    $allCatPaging = $this->params['paging'];
-                    $paramsUrl = $this->params['url'];
-                    if(isset($this->passedArgs['page']))
-                    {
-                        $passedArgsPage = $this->passedArgs['page'];
-                    }
-                    //$this->Product->bindModel(array('hasOne' => array('ProductCategory')), false);
+                   
+                   // $this->loadModel('ProductOptionStock');
+                   // $allRecords = $this->ProductOptionStock->addVarsToProducts($allRecords, 'singleqty');
+                    
                     
                     $catCountAll = [];
                     $catsToUse = [];
                     
+                    // Get accurate count of products in parent category
                     foreach ($this->viewVars['categoryFamily'] as $k => $cat)                           
                     {
                         $catID = $cat['Category']['id']; 
@@ -1117,7 +1155,31 @@ class CatalogController extends AppController
                             )));
                         
                     }
+                    
+                    // Uncomment to fix real number products per category
+                   /* 
+                      $actualNumProducts = array_sum($catCountAll);
+                      Check total product count is correct as paginate version is broken
+                     if($this->params['paging']['Product']['count'] != array_sum($catCountAll))
+                    {
+                        //xdebug_break ();
+                        $this->params['paging']['Product']['count'] = array_sum($catCountAll);
+                    }   
+                    */
+                    $numRecordsOnPage = $this->params['paging']['Product']['current'];
+                    $currentPage = $this->params['paging']['Product']['page'];
                   
+                    //save paging params
+                    $allCatPaging = $this->params['paging'];
+                    $paramsUrl = $this->params['url'];
+             
+                    if(isset($this->passedArgs['page']))
+                    {
+                        $passedArgsPage = $this->passedArgs['page'];
+                    }
+                    
+                    //continue
+                    
                     $allRecordsIndexStart = ($currentPage - 1) * $this->paginate['limit'];
                     $allRecordsIndexEnd = $currentPage * $this->paginate['limit'] - 1;
 
@@ -1139,20 +1201,8 @@ class CatalogController extends AppController
                         
                     }
                     
-//                    if(empty($startCat))
-//                    {
-//                        $startCat = $catID;
-//                       
-//                  }
-                 
-//                              $pOffset = $catCountAll[$startCat] - (($numProducts -$catCountAll[$catID] - $this->paginate['limit']) % $this->paginate['limit']);
-                  
+        
                       $pOffset = $catCountAll[$startCat] - ($numProducts -  ($this->paginate['limit']) * ($currentPage-1));
-                    
-                    //    else {
-                          //  $startCat = $catID;
-                      //  $pOffset = 0;
-                    //}
                     
                     for($i =0; $i <= $numCats; $i++)
                     {
@@ -1180,34 +1230,22 @@ class CatalogController extends AppController
                         
                     array_push($catsToUse, $tmp1);
                     array_push($catCountAll, $tmp2);
-                    /*
-                    $catCountTotal = array_sum($catCount);
-                    $idx2 = 0;
-                    while ($catCountTotal > $allRecordsIndexStart)
-                    {
-                        $tmp1 = array_shift($catsToUse);
-                        $tmp2 = array_shift($catCount);
-                        $catCountTotal = array_sum($catCount);
-                        $idx2 = $idx2 + 1;
-                    }
-                    //array_unshift($catsToUse, $tmp1);
-                    //array_unshift($catCount, $tmp2);
-                    */
                    
                    
-                     
+                    $allRecords = []; 
                    //xdebug_break();
                     $this->paginate['offset'] = $pOffset;
                     // loop over subcategories
                     foreach ($catsToUse as $k => $catID)                           
                     {
                         $subConditions = array(
-                        'ProductCategory.category_id' => $catID,
-                        'OR' => array(
-                        array('Product.visibility' => 'catalog'), // is active?
-                        array('Product.visibility' => 'catalogsearch') //is active?
-                        ));
-                        
+                                        'ProductCategory.category_id' => $catID,
+                                        'OR' => array(
+                                                array('Product.visibility' => 'catalog'), // is active?
+                                                array('Product.visibility' => 'catalogsearch')
+                                                     )
+                                               );
+
                         unset($this->params['paging']);
                         $this->params['url'] = [];
                         $this->passedArgs['page'] = '1';
@@ -1233,6 +1271,9 @@ class CatalogController extends AppController
                     $allRecords = $this->ProductOptionStock->addVarsToProducts($allRecords, 'singleqty');
                
                     $records = array_slice ($allRecords, 0 , $numRecordsOnPage);
+                    
+                    // Uncomment to fix real number products per category
+                    //$this->params['paging']['Product']['count'] = $actualNumProducts; 
                  }
                  else 
                  {
@@ -1246,54 +1287,6 @@ class CatalogController extends AppController
                  
                 
 		
-                // For Pete's sake avert your eyes - TJP 19/10/15
-//                if(empty($this->viewVars['record']['Category']['parent_id']) && $inCategory)
-//                {
-//                   
-//                  $sortForProductsInParentCat = [];
-//                  $maxSortValue = 0;
-//                  // loop over subcategories
-//                  foreach ($this->viewVars['categoryFamily'] as $i => $cat)
-//                    {
-//                      $catID = $cat['Category']['id'];  
-//                      
-//                      $subConditions = array(
-//                    'ProductCategory.category_id' => $catID,
-//                    'OR' => array(
-//                        array('Product.visibility' => 'catalog'), // is active?
-//                        array('Product.visibility' => 'catalogsearch') //is active?
-//                      )
-//                      );
-//                      //returns array of product_ids ordered by the subcategory sort
-//                      $subCatProducts = $this->Product->find('list', 
-//                              array('fields' => 'ProductCategory.sort',
-//				'conditions' => $subConditions, 'order' => array('ProductCategory.sort ASC'), 'recursive' => 0
-//			));
-//                       xdebug_break(); 
-//                       //$ones = array_fill ( 0 , count($subCatProducts) , 1);
-//                        
-//                        $subCatProducts = array_map('intval', $subCatProducts);
-//                        $subCatProductsShifted = $this->addConstantToVector($subCatProducts, $maxSortValue);
-//                        $maxSortValue = max($subCatProducts) + 1; 
-//                        //$subCatProducts = array_map("array_sum", $subCatProducts, $ones);
-// 
-//                        $sortForProductsInParentCat = $sortForProductsInParentCat + $subCatProductsShifted;
-//                    }
-//                   $tmp = count($records);
-//                   for ($i = 0; $i < count($records); $i++) {
-//           //     $vOut[$i] = $v1[$i] + $v2[$i];
-//                       
-//                   }
-//                     //   $recordsCuratedOrder[] = $record  
-//                  //  }                   
-//                                
-//
-////foreach ($this->viewVars['categoryFamily'] as $i => $cat)
-//                    //{
-//                     //   $recordsCuratedOrder[]
-//                   // }
-//                }
-//                
 		$this->set('allAttributes', $attributes);
 		$this->set('availableAttributes', $attributesToView);
 		$this->set('products', $records);
