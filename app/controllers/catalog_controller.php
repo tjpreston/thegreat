@@ -410,7 +410,7 @@ class CatalogController extends AppController
                   
                 //  Uncomment to fix real number products per category
                 
-                /* 
+                 
                 $pathIDs = Set::extract('{n}.Category.id', $path); //stole from popcorn
                   
                 // Category.product_counter is incorrect so another kludge fix - TJP 23/10/15
@@ -437,7 +437,7 @@ class CatalogController extends AppController
 		
                 $actualNumProducts = array_sum($catCountAll);
                 $record['Category']['product_counter'] = $actualNumProducts;
-                */ // add ending block comment tag above if commenting                
+                 // add ending block comment tag above if commenting                
 
                 
                 $this->set('record', $record);
@@ -1130,8 +1130,6 @@ class CatalogController extends AppController
                 // For Pete's sake avert your eyes - TJP 19/10/15
 		if(empty($this->viewVars['record']['Category']['parent_id']) && $inCategory)
                 {
-                    // $allRecords = [];
-                     
                     //xdebug_break();
                      //this really is insanity
                     $this->_getLimit();
@@ -1159,18 +1157,31 @@ class CatalogController extends AppController
                     }
                     
                     // Uncomment to fix real number products per category
-                   /* 
+                    
                     $actualNumProducts = array_sum($catCountAll);
                     // Check total product count is correct as paginate version is broken
-                    if($this->params['paging']['Product']['count'] != array_sum($catCountAll))
+                    if($this->params['paging']['Product']['count'] != $actualNumProducts)
                     {
                         //xdebug_break ();
                         $this->params['paging']['Product']['count'] = array_sum($catCountAll);
+                        
+                        $currentPage = $this->params['paging']['Product']['page'];
+                        $numRecordsOnPage = ($actualNumProducts - ($currentPage - 1) * $this->paginate['limit']);
+                        if($numRecordsOnPage > $this->paginate['limit']) 
+                        {
+                        $numRecordsOnPage = $this->paginate['limit'];
+                            
+                        }
+                        
+                    } else 
+                    {
+                        $currentPage = $this->params['paging']['Product']['page'];
+                        $numRecordsOnPage = $this->params['paging']['Product']['current'];
+           
                     }   
-                    */
+                    
                     // add ending block comment tag above if commenting
-                    $numRecordsOnPage = $this->params['paging']['Product']['current'];
-                    $currentPage = $this->params['paging']['Product']['page'];
+                    
                   
                     //save paging params
                     $allCatPaging = $this->params['paging'];
@@ -1190,7 +1201,7 @@ class CatalogController extends AppController
                     $numCats = count($catsToUse);
                     
                     
-                     //xdebug_break();
+                    // xdebug_break();
                     $numProducts = 0;
                     $startCat = [];
                     foreach ($catsToUse as $k => $catID)                           
@@ -1276,7 +1287,7 @@ class CatalogController extends AppController
                     $records = array_slice ($allRecords, 0 , $numRecordsOnPage);
                     
                     // Uncomment to fix real number products per category
-                    //$this->params['paging']['Product']['count'] = $actualNumProducts; 
+                    $this->params['paging']['Product']['count'] = $actualNumProducts; 
                  }
                  else 
                  {
