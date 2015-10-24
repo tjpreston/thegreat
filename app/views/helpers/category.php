@@ -388,7 +388,7 @@ class CategoryHelper extends AppHelper
 			$catID    = $category['Category']['id'];
 			$catName  = $category['CategoryName']['name'];
 			$myCatUrl = $category['CategoryName']['url'];
-			$catCount = $category['Category']['product_counter'];
+			$catCount = $category['Category']['product_counter']; // TJP 23/10/15 this is why it displays the wrong no. per cat
 
 			// $topLiOpen = ($catID == $this->topActiveCategory) ? ' class="open"' : '';
 			// $activeCategory = ($catID == $this->openCategoryID) ? ' class="current"' : '';
