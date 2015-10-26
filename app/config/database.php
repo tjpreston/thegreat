@@ -109,6 +109,7 @@ class DATABASE_CONFIG {
     /** Figure out where we are */
     function __construct() {
         if (isset($_SERVER['SERVER_NAME'])) {
+        $this->default = $this->dev;
             switch ($_SERVER['SERVER_NAME']) {
                 case 'localhost':
                     $this->default = $this->dev;
