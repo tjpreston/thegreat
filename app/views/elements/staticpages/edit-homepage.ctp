@@ -12,10 +12,7 @@
     
     echo $this->Form->input('id', array('type' => 'hidden'));
     echo $this->Form->end('Save');
-    xdebug_break();
 ?>
 <br>
-<!-- <?php echo $this->Form->create('StaticpagesImage', array('action' => 'save', 'type' => 'file')); ?> -->
 <?php echo $this->element('staticpages/edit-image'); ?>
- <!-- <?php echo $this->Form->end(); ?> -->
 
