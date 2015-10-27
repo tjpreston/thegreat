@@ -4,7 +4,7 @@
     <div class="fieldset-header"><span>Images</span></div>
     <div class="fieldset-box">
         <div id="product-images">
-            <!-- <?php  xdebug_break(); ?> -->
+            <!-- <?php // xdebug_break(); ?> -->
 			<!-- <?php echo $this->Form->create('StaticpagesImage', array('action' => 'save', 'type' => 'file')); ?> -->
                             <?php if (!empty($images)): ?>
 				<?php foreach ($images as $staticpageImageID => $staticpageImage): ?>
