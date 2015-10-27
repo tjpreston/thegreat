@@ -76,9 +76,18 @@
 </fieldset>	
 <fieldset>
 	<div class="heading">DELIVERY ADDRESS</div>
-	<div class="confirmation-group">
+	<?php //xdebug_break(); ?>
+        <?php if($basket['Basket']['shipping_carrier_service_id'] == 4): ?>
+                    
+                <div class="intro" style="margin-left: 36px; margin-bottom: 60px; ">
+                    <p>You have selected Click & Collect</p>
+                </div>
+                
+        <?php else: ?>
+        <div class="confirmation-group">
 	
-		<?php if (!empty($basket['CustomerShippingAddress']['id'])): ?>
+		<?php
+                if (!empty($basket['CustomerShippingAddress']['id'])): ?>
 			
 			<dl>
 				<dt>First Name</dt>
@@ -117,6 +126,8 @@
 		<?php endif; ?>
 		
 	</div>
+        <?php endif; ?>
+        
 </fieldset>	
 	
 	<table cellspacing="0" class="basket-table" style="margin-top: 20px;">

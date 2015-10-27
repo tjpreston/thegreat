@@ -273,7 +273,8 @@ class CatalogController extends AppController
 	 */
 	public function search()
 	{
-		$keyword = $this->getSearchKeyword();
+            xdebug_break();
+                $keyword = $this->getSearchKeyword();
 		
 		if (empty($keyword))
 		{
@@ -355,7 +356,7 @@ class CatalogController extends AppController
 	 */
 	public function view_category($categoryID = null)
 	{
-             
+            xdebug_break();
             $this->notEmptyOr404($categoryID);
 		
 		$this->Category->bindDescription($this->Category, 0, false);
@@ -1027,7 +1028,8 @@ class CatalogController extends AppController
 	 */
 	private function _listProducts($conditions, $inCategory = true)
 	{
-		$this->Product->unbindModel(array('hasAndBelongsToMany' => array('Category')), false);		
+            xdebug_break();
+                $this->Product->unbindModel(array('hasAndBelongsToMany' => array('Category')), false);		
 		$this->Product->bindModel(array('hasOne' => array('ProductCategory')), false);
 		$this->Product->bindAttributes($this->Product, false);
 		
@@ -1059,11 +1061,11 @@ class CatalogController extends AppController
 			'Manufacturer.*', 'AttributeSet.*'
 		);
 		
-		if ($inCategory)
-		{
+		//if ($inCategory)
+	//	{
 			$this->paginate['fields'][] = 'ProductCategory.*';
-		}
-		
+	//	}
+        xdebug_break();
 		$this->paginate['group'] = array('Product.id');
 		
 		if (Configure::read('Catalog.show_product_short_description_on_list'))
@@ -2055,7 +2057,8 @@ class CatalogController extends AppController
 	 */
 	protected function setLastPage($name = null)
 	{
-		$catalogActions = array(
+            xdebug_break();
+                $catalogActions = array(
 			'view_category' => $name,
 			'search' => 'your search results',
 			'specials' => 'the special offers',

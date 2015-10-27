@@ -14,7 +14,7 @@
 	
 	<?php $register = ($mode == 'register'); ?>
 
-	<?php echo $form->create('Customer', array('class' => 'form', 'url' => '/checkout/save')); ?>
+	<?php echo $form->create('Customer', array('class' => 'form', 'url' => '/checkout/confirmation')); ?>
 		
 	<?php
 	echo $form->hidden('mode', array('value' => $mode));
@@ -143,12 +143,19 @@
 
 
 	
-	
 	<fieldset>
 		
-		<div class="heading">DELIVERY ADDRESS</div>	
+		<div class="heading">DELIVERY ADDRESS</div>
+                <?php //xdebug_break(); ?>
+               <!-- <?php if($basket['Basket']['shipping_carrier_service_id'] == 4): ?>
+                    
+                <div class="intro" style="margin-left: 36px; margin-bottom: 60px; ">
+                    <p>You have selected Click & Collect</p>
+                </div>
+                
+                <?php else: ?> -->
 		<div class="checkboxes" style="margin-left: 36px;">
-			<?php 
+			<?php
 			$checked = (!empty($showShippingAddress)) ? '' : 'checked';
 			echo $form->input('Basket.ship_to_billing_address', array(
 				'type' => 'checkbox',
@@ -223,12 +230,12 @@
 					'showCancel' => false
 				)); ?>
 			
-			<?php endif; ?>
+			<!-- <?php endif; ?>
 			
 		</div>
 		
 	</fieldset>
-			
+	<?php endif; ?>		
 			
 
 
