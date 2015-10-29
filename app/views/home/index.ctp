@@ -16,7 +16,7 @@
 </div>
 
 <div class="grid_12 intro">
-        <!-- <h2><span class="face1">It's</span> <span class="face2">British Quality</span></h2> -->
+        <h2><span class="face1">Amazing</span> <span class="face2">British Quality</span></h2>
     <p class="dropcap intro">
 		<?php echo $pagedata['Staticpage']['description_1']; ?>
     </p>
