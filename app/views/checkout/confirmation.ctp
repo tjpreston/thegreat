@@ -80,7 +80,8 @@
         <?php if($basket['Basket']['shipping_carrier_service_id'] == 4): ?>
                     
                 <div class="intro" style="margin-left: 36px; margin-bottom: 60px; ">
-                    <p>You have selected Click & Collect</p>
+                    <p>You have selected Click & Collect.</p> 
+                    <p>Your order will be available for collection from <a href="/pages/shop">The Great British Shop</a> in Folkestone</p>
                 </div>
                 
         <?php else: ?>

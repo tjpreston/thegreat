@@ -45,6 +45,12 @@ class CheckoutController extends AppController
 	 */
 	private $_context;
 	
+        
+        
+        
+        public  $clickCollectAddress = array('id' => '','first_name' => '','last_name' => '','address_1' => 'The Great British Shop','address_2' => '17 The Old High St','town' => 'Folkestone','country_id' => '232','county' => 'Kent','postcode' => 'CT20 1RL','company_name' => 'The Great British Shop','phone' => '01303 243366', 'new_address' => '0');
+        
+        
 	/**
 	 * Constuctor.
 	 * 
@@ -146,7 +152,19 @@ class CheckoutController extends AppController
 	 */
 	public function save()
 	{
-		$this->CustomerShippingAddress->postcode = $this->Session->read('Shipping.Location.postcode');
+            
+           
+            if(isset($this->data['CustomerShippingAddress']['click_collect']))
+            {
+                $this->data['CustomerShippingAddress'] = $this->clickCollectAddress;
+                $this->data['CustomerShippingAddress']['id'] = '8';
+                $this->data['CustomerShippingAddress']['first_name'] = '';
+                $this->data['CustomerShippingAddress']['last_name'] = '';
+                //$this->data['Basket'] = $this->viewVars['basket']['Basket'];
+            }
+            
+            
+            $this->CustomerShippingAddress->postcode = $this->Session->read('Shipping.Location.postcode');
 
 		$this->_initCheckout();
 
@@ -954,7 +972,8 @@ class CheckoutController extends AppController
 	 */
 	private function validateShippingAddressAndAppendData()
 	{
-		if (!empty($this->data['Basket']['ship_to_billing_address']))
+           
+                if (!empty($this->data['Basket']['ship_to_billing_address']))
 		{
 			return true;
 		}

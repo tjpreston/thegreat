@@ -1,23 +1,23 @@
 <?php
 
-$devDB = array(
-        'driver' => 'mysql',
-        'persistent' => false,
-        'host' => 'localhost',
-        'login' => 'thegreat_mysql',
-        'password' => 'eMcB6+t#e0JD',
-        'database' => 'thegreat_shop_dev',
-        'prefix' => ''
-    );
- 
-
-mysql_connect($devDB['host'],$devDB['login'],$devDB['password']);
-@mysql_select_db($devDB['database']) or die( "Unable to select database");
-$query="SELECT * FROM products WHERE id = 4";
-$result = (mysql_query($query));
-echo get_resource_type($result) . "\n";
-$row = mysql_fetch_array($result, MYSQL_BOTH);
-print_r($row);
+//$devDB = array(
+//        'driver' => 'mysql',
+//        'persistent' => false,
+//        'host' => 'localhost',
+//        'login' => 'thegreat_mysql',
+//        'password' => 'eMcB6+t#e0JD',
+//        'database' => 'thegreat_shop_dev',
+//        'prefix' => ''
+//    );
+// 
+//
+//mysql_connect($devDB['host'],$devDB['login'],$devDB['password']);
+//@mysql_select_db($devDB['database']) or die( "Unable to select database");
+//$query="SELECT * FROM products WHERE id = 4";
+//$result = (mysql_query($query));
+//echo get_resource_type($result) . "\n";
+//$row = mysql_fetch_array($result, MYSQL_BOTH);
+//print_r($row);
 // mysql_close(); 
 main();
 //echo "Database created";
@@ -601,8 +601,19 @@ die();
             )
         );
             
-            //print_r($countries);
-            
+            $devDB = array(
+        'driver' => 'mysql',
+        'persistent' => false,
+        'host' => 'localhost',
+        'login' => 'thegreat_mysql',
+        'password' => 'eMcB6+t#e0JD',
+        'database' => 'thegreat_shop_dev',
+        'prefix' => ''
+    );
+ 
+
+mysql_connect($devDB['host'],$devDB['login'],$devDB['password']);
+@mysql_select_db($devDB['database']) or die( "Unable to select database");
         foreach ($countries as $zone => $values)
         {
             foreach ($values['countries'] as $country)
@@ -612,87 +623,66 @@ die();
 //                $existingShippingZone = $this->ShippingZone->find('first', array(
 //                    'conditions' => array('ShippingZone.name' => $country)
 //                ));
-                echo $query = "SELECT * FROM shipping_zones WHERE name = " . strval($country);
-                $result = (mysql_query($query));
-                echo $result;
-                echo get_resource_type($result) . "\n";
-                $existingShippingZone = mysql_fetch_array($result, MYSQL_BOTH);
-                print_r($existingShippingZone);
-                die();
-                if (empty($existingShippingZone))
-                {
-                    $saveShippingZone = array(
-                        'ShippingZone' => array(
-                            'name' => $country,
-                        )
-                    );
-                    $this->ShippingZone->create();
-                    if (!$this->ShippingZone->save($saveShippingZone))
-                    {
-                        pr($this->ShippingZone->validationErrors);
-                        $this->out('Error saving ShippingZone.' . $country);
-                    }
-                    $this->ShippingZoneID = $this->ShippingZone->getInsertID();
-                }
-                else
-                {
-                    $this->ShippingZoneID = $existingShippingZone['ShippingZone']['id'];
-                }
+              //  echo $query = "SELECT * FROM shipping_zones WHERE name = " . "'" . $country . "'"; 
+               // $result = (mysql_query($query));
+              //  echo $result;
+              //  echo get_resource_type($result) . "\n";
+              //  $existingShippingZone = mysql_fetch_array($result, MYSQL_BOTH);
+               // print_r($existingShippingZone);
+                $conditions = array("name = " . "'" . $country . "'");
+                $existingShippingZone = findFirst("shipping_zones",$conditions);
+                //mysql_close();
+               // die();
+               
+// find replace all $this->ShippingZoneID with $ShippingZoneID
+                    $ShippingZoneID = $existingShippingZone['id']; 
+                
                 // get the country id for the relevant shipping zone
-                $country = $this->Country->find('first', array(
-                    'conditions' => array('Country.name' => strtoupper($country))
-                ));
-                if (!empty($country))
-                {
-                    $countryID = $country['Country']['id'];
-                    $existingShippingZoneCountry = $this->ShippingZoneCountry->find('first', array(
-                        'conditions' => array(
-                            'ShippingZoneCountry.shipping_zone_id' => $this->ShippingZoneID,
-                            'ShippingZoneCountry.country_id' => $countryID,
-                        )
-                    ));
-                    if (empty($existingShippingZoneCountry))
-                    {
-                        $saveShippingZoneCountry = array(
-                            'ShippingZoneCountry' => array(
-                                'shipping_zone_id' => $this->ShippingZoneID,
-                                'country_id' => $countryID,
-                            )
-                        );
-                        // assign shipping zones to countries
-                        $this->ShippingZoneCountry->create();
-                        if (!$this->ShippingZoneCountry->save($saveShippingZoneCountry))
-                        {
-                            pr($this->ShippingZoneCountry->validationErrors);
-                            $this->out('Error saving ShippingZoneCountry.' . $country);
-                        }
-                        $this->ShippingZoneCountryID = $this->ShippingZoneCountry->getInsertID();
-                    }
-                }
+               // $country = $this->Country->find('first', array(
+                //    'conditions' => array('Country.name' => strtoupper($country))
+               // ));
+                $conditions = array("name = " . "'" . $country . "'");
+                $country = findFirst("countries",$conditions);
+               
+                    $countryID = $country['id'];
+//                    $existingShippingZoneCountry = $this->ShippingZoneCountry->find('first', array(
+//                        'conditions' => array(
+//                            'ShippingZoneCountry.shipping_zone_id' => $this->ShippingZoneID,
+//                            'ShippingZoneCountry.country_id' => $countryID,
+//                        )
+//                    ));
+                $conditions = array("shipping_zone_id = " . "'" . $ShippingZoneID . "'", "country_id = " . "'" . $countryID . "'");
+                $country = findFirst("shipping_zone_countries",$conditions);
+                print_r($country);
+                $ShippingZoneCountryID = $country[id];    
+            
+//                    if (empty($existingShippingZoneCountry))
+//                    {
+//                        $saveShippingZoneCountry = array(
+//                            'ShippingZoneCountry' => array(
+//                                'shipping_zone_id' => $this->ShippingZoneID,
+//                                'country_id' => $countryID,
+//                            )
+//                        );
+//                        // assign shipping zones to countries
+//                        $this->ShippingZoneCountry->create();
+//                        if (!$this->ShippingZoneCountry->save($saveShippingZoneCountry))
+//                        {
+//                            pr($this->ShippingZoneCountry->validationErrors);
+//                            $this->out('Error saving ShippingZoneCountry.' . $country);
+//                        }
+//                        $this->ShippingZoneCountryID = $this->ShippingZoneCountry->getInsertID();
+//                    }
+//                }
                 // add shipping carriers for each shipping zone
                 // in this case its royal mail internation shipping - hardcoded at 3
-                $existingShippingCarrierServiceCountry = $this->ShippingCarrierServiceCountry->find('first', array(
-                    'conditions' => array(
-                        'ShippingCarrierServiceCountry.shipping_carrier_service_id' => 3,
-                        'ShippingCarrierServiceCountry.shipping_zone_id' => $this->ShippingZoneID,
-                    )
-                ));
-                if (empty($existingShippingCarrierServiceCountry))
-                {
-                    $saveShippingCarrierServiceCountry = array(
-                        'ShippingCarrierServiceCountry' => array(
-                            'shipping_carrier_service_id' => 3,
-                            'shipping_zone_id' => $this->ShippingZoneID,
-                        )
-                    );
-                    $this->ShippingCarrierServiceCountry->create();
-                    if (!$this->ShippingCarrierServiceCountry->save($saveShippingCarrierServiceCountry))
-                    {
-                        pr($this->ShippingCarrierServiceCountry->validationErrors);
-                        $this->out('Error saving ShippingCarrierServiceCountry.' . $country);
-                    }
-                    $this->ShippingCarrierServiceCountryID = $this->ShippingCarrierServiceCountry->getInsertID();
-                }
+                $conditions = array("shipping_carrier_service_id = " . "'" . 3 . "'", "shipping_zone_id = " . "'" . $ShippingZoneID . "'");
+                $saveShippingCarrierServiceCountry = findFirst("shipping_carrier_service_countries",$conditions);
+                $ShippingCarrierServiceCountryID = $saveShippingCarrierServiceCountry[id];    
+                
+                
+                //$ShippingCarrierServiceCountryID = $this->ShippingCarrierServiceCountry->getInsertID();
+                
                 // add all the different weight ranges for the shipping carrier 
                 // royal mail internation shipping - hardcoded at 3
                 if (!empty($values['weight_ranges']))
@@ -764,6 +754,42 @@ die();
         }
     
     }
+    
+    function findFirst($table,$conditions)
+    {
+        //print_r($conditions);
+        $allConditions = "";
+        foreach ($conditions as $cond)
+        {
+            //print_r($cond . "\n");
+            //print_r($allConditions . "\n");
+            if(empty($allConditions))
+            {
+            $allConditions = $allConditions . $cond;    
+            }
+            else
+            {
+            $allConditions = $allConditions . " AND " .$cond;
+            }
+        }
+        print_r($allConditions . "\n");
+        $query = "SELECT * FROM " . $table . " WHERE " . $allConditions; 
+        $queryResult = (mysql_query($query));
+        $result = mysql_fetch_array($queryResult, MYSQL_ASSOC);
+        return $result;
+    }
+    
+    function executeSQLQuery($query)
+    {
+        echo $query = "SELECT * FROM shipping_zones WHERE name = " . "'" . $country . "'"; 
+        $result = (mysql_query($query));
+      
+        echo get_resource_type($result) . "\n";
+        $existingShippingZone = mysql_fetch_array($result, MYSQL_BOTH);
+       // print_r($existingShippingZone);
+        return $result;
+    }
+    
     function CalcAdditionalWeightPrice($weight)
     {
         return $additionalPrice;
