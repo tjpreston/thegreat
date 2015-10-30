@@ -1,9 +1,23 @@
 <?php
 
+$devDB = array(
+        'driver' => 'mysql',
+        'persistent' => false,
+        'host' => 'localhost',
+        'login' => 'thegreat_mysql',
+        'password' => 'eMcB6+t#e0JD',
+        'database' => 'thegreat_shop_dev',
+        'prefix' => ''
+    );
+ 
 
-
-class TgbsShippingImportShellRMInt extends Shell
-{
+mysql_connect($devDB['host'],$devDB['login'],$devDB['password']);
+@mysql_select_db($devDB['database']) or die( "Unable to select database");
+$query="SELECT * FROM products WHERE id = 4";
+print_r(mysql_query($query));
+mysql_close(); 
+echo "Database created";
+die();
 
     // this can be reused - it can also be run in part of full as each stage chacks for existing
     // This script does not run for UK or the Hermes courier
@@ -12,16 +26,16 @@ class TgbsShippingImportShellRMInt extends Shell
     // you should be able to use this script to add the new prices (delete all rows excluding UK and the 3 Hermes islands first)
     //  :)
 
-    public $uses = array(
-        'Country',
-        'ShippingZone',
-        'ShippingZoneCountry',
-        'ShippingCarrierServiceCountry',
-        'ShippingCarrierServiceWeightRange',
-        'ShippingCarrierServiceWeightRangeCountryPrice',
-    );
+//    public $uses = array(
+//        'Country',
+//        'ShippingZone',
+//        'ShippingZoneCountry',
+//        'ShippingCarrierServiceCountry',
+//        'ShippingCarrierServiceWeightRange',
+//        'ShippingCarrierServiceWeightRangeCountryPrice',
+//    );
 
-    public function main()
+    function main()
     {
         // zones according to royal mail
         $countries = array(
@@ -736,13 +750,14 @@ class TgbsShippingImportShellRMInt extends Shell
                 }
             }
         }
+    
     }
-
-    private function CalcAdditionalWeightPrice($weight)
+    function CalcAdditionalWeightPrice($weight)
     {
         return $additionalPrice;
     }
 
-}
-
 // simples!
+    
+
+    
