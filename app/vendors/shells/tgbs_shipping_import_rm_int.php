@@ -14,9 +14,13 @@ $devDB = array(
 mysql_connect($devDB['host'],$devDB['login'],$devDB['password']);
 @mysql_select_db($devDB['database']) or die( "Unable to select database");
 $query="SELECT * FROM products WHERE id = 4";
-print_r(mysql_query($query));
-mysql_close(); 
-echo "Database created";
+$result = (mysql_query($query));
+echo get_resource_type($result) . "\n";
+$row = mysql_fetch_array($result, MYSQL_BOTH);
+print_r($row);
+// mysql_close(); 
+main();
+//echo "Database created";
 die();
 
     // this can be reused - it can also be run in part of full as each stage chacks for existing
@@ -596,17 +600,25 @@ die();
                 )
             )
         );
-
+            
+            //print_r($countries);
+            
         foreach ($countries as $zone => $values)
         {
             foreach ($values['countries'] as $country)
             {
                 // Add the shipping xones to the table
                 $country = ucwords(strtolower($country));
-                $existingShippingZone = $this->ShippingZone->find('first', array(
-                    'conditions' => array('ShippingZone.name' => $country)
-                ));
+//                $existingShippingZone = $this->ShippingZone->find('first', array(
+//                    'conditions' => array('ShippingZone.name' => $country)
+//                ));
+                echo $query = "SELECT * FROM shipping_zones WHERE name = " . strval($country);
+                $result = (mysql_query($query));
+                echo $result;
+                echo get_resource_type($result) . "\n";
+                $existingShippingZone = mysql_fetch_array($result, MYSQL_BOTH);
                 print_r($existingShippingZone);
+                die();
                 if (empty($existingShippingZone))
                 {
                     $saveShippingZone = array(

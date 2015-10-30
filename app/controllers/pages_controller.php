@@ -59,15 +59,15 @@ class PagesController extends AppController
 		$pages = Configure::read('Static.pages');
 		
 		$this->addCrumb('/pages/' . $page, $pages[$page]);
-		
+		xdebug_break();
                 $title_for_layout = $pages[$page];
 		
 		$this->set(compact('page', 'subpage', 'title_for_layout'));
 
 		$this->set('isAjax', $this->RequestHandler->isAjax());
-                
+               
                 // Yes this is a hack but I don't care - TJP 7/10/15
-                if(strcmp($title_for_layout,'shop'))
+                if(!strcasecmp($title_for_layout,'shop'))
                 {
                         $title_for_layout = 'Our shop';
                 }
@@ -76,6 +76,7 @@ class PagesController extends AppController
 		//if($this->RequestHandler->isAjax()){
 		//	$this->render('/elements/pages/' . $page);
 		//} else {
+                xdebug_break();
 			$this->render('template');
 		//}
 		
