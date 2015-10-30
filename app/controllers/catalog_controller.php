@@ -273,7 +273,7 @@ class CatalogController extends AppController
 	 */
 	public function search()
 	{
-            ////xdebug_break();
+      
                 $keyword = $this->getSearchKeyword();
 		
 		if (empty($keyword))
@@ -286,11 +286,12 @@ class CatalogController extends AppController
 		$this->Product->unbindModel(array('hasAndBelongsToMany' => array('Category')), false);
 
 		$conditions = array(
-			'ProductName.name LIKE' => '%' . $keyword . '%',
+			'ProductName.name LIKE' => '% ' . $keyword . ' %',
 			'Product.all_skus LIKE' => '%' . $keyword . '%',
-			'ProductDescription.keywords LIKE' => '%' . $keyword . '%'
+			'ProductDescription.keywords LIKE' => '% ' . $keyword . ' %'
 		);
 		
+                // No - TJP 29/10/15
 		if (Configure::read('Catalog.search_manufacturers'))
 		{
 			$manuCondition = array('Manufacturer.name LIKE' => '%' . $keyword . '%');
@@ -356,7 +357,7 @@ class CatalogController extends AppController
 	 */
 	public function view_category($categoryID = null)
 	{
-           //// xdebug_break();
+            
             $this->notEmptyOr404($categoryID);
 		
 		$this->Category->bindDescription($this->Category, 0, false);
@@ -412,17 +413,24 @@ class CatalogController extends AppController
                 //  Uncomment to fix real number products per category
                 
                  
-                $pathIDs = Set::extract('{n}.Category.id', $path); //stole from popcorn
-                  
+                   
                 // Category.product_counter is incorrect so another kludge fix - TJP 23/10/15
                 foreach ($this->_categories as $k => $cat)
 		{
-			if ($cat['Category']['id'] == $pathIDs[0])
+			if ($cat['Category']['id'] == $categoryID)
 			{
 				$family = $cat['children'];
 				break;
 			}
 		}
+                
+                // Gift finder fix
+                if(!isset($family))
+                {
+                    $family = [];
+                    $family['Category'] = $record;
+                }
+                
                 foreach ($family as $k => $cat)  
                 {
                     $catID = $cat['Category']['id']; 
@@ -1028,7 +1036,7 @@ class CatalogController extends AppController
 	 */
 	private function _listProducts($conditions, $inCategory = true)
 	{
-           //// xdebug_break();
+            ////xdebug_break();
                 $this->Product->unbindModel(array('hasAndBelongsToMany' => array('Category')), false);		
 		$this->Product->bindModel(array('hasOne' => array('ProductCategory')), false);
 		$this->Product->bindAttributes($this->Product, false);
@@ -1065,7 +1073,7 @@ class CatalogController extends AppController
 	//	{
 			$this->paginate['fields'][] = 'ProductCategory.*';
 	//	}
-       //// xdebug_break();
+        ////xdebug_break();
 		$this->paginate['group'] = array('Product.id');
 		
 		if (Configure::read('Catalog.show_product_short_description_on_list'))
@@ -1105,7 +1113,7 @@ class CatalogController extends AppController
 		
 		// Get filter values for display in product list panels
 		$this->getAvailablePriceFilterValues($conditions, getAllExcluding($filterConditions, 'price'), $this->selectedFilters['price']);
-		$this->getAvailableManufacturerFilterValues($conditions, getAllExcluding($filterConditions, 'manufacturer'));
+	//	$this->getAvailableManufacturerFilterValues($conditions, getAllExcluding($filterConditions, 'manufacturer'));
 		
                 
                 // The product attribute system is totally fucked so remove for launch then fix later. TJP
@@ -1119,8 +1127,12 @@ class CatalogController extends AppController
 		$this->Product->bindSingleQtyDiscount(false);
 		$this->paginate['fields'][] = 'SingleQtyProductPriceDiscount.discount_amount';
 		
-                $origCatID = $conditions['ProductCategory.category_id'];
-                 $conditions = array(
+                
+                // search function has it's own conditions + no category 29/10/15
+                if(isset($origCatID))
+                {
+                    $origCatID = $conditions['ProductCategory.category_id'];
+                    $conditions = array(
                                         'ProductCategory.category_id' => $origCatID,
                                         'AND' => array(
                                                // array('Product.visibility' => 'catalog'), // is active?
@@ -1128,7 +1140,7 @@ class CatalogController extends AppController
                                                 array('Product.active' => 1)
                                             )
                                                );
-            
+                }
                 // For Pete's sake avert your eyes - TJP 19/10/15
 		if(empty($this->viewVars['record']['Category']['parent_id']) && $inCategory)
                 {
@@ -1615,12 +1627,15 @@ class CatalogController extends AppController
 	 */
 	private function getAvailablePriceFilterValues($mainConditions, $otherFilterConditions, $selectedPrices)
 	{	
-		$ranges = $this->priceFilterRanges;
+            ////xdebug_break();
+                $ranges = $this->priceFilterRanges;
 		
 		$this->Product->unbindModel(array(
-			//'hasOne' => array('ProductDescription', 'ProductMeta'),
-			'hasOne' => array('ProductMeta'),
-			'hasMany' => array('ProductImage')
+			
+                        //'belongsTo' => array('Manufacturer'),
+			'hasOne' => array('ProductMeta','AttributeValue'),
+			'hasMany' => array('ProductImage'),
+                        'hasAndBelongsToMany' => array('AttributeSet')
 		));
 		
 		$conditions = $mainConditions;
@@ -2057,7 +2072,7 @@ class CatalogController extends AppController
 	 */
 	protected function setLastPage($name = null)
 	{
-          ////  xdebug_break();
+           //// xdebug_break();
                 $catalogActions = array(
 			'view_category' => $name,
 			'search' => 'your search results',

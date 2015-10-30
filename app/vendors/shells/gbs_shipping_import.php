@@ -19,6 +19,8 @@ class GbsShippingImportShell extends Shell {
 	);
 
 	public function main() {
+           fwrite($this->stdout, 'est');
+            $this->out('test');
 		// zones according to royal mail
 		$countries = array(
 			'europe' => array(
@@ -81,47 +83,47 @@ class GbsShippingImportShell extends Shell {
 					0 => array(
 						'weight_from' => 0,
 						'weight_to' => 100,
-						'price' => 2.90
+						'price' => 2.27
 					),
 					1 => array(
 						'weight_from' => 100.001,
 						'weight_to' => 250,
-						'price' => 3.35
+						'price' => 3.43
 					),
 					2 => array(
 						'weight_from' => 250.001,
 						'weight_to' => 500,
-						'price' => 4.70
+						'price' => 4.77
 					),
 					3 => array(
 						'weight_from' => 500.001,
 						'weight_to' => 750,
-						'price' => 6.05
+						'price' => 6.11
 					),
 					4 => array(
 						'weight_from' => 750.001,
 						'weight_to' => 1000,
-						'price' => 7.40
+						'price' => 7.65
 					),
 					5 => array(
 						'weight_from' => 1000.001,
 						'weight_to' => 1250,
-						'price' => 8.75
+						'price' => 8.89
 					),
 					6 => array(
 						'weight_from' => 1250.001,
 						'weight_to' => 1500,
-						'price' => 10.10
+						'price' => 10.14
 					),
 					7 => array(
 						'weight_from' => 1500.001,
 						'weight_to' => 1750,
-						'price' => 11.45
+						'price' => 11.39
 					),
 					6 => array(
 						'weight_from' => 1750.001,
 						'weight_to' => 2000,
-						'price' => 12.80
+						'price' => 12.46
 					),
 					7 => array(
 						'weight_from' => 2250.001,
@@ -208,47 +210,47 @@ class GbsShippingImportShell extends Shell {
 					0 => array(
 						'weight_from' => 0,
 						'weight_to' => 100,
-						'price' => 3.65
+						'price' => 3.06
 					),
 					1 => array(
 						'weight_from' => 100.001,
 						'weight_to' => 250,
-						'price' => 4.60
+						'price' => 4.68
 					),
 					2 => array(
 						'weight_from' => 250.001,
 						'weight_to' => 500,
-						'price' => 7.25
+						'price' => 7.31
 					),
 					3 => array(
 						'weight_from' => 500.001,
 						'weight_to' => 750,
-						'price' => 9.90
+						'price' => 9.95
 					),
 					4 => array(
 						'weight_from' => 750.001,
 						'weight_to' => 1000,
-						'price' => 12.55
+						'price' => 12.86
 					),
 					5 => array(
 						'weight_from' => 1000.001,
 						'weight_to' => 1250,
-						'price' => 15.20
+						'price' => 14.62
 					),
 					6 => array(
 						'weight_from' => 1250.001,
 						'weight_to' => 1500,
-						'price' => 17.85
+						'price' => 16.38
 					),
 					7 => array(
 						'weight_from' => 1500.001,
 						'weight_to' => 1750,
-						'price' => 20.50
+						'price' => 18.13
 					),
 					6 => array(
 						'weight_from' => 1750.001,
 						'weight_to' => 2000,
-						'price' => 23.15
+						'price' => 19.89
 					),
 					7 => array(
 						'weight_from' => 2250.001,
@@ -478,7 +480,7 @@ class GbsShippingImportShell extends Shell {
 					0 => array(
 						'weight_from' => 0,
 						'weight_to' => 100,
-						'price' => 3.45
+						'price' => 2.92
 					),
 					1 => array(
 						'weight_from' => 100.001,
@@ -488,37 +490,37 @@ class GbsShippingImportShell extends Shell {
 					2 => array(
 						'weight_from' => 250.001,
 						'weight_to' => 500,
-						'price' => 6.85
+						'price' => 6.90
 					),
 					3 => array(
 						'weight_from' => 500.001,
 						'weight_to' => 750,
-						'price' => 9.30
+						'price' => 9.39
 					),
 					4 => array(
 						'weight_from' => 750.001,
 						'weight_to' => 1000,
-						'price' => 11.75
+						'price' => 11.98
 					),
 					5 => array(
 						'weight_from' => 1000.001,
 						'weight_to' => 1250,
-						'price' => 14.20
+						'price' => 13.56
 					),
 					6 => array(
 						'weight_from' => 1250.001,
 						'weight_to' => 1500,
-						'price' => 16.65
+						'price' => 15.13
 					),
 					7 => array(
 						'weight_from' => 1500.001,
 						'weight_to' => 1750,
-						'price' => 19.10
+						'price' => 16.70
 					),
 					6 => array(
 						'weight_from' => 1750.001,
 						'weight_to' => 2000,
-						'price' => 21.55
+						'price' => 18.27
 					),
 					7 => array(
 						'weight_from' => 2250.001,
@@ -586,6 +588,8 @@ class GbsShippingImportShell extends Shell {
 				$existingShippingZone = $this->ShippingZone->find('first', array(
 					'conditions' => array('ShippingZone.name' => $country)
 				));
+                                                $this->out($existingShippingZone);
+                                                 
 				if(empty($existingShippingZone)) {
 					$saveShippingZone = array(
 						'ShippingZone' => array(
@@ -716,5 +720,10 @@ class GbsShippingImportShell extends Shell {
 			}
 		}
 	}
-}
+
+        private function CalcAdditionalWeightPrice($weight)
+        {
+            return $additionalPrice;
+        }
+                                                }
 // simples!

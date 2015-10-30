@@ -77,7 +77,8 @@ class CategoriesController extends AppController
 	 */
 	public function admin_index($id = null)
 	{	
-		$this->Category->bindName($this->Category, null, true);
+            xdebug_break();
+                $this->Category->bindName($this->Category, null, true);
 		$this->Category->bindDescription($this->Category, null, true);
 		$this->Category->bindFeaturedProducts($this->Category, false);
 		
