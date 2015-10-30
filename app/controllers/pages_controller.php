@@ -59,8 +59,7 @@ class PagesController extends AppController
 		$pages = Configure::read('Static.pages');
 		
 		$this->addCrumb('/pages/' . $page, $pages[$page]);
-		xdebug_break();
-                $title_for_layout = $pages[$page];
+	        $title_for_layout = $pages[$page];
 		
 		$this->set(compact('page', 'subpage', 'title_for_layout'));
 
@@ -76,8 +75,7 @@ class PagesController extends AppController
 		//if($this->RequestHandler->isAjax()){
 		//	$this->render('/elements/pages/' . $page);
 		//} else {
-                xdebug_break();
-			$this->render('template');
+           		$this->render('template');
 		//}
 		
 	}
