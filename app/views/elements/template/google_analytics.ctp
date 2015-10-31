@@ -4,7 +4,7 @@
 
 	var _gaq = _gaq || [];
     _gaq.push(['_setAccount', '<?php echo Configure::read('GoogleAnalytics.account'); ?>']);
-    _gaq.push(['_setDomainName', 'michelherbelin.co.uk']);
+    _gaq.push(['_setDomainName', 'thegreatbritishshop.co.uk']);
     _gaq.push(['_trackPageview']);
   
 	<?php

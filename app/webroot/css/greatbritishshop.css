@@ -534,3 +534,35 @@ p.heading a {
 #enquiries .form .input-box input{
 	width: 300px;
 }
+
+/**
+ * Product details
+ */
+#myDiv 
+{
+height:104px;
+width:140px;
+}
+#myDiv img
+{
+max-width:100%; 
+max-height:100%;
+margin:auto;
+display:block;
+}
+
+//.shop-page .image-wrapper{
+	//margin-top: 15px;
+//}
+.shop-page-image-wrapper {
+	background: url('/img/corners/grid_6_169px.png') center center no-repeat;
+	height: 169px;
+}
+.shop-page-image-wrapper img {
+	max-width: 100%;
+}
+.shop-page h3 {
+	text-align: center;
+	padding: 3px 0;
+	margin: 8px 0 0 0;
+}

@@ -137,13 +137,13 @@ header('Content-type: text/html; charset=UTF-8');
 		</div>
 	</footer>
 
-	<?php if(Configure::read('debug') === 0): ?>
+	<!-- <?php if(Configure::read('debug') === 0): ?>
 	<script type="text/javascript">
 	var popcc12_title = 'The Great British Shop Ltd Visitor Experience';
 	var popcc12_report = 'greatbritishshop';
 	</script>
 	<script src="http://popcc12.popcornwebdesign.co.uk/js/popcc12.js"></script>
-	<?php endif; ?>
+	<?php endif; ?> -->
 
 	<?php echo $this->element('sql_dump'); ?>
 </body>
