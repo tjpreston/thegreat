@@ -2,20 +2,20 @@
     RewriteEngine On
    
 
-    RewriteCond %{HTTP_HOST} !^www\.thegreatbritishshop\.com [NC]
-    RewriteCond %{REQUEST_FILENAME} -d [OR]
-    RewriteCond %{REQUEST_FILENAME} -f [OR]
-    RewriteCond %{REQUEST_URI} ^$ [OR]
-    RewriteRule ^(.*)$ http://www.thegreatbritishshop.com/$1 [QSA,L,R=301]
+   # RewriteCond %{HTTP_HOST} !^www\.thegreatbritishshop\.com [NC]
+   # RewriteCond %{REQUEST_FILENAME} -d [OR]
+   # RewriteCond %{REQUEST_FILENAME} -f [OR]
+   # RewriteCond %{REQUEST_URI} ^$ [OR]
+   # RewriteRule ^(.*)$ http://www.thegreatbritishshop.com/$1 [QSA,L,R=301]
 
 
-    RewriteCond %{HTTP_HOST} !^www\.thegreatbritishshop\.com [NC]
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^(.*)$ http\:\/\/www\.thegreatbritishshop\.com\/index.php?url=$1 [QSA,L]
+   # RewriteCond %{HTTP_HOST} !^www\.thegreatbritishshop\.com [NC]
+   # RewriteCond %{REQUEST_FILENAME} !-d
+   # RewriteCond %{REQUEST_FILENAME} !-f
+   # RewriteRule ^(.*)$ http\:\/\/www\.thegreatbritishshop\.com\/index.php?url=$1 [QSA,L]
     
     
-    RewriteCond %{HTTP_HOST} ^www\.thegreatbritishshop\.com [NC]
+   # RewriteCond %{HTTP_HOST} ^www\.thegreatbritishshop\.com [NC]
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
@@ -62,10 +62,10 @@
 
 FileETag none
 
-AuthType Basic
-AuthName "Protected"
-AuthUserFile "/home/thegreat/.htpasswds/website_files/app/webroot/passwd"
-require valid-user
+#AuthType Basic
+#AuthName "Protected"
+#AuthUserFile "/home/thegreat/.htpasswds/website_files/app/webroot/passwd"
+#require valid-user
 
 Options -Indexes
 

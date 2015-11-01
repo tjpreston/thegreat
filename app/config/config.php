@@ -324,7 +324,7 @@ $config['Wishlist']['enabled'] = false;
  *
  */
 $config['GoogleAnalytics']['enabled'] = true;
-$config['GoogleAnalytics']['account'] = 'UA-27294739-1';
+$config['GoogleAnalytics']['account'] = 'UA-69525753-1';
 
 
 /**

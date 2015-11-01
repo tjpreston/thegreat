@@ -145,6 +145,6 @@ header('Content-type: text/html; charset=UTF-8');
 	<script src="http://popcc12.popcornwebdesign.co.uk/js/popcc12.js"></script>
 	<?php endif; ?> -->
 
-	<?php echo $this->element('sql_dump'); ?>
+	<!-- <?php echo $this->element('sql_dump'); ?> -->
 </body>
 </html>
