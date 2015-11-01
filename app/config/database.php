@@ -109,7 +109,6 @@ class DATABASE_CONFIG {
     /** Figure out where we are */
     function __construct() {
         if (isset($_SERVER['SERVER_NAME'])) {
-        $this->default = $this->dev;
             switch ($_SERVER['SERVER_NAME']) {
                 case 'localhost':
                     $this->default = $this->dev;
@@ -117,6 +116,7 @@ class DATABASE_CONFIG {
                 case 'timdev.thegreatbritishshop.com':
                     $this->default = $this->dev;
                     break;
+		case 'dev.thegreatbritishshop-x0bb.temp-dns.com':
                 case 'dev.thegreatbritishshop.com':
                     $this->default = $this->dev;
                     break;
