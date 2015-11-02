@@ -278,10 +278,10 @@ $config['SagepayForm']['email_message'] = 'Thank you very much for your order.';
  * Worldpay
  *
  */
-$config['Worldpay']['test_mode'] = true;
+$config['Worldpay']['test_mode'] = false;
 if(isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] == '46.65.212.209')
 {
-$config['Worldpay']['test_mode'] = true;
+$config['Worldpay']['test_mode'] = false;
 }
 $config['Worldpay']['installation_id'] = '307494';
 

@@ -2,12 +2,3 @@ Sitemap: http://www.thegreatbritishshop.com/sitemap.xml
 
 User-agent: *
 Allow: /
-Disallow: /cgi-bin/
-Disallow: /search
-Disallow: /basket
-Disallow: /checkout
-Disallow: /checkout/
-Disallow: /js/
-Disallow: /css/
-Disallow: /files/
-Disallow: /?sortby*
