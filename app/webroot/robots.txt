@@ -1,4 +1,4 @@
-Sitemap: http://www.michelherbelin.co.uk/sitemap.xml
+Sitemap: http://www.thegreatbritishshop.com/sitemap.xml
 
 User-agent: *
 Allow: /

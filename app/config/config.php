@@ -324,8 +324,8 @@ $config['Wishlist']['enabled'] = false;
  *
  */
 $config['GoogleAnalytics']['enabled'] = true;
-$config['GoogleAnalytics']['account'] = 'UA-69525753-1';
-
+$config['GoogleAnalytics']['accounts'] = array('dev' => 'UA-69525753-1', 'tgbs_all' => 'UA-69525753-2');
+$config['GoogleAnalytics']['account_id'] = '';
 
 /**
  * Stockist commission rates

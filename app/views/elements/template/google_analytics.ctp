@@ -2,9 +2,13 @@
 
 if(Configure::read('GoogleAnalytics.enabled')): ?>
 <!-- Begin Google Analytics -->
-<script>
 
-    
+<?php 
+$allAccounts = Configure::read('GoogleAnalytics.accounts');
+$useAccount = $allAccounts['tgbs_all']; //just to start
+//$config['GoogleAnalytics']['accounts'] = array('dev' => 'UA-69525753-1', 'tgbs_all' => 'UA-69525753-2');
+?>
+<script>
     
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
@@ -19,8 +23,8 @@ if(Configure::read('GoogleAnalytics.enabled')): ?>
     })
     (window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-    ga('create', '<?php echo Configure::read('GoogleAnalytics.account'); ?>', 'auto');
-//    ga('require', 'linkid');
+    ga('create', '<?php echo $useAccount ?>', 'auto');
+    ga('require', 'linkid','linkid.js');
     ga('send', 'pageview');
 
 </script>

@@ -1,9 +1,6 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
-
-   # RewriteEngine on
-   # RewriteCond %{HTTP_USER_AGENT} !^.*(AltaVista|Broken|Google.*|msnbot|Slurp).*$ [NC]
-   # RewriteRule .* - [F,L]   
+   
 
     RewriteCond %{HTTP_HOST} !^www\.thegreatbritishshop\.com [NC]
     RewriteCond %{REQUEST_FILENAME} -d [OR]
@@ -22,8 +19,6 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
-
-
 </IfModule>
 
 <IfModule mod_deflate.c>
@@ -67,19 +62,10 @@
 
 FileETag none
 
-SetEnvIfNoCase User-Agent .*google.* search_robot
-SetEnvIfNoCase User-Agent .*yahoo.* search_robot
-SetEnvIfNoCase User-Agent .*bot.* search_robot
-SetEnvIfNoCase User-Agent .*worldpay.* search_robot
-
 AuthType Basic
 AuthName "Protected"
 AuthUserFile "/home/thegreat/.htpasswds/website_files/app/webroot/passwd"
-Order Deny,Allow
-Deny from All
-Require user thegreat
-Allow from env=search_robot
-Satisfy Any
+require valid-user
 
 Options -Indexes
 
