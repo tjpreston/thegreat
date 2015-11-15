@@ -57,20 +57,20 @@
 
 FileETag none
 
-SetEnvIfNoCase User-Agent .*google.* search_robot
-SetEnvIfNoCase User-Agent .*yahoo.* search_robot
-SetEnvIfNoCase User-Agent .*bot.* search_robot
-SetEnvIfNoCase User-Agent .*worldpay.* search_robot
-SetEnvIfNoCase User-Agent .*baidu.* search_robot
+#SetEnvIfNoCase User-Agent .*google.* search_robot
+#SetEnvIfNoCase User-Agent .*yahoo.* search_robot
+#SetEnvIfNoCase User-Agent .*bot.* search_robot
+#SetEnvIfNoCase User-Agent .*worldpay.* search_robot
+#SetEnvIfNoCase User-Agent .*baidu.* search_robot
 
-AuthType Basic
-AuthName "Protected"
-AuthUserFile "/home/thegreat/.htpasswds/website_files/app/webroot/passwd"
-Order Deny,Allow
-Deny from All
-Require user thegreat
-Allow from env=search_robot
-Satisfy Any
+#AuthType Basic
+#AuthName "Protected"
+#AuthUserFile "/home/thegreat/.htpasswds/website_files/app/webroot/passwd"
+#Order Deny,Allow
+#Deny from All
+#Require user thegreat
+#Allow from env=search_robot
+#Satisfy Any
 
 Options -Indexes
 
