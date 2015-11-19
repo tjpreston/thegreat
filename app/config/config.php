@@ -279,9 +279,9 @@ $config['SagepayForm']['email_message'] = 'Thank you very much for your order.';
  *
  */
 $config['Worldpay']['test_mode'] = true;
-if(isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] == '46.65.212.209')
+if(isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] == '185.41.10.127')
 {
-$config['Worldpay']['test_mode'] = true;
+$config['Worldpay']['test_mode'] = false;
 }
 $config['Worldpay']['installation_id'] = '307494';
 
@@ -323,9 +323,9 @@ $config['Wishlist']['enabled'] = false;
  * Google Analytics
  *
  */
-$config['GoogleAnalytics']['enabled'] = true;
-$config['GoogleAnalytics']['account'] = 'UA-69525753-1';
-
+$config['GoogleAnalytics']['enabled'] = false;
+$config['GoogleAnalytics']['accounts'] = array('dev' => 'UA-69525753-1', 'tgbs_all' => 'UA-69525753-2');
+$config['GoogleAnalytics']['account_id'] = '';
 
 /**
  * Stockist commission rates
