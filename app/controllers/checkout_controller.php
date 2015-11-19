@@ -48,7 +48,7 @@ class CheckoutController extends AppController
         
         
         
-        public  $clickCollectAddress = array('id' => '','first_name' => '','last_name' => '','address_1' => 'The Great British Shop','address_2' => '17 The Old High St','town' => 'Folkestone','country_id' => '232','county' => 'Kent','postcode' => 'CT20 1RL','company_name' => 'The Great British Shop','phone' => '01303 243366', 'new_address' => '0');
+        public  $clickCollectShippingAddress = array('id' => '8','first_name' => '','last_name' => '','address_1' => 'The Great British Shop','address_2' => '17 The Old High St','town' => 'Folkestone','country_id' => '232','county' => 'Kent','postcode' => 'CT20 1RL','company_name' => 'The Great British Shop','phone' => '01303 243366', 'new_address' => '0');
         
         
 	/**
@@ -152,22 +152,31 @@ class CheckoutController extends AppController
 	 */
 	public function save()
 	{
-            
-            xdebug_break();
+           //debug($this->data['CustomerShippingAddress'],1,1);
+
             if(isset($this->data['CustomerShippingAddress']['click_collect']))
             {
-                $this->data['CustomerShippingAddress'] = $this->clickCollectAddress;
-                $this->data['CustomerShippingAddress']['id'] = '8';
-                $this->data['CustomerShippingAddress']['first_name'] = '';
-                $this->data['CustomerShippingAddress']['last_name'] = '';
+                unset($this->data['CustomerShippingAddress']['click_collect']);
+                $this->CustomerShippingAddress->unbindModel(array('belongsTo' => array('Customer', 'Country')));	
+                $shipad = $this->CustomerShippingAddress->find('first', array('conditions' => array(
+				'CustomerShippingAddress.customer_id' => '6',
+				'CustomerShippingAddress.id' => '8'
+			)));			
+                
+                $tmp = array_replace($this->data['CustomerShippingAddress'],$shipad);
+                $this->data['CustomerShippingAddress'] = $tmp['CustomerShippingAddress'];
+//                $this->data['CustomerShippingAddress'] = $this->clickCollectAddress;
+  //              $this->data['CustomerShippingAddress']['id'] = '8';
+    //            $this->data['CustomerShippingAddress']['first_name'] = '';
+      //          $this->data['CustomerShippingAddress']['last_name'] = '';
                 //$this->data['Basket'] = $this->viewVars['basket']['Basket'];
             }
             
-            
+        //debug($this->data['CustomerShippingAddress'],1,1);    
             $this->CustomerShippingAddress->postcode = $this->Session->read('Shipping.Location.postcode');
 
 		$this->_initCheckout();
-
+                $tmp = $this->customerIsLoggedIn();
 		// Non logged in users will need to enter customer details
 		if (!$this->customerIsLoggedIn() && empty($this->data['Customer']))
 		{
@@ -185,9 +194,11 @@ class CheckoutController extends AppController
 
 		// Everyone needs to enter valid address details
 		// Do this now so if we have to return early due to Customer error, address validation is displayed
+		
+		//debug($this->data['CustomerShippingAddress'],1,1);
 		$validBillingAddress = $this->validateBillingAddressAndAppendData();
 		$validShippingAddress = $this->validateShippingAddressAndAppendData();
-		
+		//debug($this->data['CustomerShippingAddress'],1,1);
 		if (!empty($this->data['CustomerBillingAddress']['new_address']))
 		{
 			$this->Basket->saveField('customer_billing_address_id', 0);
@@ -201,11 +212,12 @@ class CheckoutController extends AppController
 		}
 		
 		
-		
+		//debug($this->Auth->user('id'),1,1);
 		if ($this->customerIsLoggedIn())
 		{	
 			$this->Basket->saveField('customer_id', $this->Auth->user('id'));
 			$this->Customer->id = $this->Auth->user('id');
+                        print_r($this->data['Basket']);
 		}
 		else
 		{
@@ -222,13 +234,14 @@ class CheckoutController extends AppController
 			{
 				$this->data['Customer']['guest'] = 1;
 			}
-
+                        print_r($this->data['Basket']);
 			$customer = array('Customer' => $this->data['Customer']);
 			$this->Customer->set($customer);
 			
 			if (!$this->Customer->validates() || !$this->Customer->save($customer))
 			{
-				$this->Session->setFlash('There were errors. Please check the form below.', 'default', array('class' => 'failure'));
+				print_r('boo1');
+                                $this->Session->setFlash('There were errors. Please check the form below.', 'default', array('class' => 'failure'));
 				return $this->setAction('index');
 			}
 
@@ -264,7 +277,7 @@ class CheckoutController extends AppController
 			$this->Basket->saveField('ship_to_billing_address', 0, false);
 			$shippingOK = ($validShippingAddress && $this->saveShippingAddress());
 		}
-
+//print_r('boo2');
 		if ($billingOK && $shippingOK)
 		{
 			$this->redirect('/checkout/support');
@@ -272,7 +285,7 @@ class CheckoutController extends AppController
 
 		
 		$this->set(compact('validBillingAddress', 'validShippingAddress'));
-		
+		print_r('boo');
 		$this->Session->setFlash('There were errors. Please check the form below.', 'default', array('class' => 'failure'));
 		return $this->setAction('index');
 		
@@ -972,9 +985,12 @@ class CheckoutController extends AppController
 	 */
 	private function validateShippingAddressAndAppendData()
 	{
-           
-                if (!empty($this->data['Basket']['ship_to_billing_address']))
+		//debug($this->data['Basket']['ship_to_billing_address'], 1, 1);  
+		$this->log($this->data['Basket']['ship_to_billing_address'],'checkout_debug');
+		if (!empty($this->data['Basket']['ship_to_billing_address']))
 		{
+			 //print_r('2');
+			$this->log('2','checkout_debug');
 			return true;
 		}
 		
@@ -988,18 +1004,35 @@ class CheckoutController extends AppController
 			)));
 			
 			$validShippingAddress = !empty($address);
-			
+			// print_r('3');
+			$this->log('3','checkout_debug');
 		}
 		else if (($this->customerIsLoggedIn() && !empty($this->data['CustomerShippingAddress']['new_address'])) || !$this->customerIsLoggedIn())
 		{
+			//print_r('logged in: ');
+                        //debug($this->customerIsLoggedIn(), 1, 1);
+			//print_r('Initial\n');
+			//debug($this->data['CustomerShippingAddress'], 1, 1);
 			$this->data['CustomerShippingAddress']['customer_id'] = $this->Customer->id;
-			
-			$this->CustomerShippingAddress->set($this->data);
+			//print('1:\n');
+			//debug($this->data['CustomerShippingAddress'], 1, 1);
 
+			$this->CustomerShippingAddress->set($this->data);
+			//print('2:\n');
+			//debug($this->data['CustomerShippingAddress'], 1, 1);
+			
+							
 			$this->CustomerShippingAddress->removeCustomerIDValidation();
+			//print('3:\n');
+			//debug($this->data['CustomerShippingAddress'], 1, 1);
 			$validShippingAddress = $this->CustomerShippingAddress->validates();
 			$this->CustomerShippingAddress->addCustomerIDValidation();
-			
+			//print('4:\n');
+			//debug($this->data['CustomerShippingAddress'], 1, 1);
+			//debug($validShippingAddress, 1, 1);
+			//print_r('4');
+                        //print_r($validShippingAddress, 1, 1);
+			$this->log('2','checkout_debug');
 		}
 		
 		return $validShippingAddress;
@@ -1014,6 +1047,7 @@ class CheckoutController extends AppController
 	 */
 	private function saveShippingAddress()
 	{
+		$this->log('1_saveshipingaddress','checkout_debug');
 		if (!empty($this->data['CustomerShippingAddress']['id']))
 		{
 			$this->CustomerShippingAddress->id = $this->data['CustomerShippingAddress']['id'];

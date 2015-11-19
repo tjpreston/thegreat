@@ -108,9 +108,11 @@ class DATABASE_CONFIG {
 
     /** Figure out where we are */
     function __construct() {
+        //$this->default = $this->dev;
         if (isset($_SERVER['SERVER_NAME'])) {
             switch ($_SERVER['SERVER_NAME']) {
                 case 'localhost':
+                case 'bojackhorseman.ddns.net':
                     $this->default = $this->dev;
                     break;
                 case 'timdev.thegreatbritishshop.com':

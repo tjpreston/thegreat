@@ -231,7 +231,13 @@
 		</tfoot>
 	
 	</table>
+        <div class="confirmation-group">
+          
+            <p style="padding-left: 36px;">By submitting my order I confirm my agreement to The Great British Shop Ltd's refund policy detailed in <a href="/pages/terms" >terms and conditions</a> of sale.</p>
 	
+        </div>
+    
+    
 	<?php echo $this->element('payments/worldpay_form'); ?>
 	<div class="right">
 		<?php echo $form->button('<span class="face1">Continue</span> <span class="face2">To Payment</span>', array('class' => 'send-button', 'div' => false, 'style' => 'margin-top:10px', 'class' => 'dual')); ?>

@@ -67,8 +67,8 @@
 	<p>If you are not completely satisfied with any item you buy from us, we will refund you in full (excluding P & P) if returned to us in good condition within 28 days of purchase. This does not affect your statutory rights as a consumer.</p>
 
 	<p><strong>European Union Distance Selling regulations</strong></p>
-	<p>If you reside within the European Union and you cancel your entire order within 14 days of when we despatch your goods, we will refund the standard postage costs you paid as part of that order (if any), in accordance with the Distance Selling Regulations. </p>
+	<p>In addition to the above cancellation policy if you reside within the European Union and you cancel your entire order, within 7 days of purchase, or within 7 days of delivery (whichever is the longer), we will also refund the standard postage costs you paid as part of that order (if any), in accordance with the Distance Selling Regulations. </p>
 
-	<p>You would need to pay the costs of sending the order back to us.  We will not refund any postage charges if you cancel after 14 days notice of despatch – or if you only cancel part of your order. </p>
+	<p>You would need to pay the costs of sending the order back to us.  We will not refund any postage charges if you cancel outside this period – or if you only cancel part of your order. </p>
 
 

@@ -1,6 +1,5 @@
 Thank you very much for your order from <?php echo Configure::read('Site.name'); ?>
 
-
 Your order reference: #<?php echo $orderRef; ?> 
 
 --------------------------------------------------------------------
@@ -81,7 +80,7 @@ if(!empty($item['BasketItem']['giftwrap_product_id'])){
 
 <?php endforeach; ?>
 
-Subtotal: £<?php echo $basket['Basket']['last_calculated_subtotal']; ?> 
+Subtotal: £<?php echo $basketAndCustomer['Basket']['last_calculated_subtotal']; ?> 
 <?php if(!empty($basketAndCustomer['Basket']['coupon_code'])): ?>
 Voucher code: <?php echo $basket['Basket']['coupon_code']; ?> <?php if(!empty($discountAmount)) echo ': -£' . $discountAmount; ?> 
 <?php endif; ?>
@@ -89,7 +88,7 @@ Delivery: <?php echo (!empty($basket['Basket']['free_shipping'])) ? "Free Shippi
 if (!empty($shipping['Price']['price'])): ?>: <?php if($shipping['Price']['price'] > 0){ ?>£<?php echo $shipping['Price']['price']; ?><?php } else { echo "FREE\n"; } ?>
 <?php endif; ?>
 
-Order Total: £<?php echo $basket['Basket']['last_calculated_grand_total']; ?> 
+Order Total: £<?php echo $basketAndCustomer['Basket']['last_calculated_grand_total']; ?> 
 
 --------------------------------------------------------------------
 
