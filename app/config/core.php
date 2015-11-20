@@ -322,3 +322,8 @@ if (isset($_SERVER['SERVER_NAME']))
             break;
     }
 }
+else
+{
+// May god help us all if we get to here
+    Cache::config('default', array('engine' => 'File'));
+}
