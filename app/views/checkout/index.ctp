@@ -145,26 +145,17 @@ $this->set('body_id', 'checkout1');
 
 
     <fieldset>
-        <?php //xdebug_break(); ?>
-        <?php if($basket['Basket']['shipping_carrier_service_id'] == 4): ?> 
+         <?php if($basket['Basket']['shipping_carrier_service_id'] == 4): ?> 
         <div class="heading">DELIVERY ADDRESS</div>
         <div class="intro" style="margin-left: 36px; margin-bottom: 60px; ">
             <p>You have selected Click & Collect.</p> 
             <p>Your order will be available for collection from <a href="/pages/shop">The Great British Shop</a> in Folkestone</p>
-            <?php echo $form->hidden('CustomerShippingAddress.click_collect', array(
+            <?php $basket['Basket']['ship_to_billing_address'] = 1; ?>
+                <?php echo $form->hidden('CustomerShippingAddress.click_collect', array(
 					'id' => 'click-collect',
 					'value' => '1'
 				)); ?>
-            <?php
-			
-			echo $form->hidden('Basket.ship_to_billing_address', array(
-				'type' => 'checkbox',
-				'label' => 'Deliver to my billing address',
-				'checked' => 1,
-				'id' => 'deliver-to-billing',
-				'style' => 'margin-left: 0;'
-			));
-                    ?>
+
         </div>
 
         <?php else: ?>

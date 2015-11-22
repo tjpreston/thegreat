@@ -278,8 +278,8 @@ $config['SagepayForm']['email_message'] = 'Thank you very much for your order.';
  * Worldpay
  *
  */
-$config['Worldpay']['test_mode'] = false;
-if(isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] == '46.65.212.209')
+$config['Worldpay']['test_mode'] = true;
+if(isset($_SERVER['SERVER_NAME']) && $_SERVER['SERVER_NAME'] == 'timdev.thegreatbritishshop.com')
 {
 $config['Worldpay']['test_mode'] = false;
 }
