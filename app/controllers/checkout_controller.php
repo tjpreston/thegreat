@@ -8,7 +8,6 @@ App::import('Sanitize');
  */
 class CheckoutController extends AppController
 {
-
     /**
      * An array containing the class names of models this controller uses.
      *
@@ -16,8 +15,9 @@ class CheckoutController extends AppController
      * @access public
      */
     public $uses = array(
-        'Basket', 'Customer', 'CustomerBillingAddress', 'CustomerShippingAddress', 'Order'
+		'Basket', 'Customer', 'CustomerBillingAddress',	'CustomerShippingAddress', 'Order'
     );
+
     public $helpers = array('Html', 'Form', 'PaypalIpn.Paypal');
 
     /**
@@ -75,6 +75,7 @@ class CheckoutController extends AppController
         $this->Security->validatePost = false;
 
         $this->Basket->bindFullDetails();
+		
     }
 
     /**
@@ -136,6 +137,7 @@ class CheckoutController extends AppController
         }
     }
 
+	
     /**
      * Validate posted checkout form data.
      * Save basket and customer record.
@@ -146,7 +148,6 @@ class CheckoutController extends AppController
      */
     public function save()
     {
-        //debug($this->data['CustomerShippingAddress'],1,1);
 
         if (isset($this->data['CustomerShippingAddress']['click_collect']))
         {
@@ -166,7 +167,7 @@ class CheckoutController extends AppController
             //$this->data['Basket'] = $this->viewVars['basket']['Basket'];
         }
 
-        //debug($this->data['CustomerShippingAddress'],1,1);    
+            
         $this->CustomerShippingAddress->postcode = $this->Session->read('Shipping.Location.postcode');
 
         $this->_initCheckout();
@@ -188,10 +189,9 @@ class CheckoutController extends AppController
 
         // Everyone needs to enter valid address details
         // Do this now so if we have to return early due to Customer error, address validation is displayed
-        //debug($this->data['CustomerShippingAddress'],1,1);
         $validBillingAddress = $this->validateBillingAddressAndAppendData();
         $validShippingAddress = $this->validateShippingAddressAndAppendData();
-        //debug($this->data['CustomerShippingAddress'],1,1);
+		
         if (!empty($this->data['CustomerBillingAddress']['new_address']))
         {
             $this->Basket->saveField('customer_billing_address_id', 0);
@@ -205,7 +205,7 @@ class CheckoutController extends AppController
         }
 
 
-        //debug($this->Auth->user('id'),1,1);
+		
         if ($this->customerIsLoggedIn())
         {
             $this->Basket->saveField('customer_id', $this->Auth->user('id'));
@@ -232,7 +232,6 @@ class CheckoutController extends AppController
 
             if (!$this->Customer->validates() || !$this->Customer->save($customer))
             {
-
                 $this->Session->setFlash('There were errors. Please check the form below.', 'default', array('class' => 'failure'));
                 return $this->setAction('index');
             }
@@ -243,6 +242,7 @@ class CheckoutController extends AppController
             }
 
             $this->Basket->saveField('customer_id', $this->Customer->id, false);
+
         }
 
         // Save a few custom basket fields
@@ -281,6 +281,7 @@ class CheckoutController extends AppController
 
         $this->Session->setFlash('There were errors. Please check the form below.', 'default', array('class' => 'failure'));
         return $this->setAction('index');
+		
     }
 
     /**
@@ -305,7 +306,7 @@ class CheckoutController extends AppController
 
         $origCountyID = $this->Session->read('Basket.stockist_county_id');
 
-        if (!empty($this->data['Basket']['stockist']))
+	if(!empty($this->data['Basket']['stockist']))
         {
             $this->Basket->saveField('stockist', $this->data['Basket']['stockist']);
             $this->redirect('/checkout/confirmation');
@@ -317,6 +318,7 @@ class CheckoutController extends AppController
         }
 
         //$this->Session->delete('affiliate');
+		
         // If user arrived via an affiliate link, use them as the support stockist.
         $affiliate = $this->Session->read('affiliate');
         if (!empty($affiliate))
@@ -398,6 +400,7 @@ class CheckoutController extends AppController
             }
 
             $this->set(compact('useCounty'));
+			
         }
     }
 
@@ -452,9 +455,11 @@ class CheckoutController extends AppController
             }
 
             $this->set('giftwrapProducts', $gwp);
+
         }
 
         $this->set('referer', $this->referer(array('action' => 'index')));
+		
     }
 
     /**
@@ -500,6 +505,7 @@ class CheckoutController extends AppController
         $this->Basket->delete($this->_basket['Basket']['id']);
 
         $this->redirect('/checkout/complete/' . $orderRef);
+	
     }
 
     /**
@@ -569,6 +575,7 @@ class CheckoutController extends AppController
         $this->set(compact('url'));
         $this->render('worldpay_meta_redirect');
         // echo 'done'; exit;
+		
     }
 
     /**
@@ -679,6 +686,7 @@ class CheckoutController extends AppController
         $this->set('order', $order);
 
         $this->addCrumb('/checkout/complete/' . $orderRef, 'Order Complete');
+		
     }
 
     /**
@@ -814,8 +822,10 @@ class CheckoutController extends AppController
         $this->orderID = $this->Order->getInsertID();
 
         return true;
+		
     }
 
+	
     /**
      * Checkout init.
      * 
@@ -857,7 +867,9 @@ class CheckoutController extends AppController
         {
             $this->redirect('/customers/login?ref=checkout');
         }
+		
     }
+
 
     /**
      * Validate billing address (either saved or inputted).
@@ -878,6 +890,7 @@ class CheckoutController extends AppController
             )));
 
             $validBillingAddress = !empty($address);
+			
         }
         else if ($this->customerIsLoggedIn() && !empty($this->data['CustomerBillingAddress']['new_address']))
         {
@@ -892,6 +905,7 @@ class CheckoutController extends AppController
             $this->CustomerBillingAddress->removeCustomerIDValidation();
             $validBillingAddress = $this->CustomerBillingAddress->validates();
             $this->CustomerBillingAddress->addCustomerIDValidation();
+			
         }
         else if (!$this->customerIsLoggedIn())
         {
@@ -912,9 +926,11 @@ class CheckoutController extends AppController
             $this->CustomerBillingAddress->removeCustomerIDValidation();
             $validBillingAddress = $this->CustomerBillingAddress->validates();
             $this->CustomerBillingAddress->addCustomerIDValidation();
+			
         }
 
         return $validBillingAddress;
+		
     }
 
     /**
@@ -948,6 +964,7 @@ class CheckoutController extends AppController
             $this->Basket->saveField('customer_billing_address_id', $this->CustomerBillingAddress->id, false);
 
             return true;
+
         }
 
         /*
@@ -958,8 +975,12 @@ class CheckoutController extends AppController
          */
 
         // $this->CustomerBillingAddress->addCustomerIDValidation();
+	
     }
 
+
+
+	
     /**
      * Validate shipping address (either saved or inputted).
      * Also append to $this->data as necessary.
@@ -973,8 +994,6 @@ class CheckoutController extends AppController
         $this->log($this->data['Basket']['ship_to_billing_address'], 'checkout_debug');
         if (!empty($this->data['Basket']['ship_to_billing_address']))
         {
-
-            $this->log('2', 'checkout_debug');
             return true;
         }
 
@@ -989,24 +1008,21 @@ class CheckoutController extends AppController
 
             $validShippingAddress = !empty($address);
 
-            $this->log('3', 'checkout_debug');
         }
         else if (($this->customerIsLoggedIn() && !empty($this->data['CustomerShippingAddress']['new_address'])) || !$this->customerIsLoggedIn())
         {
-
             $this->data['CustomerShippingAddress']['customer_id'] = $this->Customer->id;
 
             $this->CustomerShippingAddress->set($this->data);
 
             $this->CustomerShippingAddress->removeCustomerIDValidation();
-
             $validShippingAddress = $this->CustomerShippingAddress->validates();
             $this->CustomerShippingAddress->addCustomerIDValidation();
 
-            $this->log('2', 'checkout_debug');
         }
 
         return $validShippingAddress;
+		
     }
 
     /**
@@ -1017,7 +1033,6 @@ class CheckoutController extends AppController
      */
     private function saveShippingAddress()
     {
-        $this->log('1_saveshipingaddress', 'checkout_debug');
         if (!empty($this->data['CustomerShippingAddress']['id']))
         {
             $this->CustomerShippingAddress->id = $this->data['CustomerShippingAddress']['id'];
@@ -1038,6 +1053,7 @@ class CheckoutController extends AppController
             $this->Basket->saveField('customer_shipping_address_id', $this->CustomerShippingAddress->id, false);
 
             return true;
+
         }
 
         /*
@@ -1048,6 +1064,7 @@ class CheckoutController extends AppController
          */
 
         // $this->CustomerShippingAddress->addCustomerIDValidation();
+	
     }
 
     /**
@@ -1112,6 +1129,7 @@ class CheckoutController extends AppController
             }
 
             $this->set('giftwrapProducts', $gwp);
+
         }
 
         $this->initDefaultEmailSettings();
@@ -1135,6 +1153,10 @@ class CheckoutController extends AppController
             //$this->Email->to = Configure::read('Site.name') . '<' . Configure::read('Checkout.confirmation_to_vendor') . '>';
             //$this->Email->send();
         }
+		
     }
 
+	
 }
+
+

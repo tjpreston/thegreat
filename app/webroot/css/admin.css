@@ -437,8 +437,9 @@ h3#exports {
 .sf-menu a, .sf-menu > span:first-child, .sf-menu a:visited  { /* visited pseudo selector so IE6 applies text colour*/
 	color: #fff;
 }
-.sf-menu li 
-	border-bottom: 1px solid #fff;
+.sf-menu li { 
+	
+        border-bottom: 1px solid #fff;
 	background:	#323232;
 	cursor: default;
 }
@@ -1352,7 +1353,7 @@ select.smallest {
 	font-weight: bold;
 	padding-bottom: 10px;
 	padding-right: 10px;
-	border-bottom: 1px soid #
+	border-bottom: 1px solid #ccc;
 }
 #var-stock td {
 	border-bottom: 1px dotted #ccc;	
