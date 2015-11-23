@@ -54,12 +54,17 @@
 							if(empty($name)){
 								$name = $child['CategoryName']['name'];
 							}
-
-							echo $this->Html->link(
+                                                        if($name == 'CHRISTMAS')
+                                                        {
+                                                            echo '<a href="/home/christmas" style="background-color: red;">CHRISTMAS</a>';
+                                                        } 
+                                                        else
+                                                        {
+                                                        echo $this->Html->link(
 								$name,
 								$child['CategoryName']['full_url']
 							);
-
+                                                        }
 							echo '</li>';
 						}
 
