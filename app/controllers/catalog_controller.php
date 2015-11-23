@@ -290,12 +290,14 @@ class CatalogController extends AppController
 //			'Product.all_skus LIKE' => '% ' . $keyword . ' %',
 //			'ProductDescription.keywords LIKE' => '% ' . $keyword . ' %'
 //		));
+                $keywordS = Inflector::singularize($keyword);
+                $keywordP = Inflector::pluralize($keyword);
                 $conditions = array('OR' => array(
-			'ProductName.name REGEXP' => ' ' . $keyword,
-			'Product.all_skus REGEXP' => ' ' . $keyword,
-			'ProductDescription.keywords REGEXP' => ' ' . $keyword,
+			'ProductName.name REGEXP' => '[[:<:]]' . '(' . $keywordS . '|' . $keywordP . ')' .'[[:>:]]',
+			'Product.all_skus REGEXP' => '[[:<:]]' . '(' . $keywordS . '|' . $keywordP . ')' .'[[:>:]]',
+			'ProductDescription.keywords REGEXP' => '[[:<:]]' . '(' . $keywordS . '|' . $keywordP . ')' .'[[:>:]]',
 		));
-		/*
+		/*'[[:<:]]preform[s]*[es]*[ies]*[[:>:]]'
                 // No - TJP 29/10/15
 		if (Configure::read('Catalog.search_manufacturers'))
 		{
