@@ -285,12 +285,17 @@ class CatalogController extends AppController
 		$this->Product->bindDescription($this->Product, 1, false);
 		$this->Product->unbindModel(array('hasAndBelongsToMany' => array('Category')), false);
 
-		$conditions = array(
-			'ProductName.name LIKE' => '% ' . $keyword . ' %',
-			'Product.all_skus LIKE' => '%' . $keyword . '%',
-			'ProductDescription.keywords LIKE' => '% ' . $keyword . ' %'
-		);
-		
+//		$conditions = array('OR' => array(
+//			'ProductName.name LIKE' => '% ' . $keyword . ' %',
+//			'Product.all_skus LIKE' => '% ' . $keyword . ' %',
+//			'ProductDescription.keywords LIKE' => '% ' . $keyword . ' %'
+//		));
+                $conditions = array('OR' => array(
+			'ProductName.name REGEXP' => ' ' . $keyword,
+			'Product.all_skus REGEXP' => ' ' . $keyword,
+			'ProductDescription.keywords REGEXP' => ' ' . $keyword,
+		));
+		/*
                 // No - TJP 29/10/15
 		if (Configure::read('Catalog.search_manufacturers'))
 		{
@@ -302,7 +307,7 @@ class CatalogController extends AppController
 			array('Product.visibility' => 'search'),
 			array('Product.visibility' => 'catalogsearch')
 		)));
-
+*/
 		$this->_listProducts($conditions, false);
 		
 		$this->set('keyword', $keyword);
@@ -2183,7 +2188,7 @@ class CatalogController extends AppController
         {       
             
         
-        $searchTerms = explode(' ', $bucketsearch);
+        $searchTerms = explode(' ', $this->params['url']['search']);
         $searchTermBits = array();
         foreach ($searchTerms as $term) {
         $term = trim($term);
