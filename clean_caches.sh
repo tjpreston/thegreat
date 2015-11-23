@@ -1,4 +1,4 @@
 #!/bin/bash
 find app/tmp/cache -type f | xargs -I {} rm {}
-sudo service memcached restart
+sudo /etc/init.d/memcached restart
 
