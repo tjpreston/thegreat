@@ -1141,6 +1141,48 @@ class CatalogController extends AppController
                                             )
                                                );
                 }
+                
+                
+                 $giftfilter = false;
+                    if($this->viewVars['topCategoryID'] == '3')
+                     {
+                        $giftFilter = true;
+                        //$this->viewVars['categoryFamily'] = $this->ProductCategory->find('all', array('conditions' => array(
+                        $tmpnum = $this->viewVars['categoryID'];
+                      
+                        $query = 
+                            "SELECT `product_id`, `category_id`
+                            FROM 
+                                `product_categories` AS `cat`
+                            WHERE
+                                 `cat`.`product_id` IN (
+                            SELECT 
+                        	`products`.`id` 
+                            FROM 
+                        	`products` 
+                            LEFT JOIN `product_categories` ON `product_categories`.`product_id` = `products`.`id` 
+                            WHERE 
+                            	`product_categories`.`category_id` = " . $tmpnum . "
+                            AND `products`.`active` = 1) AND `cat`.`primary` = 1 
+                            GROUP BY 
+                        	`product_id`    
+                            ORDER BY `category_id`"; 
+                        $db = $this->Product->getDataSource();
+                        $tmp = $db->fetchAll($query, false); //returns array containing the primary categories of evey product in the giftfinder array
+                        $tmp2 = Set::classicextract($tmp,'{n}.cat.product_id');
+                        //$this->viewVars['categoryFamily'] = null;
+                        
+//                        foreach ($tmp2 as $k => $cat)
+//                        {
+//                            $tmpArray[] = array('Category' => array('id' => $cat));
+//                          
+//                        }
+//                      
+//                       $this->viewVars['categoryFamily'] = $tmpArray;     
+                       
+                    }
+                
+                
                 // For Pete's sake avert your eyes - TJP 19/10/15
 		if(empty($this->viewVars['record']['Category']['parent_id']) && $inCategory)
                 {
@@ -1151,7 +1193,7 @@ class CatalogController extends AppController
                    
                    // $this->loadModel('ProductOptionStock');
                    // $allRecords = $this->ProductOptionStock->addVarsToProducts($allRecords, 'singleqty');
-                    
+                   
                     
                     $catCountAll = [];
                     $catsToUse = [];
@@ -1302,6 +1344,17 @@ class CatalogController extends AppController
                     
                     // Uncomment to fix real number products per category
                     $this->params['paging']['Product']['count'] = $actualNumProducts; 
+                 }
+                 elseif($this->viewVars['topCategoryID'] == '3') 
+                 {
+                    //This returns the array of products to displayed and their order -( commented) TJP 16/10/15
+                    $this->paginate['order'] = array('ProductCategory.category_id' => strtoupper($orderBy));
+                    $conditions = array('Product.id' => $tmp2);
+                    $this->_getLimit();
+                    $records = $this->paginate('Product', $conditions);
+                    $this->loadModel('ProductOptionStock');
+                    $records = $this->ProductOptionStock->addVarsToProducts($records, 'singleqty');
+		
                  }
                  else 
                  {
@@ -2120,6 +2173,32 @@ class CatalogController extends AppController
 		return $keyword;
 	}
 	
+            /**
+	 * Get search string from url either as get param or named param.
+	 * 
+	 * @return string
+	 * @access private
+	 */
+	private function getSearchTerms()
+        {       
+            
+        
+        $searchTerms = explode(' ', $bucketsearch);
+        $searchTermBits = array();
+        foreach ($searchTerms as $term) {
+        $term = trim($term);
+        if (!empty($term)) {
+        $searchTermBits[] = "bucketname LIKE '%$term%'";
+        }
+        }
+
+
+
+        $result = mysql_query("SELECT * FROM buckets WHERE ".implode(' AND ', $searchTermBits));
+        
+        }
+        
+        
 	/**
 	 * Add viewing product to recentl viewed cookie.
 	 * 
