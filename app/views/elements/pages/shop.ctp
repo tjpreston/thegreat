@@ -15,7 +15,7 @@
     
             <h3 class="border-top-bottom">Exterior View</h3>
             <div class="imgshop">
-                <img src="/img/misc/exterior.jpg" alt="Exterior View" /> 
+                <img src="/img/misc/Exterior.jpg" alt="Exterior View" /> 
             </div> 
             
             <h3 class="border-top-bottom">Left Side Wall</h3>
