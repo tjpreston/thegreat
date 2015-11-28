@@ -551,9 +551,9 @@ margin:auto;
 display:block;
 }
 
-//.shop-page .image-wrapper{
-	//margin-top: 15px;
-//}
+.shop-page .image-wrapper{
+	margin-top: 15px;
+}
 .shop-page-image-wrapper {
 	background: url('/img/corners/grid_6_169px.png') center center no-repeat;
 	height: 169px;
@@ -577,4 +577,37 @@ display:block;
 	width:500px;
 	background-color:#F0F0F0;
 //	position: relative;
+}
+
+
+.containshop {
+max-width:1050px;
+text-align:center;
+}
+
+.categoryshop {
+max-width:50%;
+position:relative;
+display: inline-block;
+float:left;
+padding:10px;
+}
+
+.containshop2{
+    text-align:center;
+    
+    border:1px;
+}
+
+.imgshop{
+    display:inline-block;
+    margin:5px 20px;
+    padding:5px;
+    border:1px;
+}
+
+.containshop2 img {
+        max-width:75%;
+	
+	margin-left: 5px;
 }
