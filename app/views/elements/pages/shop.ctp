@@ -9,7 +9,7 @@
 
     
 
-							
+<!--							
 <div class="containshop2">
 
     
@@ -40,7 +40,7 @@
 
 
     </div>
-
+-->
 
  
 
