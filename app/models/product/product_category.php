@@ -31,10 +31,14 @@ class ProductCategory extends AppModel
 		
 		// Get product categories prior to save
 		$preCategories = $this->find('list', array(
-			'fields' => array('ProductCategory.id', 'ProductCategory.category_id'),
+			'fields' => array('ProductCategory.id', 'ProductCategory.category_id','ProductCategory.sort'),
 			'conditions' => array('ProductCategory.product_id' => $productID)
 		));
-		
+//                $preCatSort = $this->find('list', array(
+//			'fields' => array('ProductCategory.sort'),
+//			'conditions' => array('ProductCategory.product_id' => $productID)
+//		));
+//atSort		
 		// Delete all product cats
 		$this->deleteAll(array('ProductCategory.product_id' => $productID));
 				
@@ -43,7 +47,8 @@ class ProductCategory extends AppModel
 		$this->save(array('ProductCategory' => array(
 			'product_id' => $productID,
 			'category_id' => $primaryCat,
-			'primary' => 1
+                        'primary' => 1,
+                        'sort' => 25
 		)), array('callbacks' => false));
 
 		// Init new categories array
@@ -53,10 +58,12 @@ class ProductCategory extends AppModel
 		{
 			if ($id && ($id !== $primaryCat))
 			{
+                            
 				$this->create();
 				$this->save(array('ProductCategory' => array(
 					'product_id' => $productID,
-					'category_id' => $id
+					'category_id' => $id,
+                                        'sort' => 25
 				)), array('callbacks' => false));
 				
 				$postCategories[] = $id;
@@ -65,7 +72,7 @@ class ProductCategory extends AppModel
 		}
 
 		$affectedCategories = array_unique(array_merge($preCategories, $postCategories));
-
+                //$this->ProductCategory->saveField('sort', $preCatSort);  
 		$this->updateCategoryProductCount($affectedCategories);
 		
 	}

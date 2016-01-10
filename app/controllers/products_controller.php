@@ -13,8 +13,8 @@ class ProductsController extends AppController
 	 * @access public
 	 */
 	public $components = array('ImageNew');
-	
-	/**
+
+    /**
 	 * Admin
 	 * List products. 
 	 * 
@@ -413,7 +413,9 @@ class ProductsController extends AppController
 	 */	
 	public function admin_save()
 	{
-		if (empty($this->data['Product']['id']))
+	
+                $saveSort = $this->Product->ProductCategory->order;
+                if (empty($this->data['Product']['id']))
 		{
 			$this->redirect('/admin/products');
 		}
@@ -467,7 +469,7 @@ class ProductsController extends AppController
 			$this->data['ProductMeta'][$languageID]['product_sku'] = $this->data['Product']['sku'];
 		}
 		
-		$this->Product->unbindModel(array('hasMany' => array('ProductCategory')), false);
+		$this->Product->unbindModel(array('hasMany' => array('ProductCategory')), 'false');
 		
 		$validates = $this->Product->saveAll($this->data, array('validate' => 'only'));
 
@@ -475,6 +477,8 @@ class ProductsController extends AppController
 		{
 			$this->Product->saveAll($this->data);
 			
+                        $this->Product->ProductCategory->order = $saveSort;
+                        
 			$this->Product->ProductCategory->assignProductToCategories($id, $this->data);
 			
 			$image = $this->data['NewProductImage']['image'];
@@ -483,6 +487,10 @@ class ProductsController extends AppController
 			$this->uploadImage($id, $image, $sku);
 			$this->uploadVarImages();
 			
+//                        $this->save(array('ProductCategory' => array(
+//			'sort' => 1
+//                		)), array('callbacks' => false));
+
 			$this->Session->setFlash('Product saved.', 'default', array('class' => 'success'));
 		}
 		else
